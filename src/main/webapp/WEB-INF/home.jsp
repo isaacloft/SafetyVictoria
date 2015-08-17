@@ -11,7 +11,12 @@
   <c:forEach var="p" items="${persons}">
     Id: ${p.id} Name: ${p.name}<br/>
   </c:forEach>
-   
+  
+  <h1>All LGAs</h1>
+  <c:forEach var="l" items="${lgaList}">
+    Id: ${l.id} Name: ${l.lga}<br/>
+  </c:forEach>
+  
   <h1>Add New</h1>
   <form method="post" action="addPerson">
   Name: <input type="text" name="name"/>
