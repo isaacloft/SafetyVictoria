@@ -26,13 +26,14 @@ public class HomeController {
    */
   @RequestMapping(method = RequestMethod.GET)
   public String listAll(Model model) {
-    model.addAttribute("persons", personSvc.getAll());
-    List list = personSvc.getAll();
-    System.out.println(list.size());
-    Person p = (Person) list.get(0);
-    System.out.println(p.getName());
-    
-    model.addAttribute("lgaList", lgaSvc.getAll());
+//    model.addAttribute("persons", personSvc.getAll());
+//    List list = personSvc.getAll();
+//    System.out.println(list.size());
+//    Person p = (Person) list.get(0);
+//    System.out.println(p.getName());
+//    
+//    model.addAttribute("lgaList", lgaSvc.getAll());
+	  personSvc.postcodeRate();
     return "home";
   }
    

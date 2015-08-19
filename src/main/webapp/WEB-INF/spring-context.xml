@@ -15,6 +15,9 @@
   <context:component-scan base-package="entity" />
   <context:component-scan base-package="service" />
    
+    <mvc:resources mapping="/resources/**" location="/resources/"  
+	cache-period="31556926"/>
+   
   <!-- Resolve view name into jsp file located on /WEB-INF -->
   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="prefix" value="/WEB-INF/" />
