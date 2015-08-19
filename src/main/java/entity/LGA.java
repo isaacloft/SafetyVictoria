@@ -28,5 +28,4 @@ public class LGA {
 		this.lga = lga;
 	}
 
-
 }

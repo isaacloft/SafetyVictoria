@@ -49,9 +49,9 @@ public class PersonService {
 
 		try {
 			for (int postcode : postcodeList) {
-				
+
 				updatePopulation(postcode);
-				
+
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -61,18 +61,20 @@ public class PersonService {
 		System.out.println(postcodeList.size());
 		System.out.println(postcodeList.get(0));
 	}
-	
+
 	@Transactional
 	public void updatePopulation(int postcode) {
 
 		try {
-				System.out.println("update start:"+postcode);
-				int population = getPopulation(postcode);
-				
-				em.createNativeQuery("update post_crime_rate set population = ? where postcode = ?")
-				.setParameter(1, population).setParameter(2, postcode).executeUpdate();
-				
-				System.out.println("update finish:"+postcode);
+			System.out.println("update start:" + postcode);
+			int population = getPopulation(postcode);
+
+			em.createNativeQuery(
+					"update post_crime_rate set population = ? where postcode = ?")
+					.setParameter(1, population).setParameter(2, postcode)
+					.executeUpdate();
+
+			System.out.println("update finish:" + postcode);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -97,8 +99,8 @@ public class PersonService {
 		con.setRequestProperty("User-Agent", USER_AGENT);
 
 		int responseCode = con.getResponseCode();
-//		System.out.println("\nSending 'GET' request to URL : " + url);
-//		System.out.println("Response Code : " + responseCode);
+		// System.out.println("\nSending 'GET' request to URL : " + url);
+		// System.out.println("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(
 				con.getInputStream()));
