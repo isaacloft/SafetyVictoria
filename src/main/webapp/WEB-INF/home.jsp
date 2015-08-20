@@ -186,7 +186,7 @@
                         <h3>JavaSE</h3>
                         <p>3+ year industry experience, several months of Android experience</p>
                     </div>
-                </div>
+                </div>   
                 <div class="col-md-3 col-sm-6 wow fadeIn" data-wow-delay=".4s">
                     <div class="about-content">
                         <i class="fa fa-institution fa-4x"></i>
