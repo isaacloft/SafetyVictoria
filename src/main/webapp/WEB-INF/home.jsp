@@ -227,7 +227,6 @@
   Name: <input type="text" name="name"/>
   <button>Add</button>
   </form> --%>
-  <p></p>
 <!-- Core Scripts -->
 <script src="<c:url value="/resources/js/jquery.js" />"></script>
 <script src="<c:url value="/resources/js/bootstrap/bootstrap.min.js" />"></script>
