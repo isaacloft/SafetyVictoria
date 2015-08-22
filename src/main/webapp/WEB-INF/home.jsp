@@ -49,6 +49,16 @@
 
 <link id="changeable-colors" rel="stylesheet" href="<c:url value="/resources/css/template.css" />">
 <link href="<c:url value="/resources/css/style-switcher.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/chroma-js/0.5.9/chroma.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+<script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+<script src="http://matchingnotes.com/javascripts/leaflet-google.js"></script>
+<script type="text/javascript" src="/resources/js/Google.js"></script>
 
 </head>
 <body id="page-top">
@@ -170,43 +180,63 @@
         </div>
     </section>
 
-    <section id="visualization" class="bg-gray">
-        <div class="container-fluid">
-            <div class="row text-center">
-                <div class="col-lg-12 wow fadeIn">
-                    <h1>This is what I do</h1>
-                    <p>I am proficient in JavaSE development, J2EE & web development, data visualization with JavaScript</p>
-                    <hr class="colored">
+    <section id="visualization" class="bg-gray" style="padding-top: 13px;">
+        <div class="container" style="width:1240px;">
+            <div class="row content-row">
+                <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".2s" style="margin-left:0px;height:600px;width:700px;">
+                	<div class="row"><div id="map1" class="map" style="width: auto;height: 355px;"></div></div>
+                	<div class="row" style="margin-right: 15px; margin-left: 15px;">
+	                	<div class="row">
+	                		<div class="col-sm-8"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;">A Crimes against the person</h3></div>
+	                		<div class="col-sm-2"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;">LGA1</h3></div>
+	                		<div class="col-sm-2"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;">LGA2</h3></div>
+	                	</div>
+	                	<div class="row">
+	                		<div class="col-sm-8">A10 Homicide and related offences</div>
+	                		<div class="col-sm-2 ">1%</div>
+	                		<div class="col-sm-2 ">1%</div>
+	                	</div>
+	                	<div class="row">
+	                		<div class="col-sm-8 ">A20 Assault and related offences</div>
+	                		<div class="col-sm-2 ">1%</div>
+	                		<div class="col-sm-2 ">1%</div>
+	                	</div>
+	                	<div class="row">
+	                		<div class="col-sm-8 ">A30 Sexual offences</div>
+	                		<div class="col-sm-2 ">1%</div>
+	                		<div class="col-sm-2 ">1%</div>
+	                	</div>
+	                	<div class="row">
+	                		<div class="col-sm-8 ">A40 Abduction and related offences</div>
+	                		<div class="col-sm-2 ">1%</div>
+	                		<div class="col-sm-2 ">1%</div>
+	                	</div>
+	                	<div class="row">
+	                		<div class="col-sm-8 ">A50 Robbery</div>
+	                		<div class="col-sm-2 ">1%</div>
+	                		<div class="col-sm-2 ">1%</div>
+	                	</div>
+	                	<div class="row">
+	                		<div class="col-sm-8 ">A60 Blackmail and extortion</div>
+	                		<div class="col-sm-2 ">1%</div>
+	                		<div class="col-sm-2 ">1%</div>
+	                	</div>
+	                	<div class="row">
+	                		<div class="col-sm-8 ">A70 Stalking, harassment and threatening behaviour</div>
+	                		<div class="col-sm-2 ">1%</div>
+	                		<div class="col-sm-2 ">1%</div>
+	                	</div>
+	                	<div class="row">
+	                		<div class="col-sm-8 ">A80 Dangerous and negligent acts endangering people</div>
+	                		<div class="col-sm-2 ">1%</div>
+	                		<div class="col-sm-2 ">1%</div>
+	                	</div>
+                	</div>
                 </div>
-            </div>
-            <div class="row text-center content-row">
-                <div class="col-md-3 col-sm-6 wow fadeIn" data-wow-delay=".2s">
-                    <div class="about-content">
-                        <i class="fa fa-laptop fa-4x"></i>
-                        <h3>JavaSE</h3>
-                        <p>3+ year industry experience, several months of Android experience</p>
-                    </div>
-                </div>   
-                <div class="col-md-3 col-sm-6 wow fadeIn" data-wow-delay=".4s">
-                    <div class="about-content">
-                        <i class="fa fa-institution fa-4x"></i>
-                        <h3>J2EE</h3>
-                        <p>Almost 2 year industry experience, including Spring, Hibernate, EJB, JPA, Struts, JSP, Servlet, REST web services, Apache, Tomcat, AJAX, Oracle, MySQL</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 wow fadeIn" data-wow-delay=".6s">
-                    <div class="about-content">
-                        <i class="fa fa-code fa-4x"></i>
-                        <h3>Web</h3>
-                        <p>Almost 2 year industry experience, including HTML5, JavaScript, JQuery, JSP, JSTL, Velocity, CSS</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 wow fadeIn" data-wow-delay=".8s">
-                    <div class="about-content">
-                        <i class="fa fa-bar-chart fa-4x"></i>
-                        <h3>Visualization</h3>
-                        <p>Data Visualization by D3.js, JavaScript, JQuery, WebGL, Three.js, Tween.js, see <a target="_blank" href="http://www.monash.edu/research/city-science/#visualization">Monash City Science Group work</a></p>
-                    </div>
+                <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".4s" style="height:600px;width:520px;">
+                    <i class="fa fa-institution fa-4x"></i>
+                    <h3>J2EE</h3>
+                    <p>Almost 2 year industry experience, including Spring, Hibernate, EJB, JPA, Struts, JSP, Servlet, REST web services, Apache, Tomcat, AJAX, Oracle, MySQL</p>
                 </div>
             </div>
         </div>
@@ -243,6 +273,76 @@
 <script src="<c:url value="/resources/js/plugins/jqBootstrapValidation.js" />"></script>
 <script src="<c:url value="/resources/js/template.js" />"></script>
 <script src="<c:url value="/resources/js/style.switcher.js" />"></script>
+
+<script>
+(function ($) {
+	L.TopoJSON = L.GeoJSON.extend({
+	    addData: function(jsonData) {
+	      if (jsonData.type === "Topology") {
+	        for (key in jsonData.objects) {
+	          geojson = topojson.feature(jsonData, jsonData.objects[key]);
+	          L.GeoJSON.prototype.addData.call(this, geojson);
+	        }
+	      }
+	      else {
+	        L.GeoJSON.prototype.addData.call(this, jsonData);
+	      }
+	    }
+  	});
+	var map = L.map('map1', {zoomControl: false}).setView([-37.8131869,144.9629796], 8);
+    /* map.scrollWheelZoom.disable(); */
+    new L.Control.Zoom({position: 'bottomright'}).addTo(map);
+    /* var layer = new L.StamenTileLayer('toner-background', {}); */
+    var googleRoadMap = new L.Google('ROADMAP');
+    map.addLayer(googleRoadMap);
+    
+    var lgaVicLayer = new L.TopoJSON();
+    $.getJSON('resources/data/lga_victoria.topo.json').done(lgaVicData); 
+    
+    function lgaVicData(topoData){
+        lgaVicLayer.addData(topoData);
+        lgaVicLayer.addTo(map);
+        lgaVicLayer.eachLayer(handleLgaVicLayer);
+    }
+    
+    function handleLgaVicLayer(layer){
+    	layer.setStyle({
+            fillColor : '#ffffff',
+            fillOpacity: 1,
+            color:'#555',
+            weight:1,
+            opacity:.5
+          });
+        /* var selectedCityCouncil = layer.feature.properties.gaz_lga;
+        var selectedCityCouncilIndex = cityCouncilArr.indexOf(selectedCityCouncil);
+        if(selectedCityCouncilIndex >= 0){
+            var totalScore = cityCouncilDataSet[cityCouncilIndex[selectedCityCouncilIndex]].totalScore;
+            layer.setStyle({
+              fillColor : getCityCouncilColor(totalScore),
+              fillOpacity: 1,
+              color:'#555',
+              weight:1,
+              opacity:.5,
+              className:"lgaVicCityCouncils",
+              dashArray:cityCouncilIndex[selectedCityCouncilIndex]
+            });
+
+            layer.on({
+              click : selectCityCouncil
+            });
+        }else{
+            layer.setStyle({
+              fillColor : '#ffffff',
+              fillOpacity: 1,
+              color:'#555',
+              weight:1,
+              opacity:.5
+            });
+        } */
+    }
+
+})(jQuery);
+</script>
   
 </body>
 </html>

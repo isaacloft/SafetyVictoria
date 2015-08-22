@@ -30,9 +30,9 @@ public class HomeController {
 	public String listAll(Model model) {
 		model.addAttribute("persons", personSvc.getAll());
 		List list = personSvc.getAll();
-		System.out.println(list.size());
+//		System.out.println(list.size());
 		Person p = (Person) list.get(0);
-		System.out.println(p.getName());
+//		System.out.println(p.getName());
 
 		model.addAttribute("lgaList", lgaSvc.getAll());
 		return "home";
