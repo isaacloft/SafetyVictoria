@@ -58,7 +58,7 @@
 
 <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
 <script src="http://matchingnotes.com/javascripts/leaflet-google.js"></script>
-<script type="text/javascript" src="/resources/js/Google.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/Google.js" />"></script>
 
 </head>
 <body id="page-top">
@@ -308,7 +308,7 @@
     function handleLgaVicLayer(layer){
     	layer.setStyle({
             fillColor : '#ffffff',
-            fillOpacity: 1,
+            fillOpacity: 0,
             color:'#555',
             weight:1,
             opacity:.5
