@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import entity.LGA;
-import entity.Person;
+
 
 @Service
 public class LGAService {
@@ -33,5 +33,20 @@ public class LGAService {
 				.getResultList();
 		return result;
 	}
+	
+	@Transactional
+	public List<LGA> searchById(int id){
+		List<LGA> result = em.createQuery("SELECT l FROM LGA l WHERE l.id = "+id,LGA.class)
+				.getResultList();
+		return result;
+	}
+	
+	@Transactional
+	public List<LGA> searchByLga(String lga){
+		List<LGA> result = em.createQuery("SELECT l FROM LGA l WHERE l.lga = '"+lga+"'",LGA.class)
+				.getResultList();
+		return result;
+	}
+	
 
 }
