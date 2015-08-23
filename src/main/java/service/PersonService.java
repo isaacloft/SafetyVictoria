@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -67,12 +68,13 @@ public class PersonService {
 
 		try {
 			System.out.println("update start:" + postcode);
-			int population = getPopulation(postcode);
-
-			em.createNativeQuery(
-					"update post_crime_rate set population = ? where postcode = ?")
-					.setParameter(1, population).setParameter(2, postcode)
-					.executeUpdate();
+			List<String> suburbs = getSuburbs(postcode);
+			for(String suburb:suburbs){
+				em.createNativeQuery(
+						"insert into post_suburbs (postcode,name) values (?,?)")
+						.setParameter(1, postcode).setParameter(2, suburb)
+						.executeUpdate();
+			}
 
 			System.out.println("update finish:" + postcode);
 		} catch (Exception e) {
@@ -84,6 +86,57 @@ public class PersonService {
 
 	private final String USER_AGENT = "Mozilla/5.0";
 
+	private List<String> getSuburbs(int postcode) throws Exception {
+
+		String url = "http://postcodez.com.au/postcodes.cgi?search_suburb="
+				+ postcode + "&search_state=vic&x=62&y=1&type=search";
+
+		URL obj = new URL(url);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+		// optional default is GET
+		con.setRequestMethod("GET");
+
+		// add request header
+		con.setRequestProperty("User-Agent", USER_AGENT);
+
+		int responseCode = con.getResponseCode();
+		// System.out.println("\nSending 'GET' request to URL : " + url);
+		// System.out.println("Response Code : " + responseCode);
+
+		BufferedReader in = new BufferedReader(new InputStreamReader(
+				con.getInputStream()));
+		String inputLine;
+		StringBuffer response = new StringBuffer();
+
+		while ((inputLine = in.readLine()) != null) {
+			response.append(inputLine);
+		}
+		in.close();
+
+		// print result
+		System.out.println(response.toString());
+
+		int index = response.toString().indexOf("Location:</label>");
+		String restStr = response.toString().substring(index);
+		List<String> list = new ArrayList<String>();
+		while(index>=0){
+			int index2 = restStr.indexOf("</a>");
+			String arr[] = restStr.substring(0, index2).split(">");
+			String suburb = arr[arr.length-1];
+			System.out.println("=====suburb:"+suburb);
+			list.add(suburb);
+			restStr = restStr.substring(index2);
+			index = restStr.indexOf("Location:</label>");
+			if(index==-1){
+				break;
+			}
+			restStr = restStr.substring(index);
+		}
+		
+		return list;
+	}
+	
 	private int getPopulation(int postcode) throws Exception {
 
 		String url = "http://www.censusdata.abs.gov.au/census_services/getproduct/census/2011/quickstat/POA"
@@ -120,5 +173,7 @@ public class PersonService {
 		str = str.split(">")[1].split("<")[0].replace(",", "");
 		return Integer.parseInt(str);
 	}
+	
+	
 
 }

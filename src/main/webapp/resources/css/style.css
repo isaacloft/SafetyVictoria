@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+div.section-border {
+    width: 610px;
+    margin-left: 10px;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 3px -1px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
