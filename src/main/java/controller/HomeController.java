@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import entity.Person;
+import service.CrimeByLocationService;
+import service.CrimeMajorCateService;
+import service.CrimeSubCateService;
 import service.LGAService;
+import service.LgaPopulationService;
 import service.PersonService;
 
 @Controller
@@ -21,6 +25,14 @@ public class HomeController {
 	private PersonService personSvc;
 	@Autowired
 	private LGAService lgaSvc;
+	@Autowired
+	private CrimeMajorCateService crimeMajorSvc;
+	@Autowired
+	private CrimeSubCateService crimeSubSvc;
+	@Autowired
+	private LgaPopulationService lgaPopuSvc;
+	@Autowired
+	private CrimeByLocationService CrimeByLocSvc;
 
 	/**
 	 * Requests to http://localhost:8080/hello will be mapped here. Everytime
@@ -30,11 +42,33 @@ public class HomeController {
 	public String listAll(Model model) {
 		model.addAttribute("persons", personSvc.getAll());
 		List list = personSvc.getAll();
-		System.out.println(list.size());
+//		System.out.println(list.size());
 		Person p = (Person) list.get(0);
-		System.out.println(p.getName());
+//		System.out.println(p.getName());
 
 		model.addAttribute("lgaList", lgaSvc.getAll());
+		
+		System.out.println("testMethods---lga---"+lgaSvc.searchById(1).get(0).getLga());
+		System.out.println("testMethods---lga---"+lgaSvc.searchByLga("BANYULE").get(0).getId());
+		
+		System.out.println("testMethods---majorCC---"+crimeMajorSvc.getAll().size());
+		System.out.println("testMethods---majorCC---"+crimeMajorSvc.searchByCode("A").get(0).getName());
+		System.out.println("testMethods---majorCC---"+crimeMajorSvc.searchByName("C Drug offences").get(0).getCode());
+		
+		System.out.println("testMethods---subCC---"+crimeSubSvc.getAll().size());
+		System.out.println("testMethods---subCC---"+crimeSubSvc.searchByMajorCode("A").get(0).getSub_cate_code());
+		System.out.println("testMethods---subCC---"+crimeSubSvc.searchBySubCode("A10").get(0).getMajor_cate_code());
+		System.out.println("testMethods---subCC---"+crimeSubSvc.searchBySubName("B10 Arson").get(0).getSub_cate_code());
+		
+		System.out.println("testMethods---lgaPopulation---"+lgaPopuSvc.getAll().size());
+		System.out.println("testMethods---lgaPopulation---"+lgaPopuSvc.searchByYear(2011).get(0).getLgaid());
+		System.out.println("testMethods---lgaPopulation---"+lgaPopuSvc.searchByLgaid(1).get(0).getYear());
+		System.out.println("testMethods---lgaPopulation---"+lgaPopuSvc.searchByLgaerp(122983).get(0).getYear());
+		System.out.println("testMethods---lgaPopulation---"+lgaPopuSvc.searchByVicerp(5537817).get(0).getLgaerp());
+		
+		System.out.println("testMethods---crimeByLocation---"+CrimeByLocSvc.getAll().size());
+		
+		
 		return "home";
 	}
 
