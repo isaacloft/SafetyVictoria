@@ -19,3 +19,27 @@ div.section-border {
     display: none;
     border-radius: 6px;
 }
+.first-lga-tip {
+    position: absolute;
+    top: 24em;
+    right: 12.9em;
+    z-index: 6;
+    background: #006872;
+    color: white;
+    padding: .5em .75em;
+    font-size: 0.8em;
+    display: none;
+    border-radius: 6px;
+}
+.second-lga-tip {
+    position: absolute;
+    top: 24em;
+    right: 3.9em;
+    z-index: 6;
+    background: white;
+    color: black;
+    padding: .5em .75em;
+    font-size: 0.8em;
+    display: none;
+    border-radius: 6px;
+}

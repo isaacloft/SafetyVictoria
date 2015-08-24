@@ -132,11 +132,11 @@
                         <div class="media-body">
                             <h3 class="media-heading"><a class="page-scroll" style="color: black;" href="#visualization">Safety Visualization</a></h3>
                             <ul>
-                                <li>As <strong>Research Assistant Developer</strong></li>
-                                <li>Research & Develop Libraries</li>
-                                <li>Data Visualization</li>
-                                <li>Creating visualization charts</li>
-                                <li>Creating maps</li>
+                            	<!--  <li>As <strong>Java R&D Engineer</strong></li>-->
+                                <li>Score of areas by categories</li>
+                                <li>Spider-chart of Index</li>
+                                <li>Area selection function</li>
+                                <li>Tabular display of default area score and average score</li>
                             </ul>
                         </div>
                     </div>
@@ -147,13 +147,11 @@
                             <i class="fa fa-rocket"></i>
                         </div>
                         <div class="media-body">
-                            <h3 class="media-heading">Nokia Networks</h3>
+                            <h3 class="media-heading">Safety Comparison By Year</h3>
                             <ul>
-                                <li>As <strong>Java R&D Engineer</strong></li>
-                                <li>Develop & maintain</li>
-                                <li>Implement & building product</li>
-                                <li>Interface within departments</li>
-                                <li>FC for product line</li>
+                                <!-- <li>As <strong>Java R&D Engineer</strong></li> -->
+                                <li>Year by year comparison</li>
+                                <li>slideable splite line</li>
                             </ul>
                         </div>
                     </div>
@@ -164,13 +162,12 @@
                             <i class="fa fa-pencil"></i>
                         </div>
                         <div class="media-body">
-                            <h3 class="media-heading">Hundsun Tech.</h3>
+                            <h3 class="media-heading">Safety Comparison By LGA</h3>
                             <ul>
-                                <li>As <strong>Java Software Engineer</strong></li>
-                                <li>Develop & maintain</li>
-                                <li>Implement & building product</li>
-                                <li>Extend & design new features</li>
-                                <li>Design & develop</li>
+                               <!-- <li>As <strong>Java Software Engineer</strong></li> --> 
+                                <li>LGA vs LGA comparison</li>
+                                <li>Location search function by postcode</li>
+
                             </ul>
                         </div>
                     </div>
@@ -184,54 +181,46 @@
             <div class="row content-row">
                 <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".2s" style="margin-left:0px;height:600px;width:700px;">
                 	<div class="row">
-                		<div id="map1" class="map" style="width: auto;height: 355px;"></div>
-                		<div class="legend-tips" style="display: block;">Tips: Click to select Local Government Areas</div>
+                		<div id="map1" class="map" style="width: auto;height: 390px;"></div>
+                		<div class="legend-tips" style="display: block;" id="map1-legend-tips">Tips: Click map to select 1st Local Government Areas</div>
+                		<div class="first-lga-tip lga-select-tips" style="display: block;">1st LGA</div>
+                		<div class="second-lga-tip lga-select-tips" style="display: block;">2nd LGA</div>
                 	</div>
                 	<div class="row" style="margin-right: 15px; margin-left: 15px;">
 	                	<div class="row">
-	                		<div class="col-sm-8"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;">A Crimes against the person</h3></div>
-	                		<div class="col-sm-2"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;">LGA1</h3></div>
-	                		<div class="col-sm-2"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;">LGA2</h3></div>
+	                		<div class="col-sm-8"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;">Overall crime category</h3></div>
+	                		<div class="col-sm-2"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;" id="lga1Name">-</h3></div>
+	                		<div class="col-sm-2"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;" id="lga2Name">-</h3></div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-8">A10 Homicide and related offences</div>
-	                		<div class="col-sm-2 ">1%</div>
-	                		<div class="col-sm-2 ">1%</div>
+	                		<div class="col-sm-8">A Crimes against the person</div>
+	                		<div class="col-sm-2 " id="lga1CrimeA">-</div>
+	                		<div class="col-sm-2 " id="lga2CrimeA">-</div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-8 ">A20 Assault and related offences</div>
-	                		<div class="col-sm-2 ">1%</div>
-	                		<div class="col-sm-2 ">1%</div>
+	                		<div class="col-sm-8 ">B Property and deception offences</div>
+	                		<div class="col-sm-2 " id="lga1CrimeB">-</div>
+	                		<div class="col-sm-2 " id="lga2CrimeB">-</div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-8 ">A30 Sexual offences</div>
-	                		<div class="col-sm-2 ">1%</div>
-	                		<div class="col-sm-2 ">1%</div>
+	                		<div class="col-sm-8 ">C Drug offences</div>
+	                		<div class="col-sm-2 " id="lga1CrimeC">-</div>
+	                		<div class="col-sm-2 " id="lga2CrimeC">-</div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-8 ">A40 Abduction and related offences</div>
-	                		<div class="col-sm-2 ">1%</div>
-	                		<div class="col-sm-2 ">1%</div>
+	                		<div class="col-sm-8 ">D Public order and security offences</div>
+	                		<div class="col-sm-2 " id="lga1CrimeD">-</div>
+	                		<div class="col-sm-2 " id="lga2CrimeD">-</div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-8 ">A50 Robbery</div>
-	                		<div class="col-sm-2 ">1%</div>
-	                		<div class="col-sm-2 ">1%</div>
+	                		<div class="col-sm-8 ">E Justice procedures offences</div>
+	                		<div class="col-sm-2 " id="lga1CrimeE">-</div>
+	                		<div class="col-sm-2 " id="lga2CrimeE">-</div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-8 ">A60 Blackmail and extortion</div>
-	                		<div class="col-sm-2 ">1%</div>
-	                		<div class="col-sm-2 ">1%</div>
-	                	</div>
-	                	<div class="row">
-	                		<div class="col-sm-8 ">A70 Stalking, harassment and threatening behaviour</div>
-	                		<div class="col-sm-2 ">1%</div>
-	                		<div class="col-sm-2 ">1%</div>
-	                	</div>
-	                	<div class="row">
-	                		<div class="col-sm-8 ">A80 Dangerous and negligent acts endangering people</div>
-	                		<div class="col-sm-2 ">1%</div>
-	                		<div class="col-sm-2 ">1%</div>
+	                		<div class="col-sm-8 ">F Other offences</div>
+	                		<div class="col-sm-2 " id="lga1CrimeF">-</div>
+	                		<div class="col-sm-2 " id="lga2CrimeF">-</div>
 	                	</div>
                 	</div>
                 </div>
@@ -359,6 +348,30 @@
     	console.log(selectedLGA);
     }
     
+    $(".lga-select-tips").click(function(){
+		if($(this).hasClass("first-lga-tip")){
+			$(this).css({
+				"background":"#006872",
+				"color":"white"
+			});
+			$(".second-lga-tip").css({
+				"background":"white",
+				"color":"black"
+			});
+			$("#map1-legend-tips").html("Tips: Click map to select 1st Local Government Areas");
+		}else if($(this).hasClass("second-lga-tip")){
+			$(this).css({
+				"background":"#006872",
+				"color":"white"
+			});
+			$(".first-lga-tip").css({
+				"background":"white",
+				"color":"black"
+			});
+			$("#map1-legend-tips").html("Tips: Click map to select 2nd Local Government Areas");
+		}
+    });
+    
     var spiderOptions = {
             chart: {
                 height: 600,
@@ -367,7 +380,7 @@
             },
 
             title: {
-                text: 'Major Crime'
+                text: 'Crime Index'
             },
 
             pane: {
