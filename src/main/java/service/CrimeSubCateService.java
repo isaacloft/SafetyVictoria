@@ -25,8 +25,8 @@ public class CrimeSubCateService {
 	}
 	
 	@Transactional
-	public List<CrimeSubCategories> searchBySubCode(String sub_cate_code){
-		List<CrimeSubCategories> result = em.createQuery("SELECT c FROM CrimeSubCategories c where c.sub_cate_code = '"+sub_cate_code+"'",
+	public List<CrimeSubCategories> searchBySubCode(String subCateCode){
+		List<CrimeSubCategories> result = em.createQuery("SELECT c FROM CrimeSubCategories c where c.subCateCode = '"+subCateCode+"'",
 				CrimeSubCategories.class)
 				.getResultList();
 		return result;
@@ -34,16 +34,16 @@ public class CrimeSubCateService {
 	} 
 	
 	@Transactional
-	public List<CrimeSubCategories> searchBySubName(String sub_cate_name){
-		List<CrimeSubCategories> result = em.createQuery("SELECT c FROM CrimeSubCategories c where c.sub_cate_name = '"+sub_cate_name+"'",
+	public List<CrimeSubCategories> searchBySubName(String subCateName){
+		List<CrimeSubCategories> result = em.createQuery("SELECT c FROM CrimeSubCategories c where c.subCateName = '"+subCateName+"'",
 				CrimeSubCategories.class)
 				.getResultList();
 		return result;
 		
 	}
 	@Transactional
-	public List<CrimeSubCategories> searchByMajorCode(String major_cate_code){
-		List<CrimeSubCategories> result = em.createQuery("SELECT c FROM CrimeSubCategories c where c.major_cate_code = '"+major_cate_code+"'",
+	public List<CrimeSubCategories> searchByMajorCode(String majorCateCode){
+		List<CrimeSubCategories> result = em.createQuery("SELECT c FROM CrimeSubCategories c where c.majorCateCode = '"+majorCateCode+"'",
 				CrimeSubCategories.class)
 				.getResultList();
 		return result;

@@ -24,4 +24,67 @@ public class CrimeByLocationService {
 				.getResultList();
 		return result;
 	}
+	@Transactional
+	public List<CrimeByLocation> searchByYear(int year){
+		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.year = ' "+year+"'", 
+				CrimeByLocation.class)
+				.getResultList();
+		return result;
+	}
+	@Transactional
+	public List<CrimeByLocation> searchByPoliceRegion(String policeRegion){
+		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.policeRegion = '"+policeRegion+"'", 
+				CrimeByLocation.class)
+				.getResultList();
+		return result;
+	}
+	@Transactional
+	public List<CrimeByLocation> searchByPoliceServiceArea(String policeServiceArea){
+		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.policeServiceArea = '"+policeServiceArea+"'",
+				CrimeByLocation.class)
+				.getResultList();
+		return result;
+	}
+	@Transactional
+	public List<CrimeByLocation> searchByLGA(String LGA){
+		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.LGA = '"+LGA+"'",
+				CrimeByLocation.class)
+				.getResultList();
+		return result;
+	}
+	@Transactional
+	public List<CrimeByLocation> searchByCsaOffenceDivision(String csaOffenceDivision){
+		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.csaOffenceDivision = '"+csaOffenceDivision+"'", 
+				CrimeByLocation.class)
+				.getResultList();
+		return result;
+	}
+	@Transactional
+	public List<CrimeByLocation> searchByCsaOffenceSubDivision(String csaOffenceSubDivision){
+		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.csaOffenceSubDivision = '"+csaOffenceSubDivision+"'",
+				CrimeByLocation.class)
+				.getResultList();
+		return result;
+	}
+	@Transactional
+	public List<CrimeByLocation> searchByOffenceCount(int offenceCount){
+		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.offenceCount = '"+offenceCount+"'",
+				CrimeByLocation.class)
+				.getResultList();
+		return result;
+	}
+	@Transactional
+	public List<CrimeByLocation> searchByLGAERP(String LGAERP){
+		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.LGAERP = '"+LGAERP+"'",
+				CrimeByLocation.class)
+				.getResultList();
+		return result;
+	}
+	@Transactional
+	public List<CrimeByLocation> searchByVICERP(String VICERP){
+		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.VICERP = '"+VICERP+"'",
+				CrimeByLocation.class)
+				.getResultList();
+		return result;
+	}
 }

@@ -48,6 +48,8 @@ public class HomeController {
 
 		model.addAttribute("lgaList", lgaSvc.getAll());
 		
+		
+		//Test all sevice method
 		System.out.println("testMethods---lga---"+lgaSvc.searchById(1).get(0).getLga());
 		System.out.println("testMethods---lga---"+lgaSvc.searchByLga("BANYULE").get(0).getId());
 		
@@ -56,9 +58,9 @@ public class HomeController {
 		System.out.println("testMethods---majorCC---"+crimeMajorSvc.searchByName("C Drug offences").get(0).getCode());
 		
 		System.out.println("testMethods---subCC---"+crimeSubSvc.getAll().size());
-		System.out.println("testMethods---subCC---"+crimeSubSvc.searchByMajorCode("A").get(0).getSub_cate_code());
-		System.out.println("testMethods---subCC---"+crimeSubSvc.searchBySubCode("A10").get(0).getMajor_cate_code());
-		System.out.println("testMethods---subCC---"+crimeSubSvc.searchBySubName("B10 Arson").get(0).getSub_cate_code());
+		System.out.println("testMethods---subCC---"+crimeSubSvc.searchByMajorCode("A").get(0).getSubCateCode());
+		System.out.println("testMethods---subCC---"+crimeSubSvc.searchBySubCode("A10").get(0).getMajorCateCode());
+		System.out.println("testMethods---subCC---"+crimeSubSvc.searchBySubName("B10 Arson").get(0).getSubCateCode());
 		
 		System.out.println("testMethods---lgaPopulation---"+lgaPopuSvc.getAll().size());
 		System.out.println("testMethods---lgaPopulation---"+lgaPopuSvc.searchByYear(2011).get(0).getLgaid());
@@ -67,7 +69,15 @@ public class HomeController {
 		System.out.println("testMethods---lgaPopulation---"+lgaPopuSvc.searchByVicerp(5537817).get(0).getLgaerp());
 		
 		System.out.println("testMethods---crimeByLocation---"+CrimeByLocSvc.getAll().size());
-		
+		System.out.println("testMethods---crimeByLocation---"+CrimeByLocSvc.searchByYear(2011).get(0).getId());
+		System.out.println("testMethods---crimeByLocation---"+CrimeByLocSvc.searchByPoliceRegion("North West Metro").get(0).getId());
+		System.out.println("testMethods---crimeByLocation---"+CrimeByLocSvc.searchByPoliceServiceArea("1").get(0).getId());
+		System.out.println("testMethods---crimeByLocation---"+CrimeByLocSvc.searchByLGA("1").get(0).getId());
+		System.out.println("testMethods---crimeByLocation---"+CrimeByLocSvc.searchByCsaOffenceDivision("A").get(0).getId());
+		System.out.println("testMethods---crimeByLocation---"+CrimeByLocSvc.searchByCsaOffenceSubDivision("A10").get(0).getId());
+		System.out.println("testMethods---crimeByLocation---"+CrimeByLocSvc.searchByOffenceCount(2).get(0).getId());
+		System.out.println("testMethods---crimeByLocation---"+CrimeByLocSvc.searchByLGAERP("122983").get(0).getId());
+		System.out.println("testMethods---crimeByLocation---"+CrimeByLocSvc.searchByVICERP("5537817").get(0).getId());
 		
 		return "home";
 	}
