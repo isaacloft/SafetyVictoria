@@ -57,9 +57,8 @@
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
 <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
-<script src="http://matchingnotes.com/javascripts/leaflet-google.js"></script>
+<!-- <script src="http://matchingnotes.com/javascripts/leaflet-google.js"></script> -->
 <script type="text/javascript" src="<c:url value="/resources/js/Google.js" />"></script>
-
 </head>
 <body id="page-top">
 
@@ -184,7 +183,10 @@
         <div class="container" style="width:1240px;">
             <div class="row content-row">
                 <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".2s" style="margin-left:0px;height:600px;width:700px;">
-                	<div class="row"><div id="map1" class="map" style="width: auto;height: 355px;"></div></div>
+                	<div class="row">
+                		<div id="map1" class="map" style="width: auto;height: 355px;"></div>
+                		<div class="legend-tips" style="display: block;">Tips: Click to select Local Government Areas</div>
+                	</div>
                 	<div class="row" style="margin-right: 15px; margin-left: 15px;">
 	                	<div class="row">
 	                		<div class="col-sm-8"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;">A Crimes against the person</h3></div>
@@ -233,16 +235,14 @@
 	                	</div>
                 	</div>
                 </div>
-                <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".4s" style="height:600px;width:520px;">
-                    <i class="fa fa-institution fa-4x"></i>
-                    <h3>J2EE</h3>
-                    <p>Almost 2 year industry experience, including Spring, Hibernate, EJB, JPA, Struts, JSP, Servlet, REST web services, Apache, Tomcat, AJAX, Oracle, MySQL</p>
+                <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".4s" style="height:600px;width:530px;">
+                    <div id="spiderChart"></div>
                 </div>
             </div>
         </div>
     </section>
 
-  <<%-- h1>All Persons</h1>
+  <%-- <h1>All Persons</h1>
   <c:forEach var="p" items="${persons}">
     Id: ${p.id} Name: ${p.name}<br/>
   </c:forEach>
@@ -274,6 +274,9 @@
 <script src="<c:url value="/resources/js/template.js" />"></script>
 <script src="<c:url value="/resources/js/style.switcher.js" />"></script>
 
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script>
 (function ($) {
 	L.TopoJSON = L.GeoJSON.extend({
@@ -290,9 +293,8 @@
 	    }
   	});
 	var map = L.map('map1', {zoomControl: false}).setView([-37.8131869,144.9629796], 8);
-    /* map.scrollWheelZoom.disable(); */
+    map.scrollWheelZoom.disable(); 
     new L.Control.Zoom({position: 'bottomright'}).addTo(map);
-    /* var layer = new L.StamenTileLayer('toner-background', {}); */
     var googleRoadMap = new L.Google('ROADMAP');
     map.addLayer(googleRoadMap);
     
@@ -312,6 +314,9 @@
             color:'#555',
             weight:1,
             opacity:.5
+          });
+    	layer.on({
+            click : selectLGA
           });
         /* var selectedCityCouncil = layer.feature.properties.gaz_lga;
         var selectedCityCouncilIndex = cityCouncilArr.indexOf(selectedCityCouncil);
@@ -340,6 +345,93 @@
             });
         } */
     }
+    
+    function selectLGA(){
+    	this.bringToFront();
+    	var selectedLGA = this.feature.properties.gaz_lga;
+    	
+    	this.setStyle({
+            fillColor:'#7cb5ec',
+            fillOpacity: 0.6,
+            weight:2,
+            opacity: 1
+        });
+    	console.log(selectedLGA);
+    }
+    
+    var spiderOptions = {
+            chart: {
+                height: 625,
+                polar: true,
+                type: 'line'
+            },
+
+            title: {
+                text: 'Major Crime'
+            },
+
+            pane: {
+                size: '80%'
+            },
+
+            exporting: {
+                     enabled: false
+            },
+
+            credits: {
+                enabled: false
+            },
+
+            xAxis: {
+                labels: {
+                    align: 'center'
+                },
+                categories: ['A Crimes against the person','B Property and deception offences',
+                             'C Drug offences','D Public order and security offences',
+                             'E Justice procedures offences','F Other offences'],
+                tickmarkPlacement: 'on',
+                lineWidth: 0
+            },
+
+            yAxis: {
+                gridLineInterpolation: 'polygon',
+                lineWidth: 0,
+                min: 0
+            },
+
+            tooltip: {
+                shared: true,
+                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.2f}</b><br/>'
+            },
+
+            plotOptions: {
+                series: {
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+
+            legend: {
+                align: 'bottom',
+                verticalAlign: 'top',
+                layout: 'vertical'
+            },
+
+            series: [{
+                type: 'line',
+                fillOpacity: 1,
+                name: 'LGA1',
+                data: [3, 5, 2, 5, 1, 2]
+            }, {
+                type: 'line',
+                fillOpacity: 1,
+                name: 'LGA2',
+                data: [2, 4, 1, 3, 4, 5]
+            }]
+
+        };
+    $('#spiderChart').highcharts(spiderOptions);
 
 })(jQuery);
 </script>
