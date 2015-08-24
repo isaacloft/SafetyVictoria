@@ -361,7 +361,7 @@
     
     var spiderOptions = {
             chart: {
-                height: 625,
+                height: 600,
                 polar: true,
                 type: 'line'
             },
