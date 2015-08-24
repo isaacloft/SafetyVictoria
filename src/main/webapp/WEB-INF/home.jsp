@@ -132,11 +132,11 @@
                         <div class="media-body">
                             <h3 class="media-heading"><a class="page-scroll" style="color: black;" href="#visualization">Safety Visualization</a></h3>
                             <ul>
-                                <li>As <strong>Research Assistant Developer</strong></li>
-                                <li>Research & Develop Libraries</li>
-                                <li>Data Visualization</li>
-                                <li>Creating visualization charts</li>
-                                <li>Creating maps</li>
+                            	<!--  <li>As <strong>Java R&D Engineer</strong></li>-->
+                                <li>Score of areas by categories</li>
+                                <li>Spider-chart of Index</li>
+                                <li>Area selection function</li>
+                                <li>Tabular display of default area score and average score</li>
                             </ul>
                         </div>
                     </div>
@@ -147,13 +147,11 @@
                             <i class="fa fa-rocket"></i>
                         </div>
                         <div class="media-body">
-                            <h3 class="media-heading">Nokia Networks</h3>
+                            <h3 class="media-heading">Safety Comparison By Year</h3>
                             <ul>
-                                <li>As <strong>Java R&D Engineer</strong></li>
-                                <li>Develop & maintain</li>
-                                <li>Implement & building product</li>
-                                <li>Interface within departments</li>
-                                <li>FC for product line</li>
+                                <!-- <li>As <strong>Java R&D Engineer</strong></li> -->
+                                <li>Year by year comparison</li>
+                                <li>slideable splite line</li>
                             </ul>
                         </div>
                     </div>
@@ -164,13 +162,12 @@
                             <i class="fa fa-pencil"></i>
                         </div>
                         <div class="media-body">
-                            <h3 class="media-heading">Hundsun Tech.</h3>
+                            <h3 class="media-heading">Safety Comparison By LGA</h3>
                             <ul>
-                                <li>As <strong>Java Software Engineer</strong></li>
-                                <li>Develop & maintain</li>
-                                <li>Implement & building product</li>
-                                <li>Extend & design new features</li>
-                                <li>Design & develop</li>
+                               <!-- <li>As <strong>Java Software Engineer</strong></li> --> 
+                                <li>LGA vs LGA comparison</li>
+                                <li>Location search function by postcode</li>
+
                             </ul>
                         </div>
                     </div>
