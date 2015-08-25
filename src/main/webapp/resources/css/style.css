@@ -9,8 +9,8 @@ div.section-border {
 
 .legend-tips {
     position: absolute;
-    top: 24.5em;
-    left: 1em;
+    top: 0.5em;
+    left: 0.5em;
     z-index: 6;
     background: #006872;
     color: white;
@@ -21,8 +21,8 @@ div.section-border {
 }
 .first-lga-tip {
     position: absolute;
-    top: 24em;
-    right: 12.9em;
+    top: 26.9em;
+    right: 20.5em;
     z-index: 6;
     background: #006872;
     color: white;
@@ -33,8 +33,8 @@ div.section-border {
 }
 .second-lga-tip {
     position: absolute;
-    top: 24em;
-    right: 3.9em;
+    top: 26.9em;
+    right: 7.2em;
     z-index: 6;
     background: white;
     color: black;

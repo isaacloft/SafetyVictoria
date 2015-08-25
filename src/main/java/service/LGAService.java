@@ -42,10 +42,13 @@ public class LGAService {
 	}
 	
 	@Transactional
-	public List<LGA> searchByLga(String lga){
-		List<LGA> result = em.createQuery("SELECT l FROM LGA l WHERE l.lga = '"+lga+"'",LGA.class)
+	public LGA searchByLga(String lga){
+		List<LGA> result = em.createQuery("SELECT l FROM LGA l WHERE l.lga like '"+lga+"'",LGA.class)
 				.getResultList();
-		return result;
+		if(result.size()>0){
+			return result.get(0);
+		}
+		return null;
 	}
 	
 

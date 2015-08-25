@@ -53,6 +53,14 @@ public class CrimeByLocationService {
 		return result;
 	}
 	@Transactional
+	public List<CrimeByLocation> searchByLGAAndYear(int LGA, int year){
+		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.LGA = "+LGA+" "
+				+ "and cbl.year = " + year +" order by cbl.csaOffenceDivision",
+				CrimeByLocation.class)
+				.getResultList();
+		return result;
+	}
+	@Transactional
 	public List<CrimeByLocation> searchByCsaOffenceDivision(String csaOffenceDivision){
 		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.csaOffenceDivision = '"+csaOffenceDivision+"'", 
 				CrimeByLocation.class)

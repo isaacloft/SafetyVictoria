@@ -133,7 +133,8 @@
                             <h3 class="media-heading"><a class="page-scroll" style="color: black;" href="#visualization">Safety Visualization</a></h3>
                             <ul>
                             	<!--  <li>As <strong>Java R&D Engineer</strong></li>-->
-                                <li>Score of areas by categories</li>
+                                <li>Score of areas by major crime categories</li>
+                                <li>Score of areas by sub crime categories</li>
                                 <li>Spider-chart of Index</li>
                                 <li>Area selection function</li>
                                 <li>Tabular display of default area score and average score</li>
@@ -179,7 +180,7 @@
     <section id="visualization" class="bg-gray" style="padding-top: 13px;">
         <div class="container" style="width:1240px;">
             <div class="row content-row">
-                <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".2s" style="margin-left:0px;height:600px;width:700px;">
+                <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".2s" style="margin-left:0px;height:640px;width:700px;">
                 	<div class="row">
                 		<div id="map1" class="map" style="width: auto;height: 390px;"></div>
                 		<div class="legend-tips" style="display: block;" id="map1-legend-tips">Tips: Click map to select 1st Local Government Areas</div>
@@ -188,43 +189,43 @@
                 	</div>
                 	<div class="row" style="margin-right: 15px; margin-left: 15px;">
 	                	<div class="row">
-	                		<div class="col-sm-8"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;">Overall crime category</h3></div>
-	                		<div class="col-sm-2"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;" id="lga1Name">-</h3></div>
-	                		<div class="col-sm-2"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;" id="lga2Name">-</h3></div>
+	                		<div class="col-sm-6"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;">Overall crime offence <br>count by category</h3></div>
+	                		<div class="col-sm-3"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;" id="lga1Name"><span style='margin-left:25px;'>-</span></h3></div>
+	                		<div class="col-sm-3"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;" id="lga2Name"><span style='margin-left:25px;'>-</span></h3></div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-8">A Crimes against the person</div>
-	                		<div class="col-sm-2 " id="lga1CrimeA">-</div>
-	                		<div class="col-sm-2 " id="lga2CrimeA">-</div>
+	                		<div class="col-sm-6">A Crimes against the person</div>
+	                		<div class="col-sm-3 " id="lga1CrimeA"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-3 " id="lga2CrimeA"><span style='margin-left:25px;'>-</span></div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-8 ">B Property and deception offences</div>
-	                		<div class="col-sm-2 " id="lga1CrimeB">-</div>
-	                		<div class="col-sm-2 " id="lga2CrimeB">-</div>
+	                		<div class="col-sm-6 ">B Property and deception offences</div>
+	                		<div class="col-sm-3 " id="lga1CrimeB"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-3 " id="lga2CrimeB"><span style='margin-left:25px;'>-</span></div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-8 ">C Drug offences</div>
-	                		<div class="col-sm-2 " id="lga1CrimeC">-</div>
-	                		<div class="col-sm-2 " id="lga2CrimeC">-</div>
+	                		<div class="col-sm-6 ">C Drug offences</div>
+	                		<div class="col-sm-3 " id="lga1CrimeC"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-3 " id="lga2CrimeC"><span style='margin-left:25px;'>-</span></div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-8 ">D Public order and security offences</div>
-	                		<div class="col-sm-2 " id="lga1CrimeD">-</div>
-	                		<div class="col-sm-2 " id="lga2CrimeD">-</div>
+	                		<div class="col-sm-6 ">D Public order and security offences</div>
+	                		<div class="col-sm-3 " id="lga1CrimeD"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-3 " id="lga2CrimeD"><span style='margin-left:25px;'>-</span></div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-8 ">E Justice procedures offences</div>
-	                		<div class="col-sm-2 " id="lga1CrimeE">-</div>
-	                		<div class="col-sm-2 " id="lga2CrimeE">-</div>
+	                		<div class="col-sm-6 ">E Justice procedures offences</div>
+	                		<div class="col-sm-3 " id="lga1CrimeE"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-3 " id="lga2CrimeE"><span style='margin-left:25px;'>-</span></div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-8 ">F Other offences</div>
-	                		<div class="col-sm-2 " id="lga1CrimeF">-</div>
-	                		<div class="col-sm-2 " id="lga2CrimeF">-</div>
+	                		<div class="col-sm-6 ">F Other offences</div>
+	                		<div class="col-sm-3 " id="lga1CrimeF"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-3 " id="lga2CrimeF"><span style='margin-left:25px;'>-</span></div>
 	                	</div>
                 	</div>
                 </div>
-                <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".4s" style="height:600px;width:530px;">
+                <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".4s" style="height:640px;width:530px;">
                     <div id="spiderChart"></div>
                 </div>
             </div>
@@ -335,18 +336,137 @@
         } */
     }
     
+    var selectedLGAColors = ["#7cb5ec","#FF0000"];
+    
     function selectLGA(){
     	this.bringToFront();
     	var selectedLGA = this.feature.properties.gaz_lga;
     	
-    	this.setStyle({
-            fillColor:'#7cb5ec',
-            fillOpacity: 0.6,
-            weight:2,
-            opacity: 1
-        });
-    	console.log(selectedLGA);
+    	
+    	/* if(selectedLGAColors.indexOf(this.options.fillColor) >= 0){
+    		return;
+    	} */
+    	
+    	if(selectedLGAButtonIndex == 1){
+    		if(selectedLGAColors[1] == this._path.attributes[6].value){
+    			return;
+    		}
+    		$( "path[fill='"+selectedLGAColors[0]+"']" ).attr("fill","#ffffff").attr("stroke-opacity","0.5").attr("stroke-width","1");
+    		this.setStyle({
+                fillColor:selectedLGAColors[0],
+                fillOpacity: 0.3,
+                weight:2,
+                opacity: 1
+            });
+    		
+    		getSelectedLGACrime(selectedLGA, selectedLGAButtonIndex);
+    		
+    	}else if(selectedLGAButtonIndex == 2){
+    		if(selectedLGAColors[0] == this._path.attributes[6].value){
+    			return;
+    		}
+    		$( "path[fill='"+selectedLGAColors[1]+"']" ).attr("fill","#ffffff").attr("stroke-opacity","0.5").attr("stroke-width","1");
+    		this.setStyle({
+                fillColor:selectedLGAColors[1],
+                fillOpacity: 0.3,
+                weight:2,
+                opacity: 1
+            });
+    		
+    		getSelectedLGACrime(selectedLGA, selectedLGAButtonIndex);
+    		
+    	}
     }
+    
+    var lgaDataSet = [];
+    var lgaCrimeCountSet = [];
+    
+    function getSelectedLGACrime(selectedLGA, selectedLGAButtonIndex){
+    	selectedLGA = selectedLGA.replace("SHIRE", "").replace("CITY", "").trim();
+    	$.getJSON("getSelectedLGACrime", { selectedLGA: selectedLGA }, function(results) {
+    		
+    		lgaDataSet[selectedLGAButtonIndex-1] = results;
+    		
+    		var crimeMajorArr = ['A','B','C','D','E','F'];
+    		var crimeCountArr = [0,0,0,0,0,0];
+    		
+    		if(results.length == 0){
+    			// set '-' to lga table
+    			crimeCountArr = ["-","-","-","-","-","-"];
+    			setSelectedLGATable(selectedLGA,crimeMajorArr,crimeCountArr,selectedLGAButtonIndex);
+    			
+    			crimeCountArr = [0,0,0,0,0,0];
+    			lgaCrimeCountSet[selectedLGAButtonIndex-1] = crimeCountArr;
+    			updateSpiderChart(selectedLGA, selectedLGAButtonIndex);
+    			return;
+    		}else{
+    		
+	    		for(var i in results){
+	    			var cbl = results[i];
+	    			if(cbl.csaOffenceDivision == crimeMajorArr[0]){
+	    				crimeCountArr[0] = crimeCountArr[0] + cbl.offenceCount;
+	    			}else if(cbl.csaOffenceDivision == crimeMajorArr[1]){
+	    				crimeCountArr[1] = crimeCountArr[1] + cbl.offenceCount;
+	    			}else if(cbl.csaOffenceDivision == crimeMajorArr[2]){
+	    				crimeCountArr[2] = crimeCountArr[2] + cbl.offenceCount;
+	    			}else if(cbl.csaOffenceDivision == crimeMajorArr[3]){
+	    				crimeCountArr[3] = crimeCountArr[3] + cbl.offenceCount;
+	    			}else if(cbl.csaOffenceDivision == crimeMajorArr[4]){
+	    				crimeCountArr[4] = crimeCountArr[4] + cbl.offenceCount;
+	    			}else if(cbl.csaOffenceDivision == crimeMajorArr[5]){
+	    				crimeCountArr[5] = crimeCountArr[5] + cbl.offenceCount;
+	    			}
+	    		}
+	    		
+	    		lgaCrimeCountSet[selectedLGAButtonIndex-1] = crimeCountArr;
+	    		setSelectedLGATable(selectedLGA,crimeMajorArr,crimeCountArr,selectedLGAButtonIndex);
+	    		
+	    		for(var i=0;i< crimeCountArr.length;i++){
+	    			console.log(i);
+	    			var crimeCount = crimeCountArr[i];
+	    			var crimeCountPer100000 = crimeCount/(results[0].lgaerp) * 100000;
+	    			crimeCountArr[i] = Math.round(crimeCountPer100000);
+	    		}
+	    		
+	    		updateSpiderChart(selectedLGA, selectedLGAButtonIndex);
+    		}
+        });
+    }
+    
+    function updateSpiderChart(selectedLGA, selectedLGAButtonIndex){
+    	
+    	var spider = $('#spiderChart').highcharts();
+    	
+    	if(selectedLGAButtonIndex == 1){
+    		$(".highcharts-legend-item:first").find("text").html(selectedLGA);
+    	}else if(selectedLGAButtonIndex == 2){
+    		$(".highcharts-legend-item:last").find("text").html(selectedLGA);
+    	}
+    	
+    	
+    	if(spider.series.length < selectedLGAButtonIndex){
+    		var spiderData = {
+    	            type: 'line',
+    	            fillOpacity: 1,
+    	            color: selectedLGAColors[selectedLGAButtonIndex-1],
+    	            name: selectedLGA,
+    	            data: lgaCrimeCountSet[selectedLGAButtonIndex-1]
+   	        }
+    		spider.addSeries(spiderData);
+    	}else {
+    		spider.series[selectedLGAButtonIndex-1].setData(lgaCrimeCountSet[selectedLGAButtonIndex-1]);
+        	spider.series[selectedLGAButtonIndex-1].name = selectedLGA;
+    	}
+	}
+    
+    function setSelectedLGATable(selectedLGA,crimeMajorArr,crimeCountArr,selectedLGAButtonIndex){
+    	$("#lga"+selectedLGAButtonIndex+"Name").html("<span style='margin-left:0px;color:"+selectedLGAColors[selectedLGAButtonIndex-1]+";'>"+selectedLGA+"</span>");
+    	for(var i=0;i<crimeMajorArr.length;i++){
+    		$("#lga"+selectedLGAButtonIndex+"Crime"+crimeMajorArr[i]).html("<span style='margin-left:25px;color:"+selectedLGAColors[selectedLGAButtonIndex-1]+";'>"+crimeCountArr[i]+"</span>");
+    	}
+    }
+    
+    var selectedLGAButtonIndex = 1;
     
     $(".lga-select-tips").click(function(){
 		if($(this).hasClass("first-lga-tip")){
@@ -358,6 +478,7 @@
 				"background":"white",
 				"color":"black"
 			});
+			selectedLGAButtonIndex = 1;
 			$("#map1-legend-tips").html("Tips: Click map to select 1st Local Government Areas");
 		}else if($(this).hasClass("second-lga-tip")){
 			$(this).css({
@@ -368,6 +489,7 @@
 				"background":"white",
 				"color":"black"
 			});
+			selectedLGAButtonIndex = 2;
 			$("#map1-legend-tips").html("Tips: Click map to select 2nd Local Government Areas");
 		}
     });
@@ -414,7 +536,7 @@
 
             tooltip: {
                 shared: true,
-                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.2f}</b><br/>'
+                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,0f}</b> offences per 100,000 population<br/>'
             },
 
             plotOptions: {
@@ -434,13 +556,9 @@
             series: [{
                 type: 'line',
                 fillOpacity: 1,
+                color: '#7cb5ec',
                 name: 'LGA1',
-                data: [3, 5, 2, 5, 1, 2]
-            }, {
-                type: 'line',
-                fillOpacity: 1,
-                name: 'LGA2',
-                data: [2, 4, 1, 3, 4, 5]
+                data: [5, 5, 5, 5, 5, 5]
             }]
 
         };
