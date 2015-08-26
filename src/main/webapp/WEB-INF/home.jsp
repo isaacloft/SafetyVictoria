@@ -231,7 +231,116 @@
             </div>
         </div>
     </section>
+	
+	<section id="projects" class="bg-gray">
+        <div class="container text-center wow fadeIn">
+            <h2>My Projects</h2>
+            <hr class="colored">
+            <p>Here are some projects that I've worked on in the past, click <strong>left/right</strong> arrow to see more (more projects on my <strong><a target="_blank" href="https://www.linkedin.com/in/xianghuihongbryan">LinkedIn Page</a></strong>).</p>
+        </div>
+    </section>
 
+    <section class="portfolio-carousel wow fadeIn">
+        <div class="item" style="background-image: url('<c:url value="/resources/img/creative/portfolio/flinders-street-station.jpg" />')">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 col-md-push-8">
+                        <div class="project-details">
+                            <img src="<c:url value="/resources/img/client-logos/monash-university-logo.png" />" class="img-responsive client-logo" alt="">
+                            <span class="project-name">Melbourne Ethnicity Map</span>
+                            <span class="project-description">Data visualization, map</span>
+                            <hr class="colored">
+                            <a target="_blank" href="http://monash.edu/research/city-science/MelbourneEthnicityMap/#map" class="btn btn-outline-light">View Details <i class="fa fa-long-arrow-right fa-fw"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item" style="background-image: url('<c:url value="/resources/img/creative/portfolio/tele-communication.jpg" />')">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 col-md-push-8">
+                        <div class="project-details">
+                            <img src="<c:url value="/resources/img/client-logos/nokia-logo.png" />" class="img-responsive client-logo" alt="">
+                            <span class="project-name">Nokia BTS Site Manager</span>
+                            <span class="project-description">Telecommunication, Nokia networks</span>
+                            <hr class="colored">
+                            <a target="_blank" href="http://networks.nokia.com/" class="btn btn-outline-light">View Details <i class="fa fa-long-arrow-right fa-fw"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item" style="background-image: url('<c:url value="/resources/img/creative/portfolio/online-shopping.jpg" />')">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 col-md-push-8">
+                        <div class="project-details">
+                            <img src="<c:url value="/resources/img/client-logos/hundsun-logo.jpg" />" class="img-responsive client-logo" alt="">
+                            <span class="project-name">Jiangsu Post E-Mall</span>
+                            <span class="project-description">online shopping, post, bank credit</span>
+                            <hr class="colored">
+                            <a target="_blank" href="http://www.11185.com.cn/" class="btn btn-outline-light">View Details <i class="fa fa-long-arrow-right fa-fw"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container wow fadeIn">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Contact Me</h2>
+                    <hr class="colored">
+                    <p>I'd love to hear from you! Send me a message and we will be connected.</p>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col-md-4 contact-details">
+                        <h4><i class="fa fa-phone"></i> Call</h4>
+                        <p>Connect with me by LinkedIn button below or Email</p>
+                    </div>
+                    <div class="col-md-4 contact-details">
+                        <h4><i class="fa fa-map-marker"></i> Visit</h4>
+                        <p>Waverley Road, 
+                            <br>Malvern East, 3145</p>
+                    </div>
+                    <div class="col-md-4 contact-details">
+                        <h4><i class="fa fa-envelope"></i> Email</h4>
+                        <p><a href="mailto:bryan.hong.1988@gmail.com">bryan.hong.1988@gmail.com</a>
+                        </p>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="row social">
+                    <div class="col-lg-12">
+                        <ul class="list-inline">
+                            <li><a target="_blank" href="http://au.linkedin.com/in/xianghuihongbryan"><i class="fa fa-linkedin fa-fw fa-4x"></i></a>
+                            </li>
+                            <li><a target="_blank" href="https://www.facebook.com/hong.xianghui"><i class="fa fa-facebook fa-fw fa-4x"></i></a>
+                            </li>
+                            <li><a target="_blank" href="https://twitter.com/m232044647"><i class="fa fa-twitter fa-fw fa-4x"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <br>
+                <div class="row copyright">
+                    <div class="col-lg-12">
+                        <p class="small">&copy; 2015 Start Bootstrap by Bryan</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
   <%-- <h1>All Persons</h1>
   <c:forEach var="p" items="${persons}">
     Id: ${p.id} Name: ${p.name}<br/>
