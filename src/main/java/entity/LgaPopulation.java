@@ -6,6 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * The entity class for lga_population table
+ * @author bryan
+ *
+ */
 @Entity
 @Table(name = "lga_population")
 public class LgaPopulation implements Serializable{

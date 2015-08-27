@@ -12,9 +12,15 @@ import entity.CrimeMajorCategories;
 
 @Service
 public class CrimeMajorCateService {
+	
+	//entity managet to do database operation
 	@PersistenceContext
 	private EntityManager em;
 	
+	/**
+	 * get all CrimeMajorCategories
+	 * @return
+	 */
 	@Transactional
 	public List<CrimeMajorCategories> getAll(){
 		
@@ -24,6 +30,11 @@ public class CrimeMajorCateService {
 		return result;	
 	}
 	
+	/**
+	 * get CrimeMajorCategories by code
+	 * @param code
+	 * @return
+	 */
 	@Transactional
 	public List<CrimeMajorCategories> searchByCode(String code){
 		
@@ -33,6 +44,11 @@ public class CrimeMajorCateService {
 		return result;	
 	}
 
+	/**
+	 * get CrimeMajorCategories by name
+	 * @param name
+	 * @return
+	 */
 	@Transactional
 	public List<CrimeMajorCategories> searchByName(String name){
 		

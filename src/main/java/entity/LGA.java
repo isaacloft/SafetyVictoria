@@ -2,6 +2,11 @@ package entity;
 
 import javax.persistence.*;
 
+/**
+ * The entity class for lga table
+ * @author bryan
+ *
+ */
 @Entity
 @Table(name = "lga")
 public class LGA {

@@ -43,6 +43,9 @@ public class PersonService {
 		em.persist(p);
 	}
 
+	/**
+	 * testing method
+	 */
 	@Transactional
 	public void postcodeRate() {
 		List<Integer> postcodeList = em.createNativeQuery(
@@ -63,6 +66,10 @@ public class PersonService {
 		System.out.println(postcodeList.get(0));
 	}
 
+	/**
+	 * testing method
+	 * @param postcode
+	 */
 	@Transactional
 	public void updatePopulation(int postcode) {
 
@@ -86,6 +93,12 @@ public class PersonService {
 
 	private final String USER_AGENT = "Mozilla/5.0";
 
+	/**
+	 * testing method
+	 * @param postcode
+	 * @return
+	 * @throws Exception
+	 */
 	private List<String> getSuburbs(int postcode) throws Exception {
 
 		String url = "http://postcodez.com.au/postcodes.cgi?search_suburb="
@@ -137,6 +150,12 @@ public class PersonService {
 		return list;
 	}
 	
+	/**
+	 * testing method
+	 * @param postcode
+	 * @return
+	 * @throws Exception
+	 */
 	private int getPopulation(int postcode) throws Exception {
 
 		String url = "http://www.censusdata.abs.gov.au/census_services/getproduct/census/2011/quickstat/POA"

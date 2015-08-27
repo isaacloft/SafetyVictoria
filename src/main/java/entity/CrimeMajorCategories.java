@@ -4,6 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * The entity class for crimeMajorCategories table
+ * @author bryan
+ *
+ */
 @Entity
 @Table(name = "crimeMajorCategories")
 public class CrimeMajorCategories {

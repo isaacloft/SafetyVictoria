@@ -40,8 +40,9 @@ public class HomeController {
 	private CrimeByLocationService CrimeByLocSvc;
 
 	/**
-	 * Requests to http://localhost:8080/hello will be mapped here. Everytime
-	 * invoked, we pass list of all persons to view
+	 * List all testing service methods
+	 * @param model
+	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String listAll(Model model) {
@@ -87,6 +88,11 @@ public class HomeController {
 		return "home";
 	}
 
+	/**
+	 * Get crime data by seleted LGA
+	 * @param selectedLGA
+	 * @return
+	 */
 	@RequestMapping(value="getSelectedLGACrime", method=RequestMethod.GET)
 	public @ResponseBody List<CrimeByLocation> getAvailability(@RequestParam String selectedLGA) {
 		List<CrimeByLocation> list = new ArrayList<CrimeByLocation>();

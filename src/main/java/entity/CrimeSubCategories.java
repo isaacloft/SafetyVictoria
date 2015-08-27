@@ -6,6 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * The entity class for crime_sub_categories table
+ * @author bryan
+ *
+ */
 @Entity
 @Table(name = "crime_sub_categories")
 public class CrimeSubCategories {

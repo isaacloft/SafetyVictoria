@@ -378,6 +378,8 @@
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script>
 (function ($) {
+	
+	// Topojson method use to parse topojson file
 	L.TopoJSON = L.GeoJSON.extend({
 	    addData: function(jsonData) {
 	      if (jsonData.type === "Topology") {
@@ -391,21 +393,28 @@
 	      }
 	    }
   	});
+	
+	// init map and add google map as layer
 	var map = L.map('map1', {zoomControl: false}).setView([-37.8131869,144.9629796], 8);
     map.scrollWheelZoom.disable(); 
     new L.Control.Zoom({position: 'bottomright'}).addTo(map);
     var googleRoadMap = new L.Google('ROADMAP');
     map.addLayer(googleRoadMap);
     
+    // init the lga layer and add to layer
     var lgaVicLayer = new L.TopoJSON();
     $.getJSON('resources/data/lga_victoria.topo.json').done(lgaVicData); 
     
+    // method to add topojson data 
+    // and add to map 
+    // and add handle layer event
     function lgaVicData(topoData){
         lgaVicLayer.addData(topoData);
         lgaVicLayer.addTo(map);
         lgaVicLayer.eachLayer(handleLgaVicLayer);
     }
     
+    // handle lga layer event
     function handleLgaVicLayer(layer){
     	layer.setStyle({
             fillColor : '#ffffff',
@@ -445,8 +454,11 @@
         } */
     }
     
+    // selected LGA colors, lga1 and lga2 color
     var selectedLGAColors = ["#7cb5ec","#FF0000"];
     
+    // When click lga area on topojson area, color the area
+    // and get the crime data from backend
     function selectLGA(){
     	this.bringToFront();
     	var selectedLGA = this.feature.properties.gaz_lga;
@@ -487,9 +499,11 @@
     	}
     }
     
+    // lga data set and lga crime count data set
     var lgaDataSet = [];
     var lgaCrimeCountSet = [];
     
+    // AJAX invoke to get lga crime data from backend 
     function getSelectedLGACrime(selectedLGA, selectedLGAButtonIndex){
     	selectedLGA = selectedLGA.replace("SHIRE", "").replace("CITY", "").trim();
     	$.getJSON("getSelectedLGACrime", { selectedLGA: selectedLGA }, function(results) {
@@ -542,6 +556,7 @@
         });
     }
     
+    // after the crime data updated in table, then update the spider chart
     function updateSpiderChart(selectedLGA, selectedLGAButtonIndex){
     	
     	var spider = $('#spiderChart').highcharts();
@@ -568,6 +583,7 @@
     	}
 	}
     
+    // set lga table with crime data
     function setSelectedLGATable(selectedLGA,crimeMajorArr,crimeCountArr,selectedLGAButtonIndex){
     	$("#lga"+selectedLGAButtonIndex+"Name").html("<span style='margin-left:0px;color:"+selectedLGAColors[selectedLGAButtonIndex-1]+";'>"+selectedLGA+"</span>");
     	for(var i=0;i<crimeMajorArr.length;i++){
@@ -577,6 +593,7 @@
     
     var selectedLGAButtonIndex = 1;
     
+    // change the tip text when user click LGA1 or LGA2 button
     $(".lga-select-tips").click(function(){
 		if($(this).hasClass("first-lga-tip")){
 			$(this).css({
@@ -603,6 +620,7 @@
 		}
     });
     
+    // spider chart options
     var spiderOptions = {
             chart: {
                 height: 600,

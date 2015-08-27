@@ -2,6 +2,11 @@ package entity;
 
 import javax.persistence.*;
 
+/**
+ * The entity class for crime_by_location table
+ * @author bryan
+ *
+ */
 @Entity
 @Table(name = "crime_by_location")
 public class CrimeByLocation {

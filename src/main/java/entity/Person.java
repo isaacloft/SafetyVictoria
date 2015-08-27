@@ -2,6 +2,11 @@ package entity;
 
 import javax.persistence.*;
 
+/**
+ * The entity class for testing person table
+ * @author bryan
+ *
+ */
 @Entity
 @Table(name = "person")
 public class Person {

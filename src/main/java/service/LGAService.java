@@ -34,6 +34,11 @@ public class LGAService {
 		return result;
 	}
 	
+	/**
+	 * get LgaPopulation by id
+	 * @param id
+	 * @return
+	 */
 	@Transactional
 	public List<LGA> searchById(int id){
 		List<LGA> result = em.createQuery("SELECT l FROM LGA l WHERE l.id = "+id,LGA.class)
@@ -41,6 +46,11 @@ public class LGAService {
 		return result;
 	}
 	
+	/**
+	 * get LgaPopulation by lga
+	 * @param lga
+	 * @return
+	 */
 	@Transactional
 	public LGA searchByLga(String lga){
 		List<LGA> result = em.createQuery("SELECT l FROM LGA l WHERE l.lga like '"+lga+"'",LGA.class)
