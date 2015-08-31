@@ -93,6 +93,17 @@ public class HomeController {
 	 * @param selectedLGA
 	 * @return
 	 */
+	@RequestMapping(value="getVicAvgCrimeData", method=RequestMethod.GET)
+	public @ResponseBody List<Object[]> getVicAvgCrimeData() {
+		List<Object[]> list = CrimeByLocSvc.searchTotalVicAvgByYear(2015);
+		return list;
+	}
+	
+	/**
+	 * Get crime data by seleted LGA
+	 * @param selectedLGA
+	 * @return
+	 */
 	@RequestMapping(value="getSelectedLGACrime", method=RequestMethod.GET)
 	public @ResponseBody List<CrimeByLocation> getAvailability(@RequestParam String selectedLGA) {
 		List<CrimeByLocation> list = new ArrayList<CrimeByLocation>();

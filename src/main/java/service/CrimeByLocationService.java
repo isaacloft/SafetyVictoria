@@ -44,6 +44,43 @@ public class CrimeByLocationService {
 	}
 	
 	/**
+	 * get CrimeByLocation by year
+	 * @param year
+	 * @return
+	 */
+	@Transactional
+	public int searchTotalVicPopulationByYear(int year){
+		CrimeByLocation result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.year = ' "+year+"'", 
+				CrimeByLocation.class)
+				.getResultList().get(0);
+		return Integer.parseInt(result.getVICERP());
+	}
+	
+	/**
+	 * get search total vic average crime count by year
+	 * @param year
+	 * @return
+	 */
+	@Transactional
+	public List<Object[]> searchTotalVicAvgByYear(int year){
+//		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.year = ' "+year+"'", 
+//				CrimeByLocation.class)
+//				.getResultList();
+		int vicPopulation = searchTotalVicPopulationByYear(year);
+		List<Object[]> result = em.createNativeQuery("SELECT CONVERT((sum(c.offence_count)*100000)/"+vicPopulation+", SIGNED INTEGER) as avgCount,"
+				+ "sum(c.offence_count) as totalCount, c.CSA_offence_division as majorCate "
+				+ "FROM crime_by_location c where c.year='" + year + "' "
+				+ "group by c.CSA_offence_division "
+				+ "order by c.CSA_offence_division").getResultList();
+		for(Object[] record: result){
+//			System.out.println("avgcount:"+record[0]);
+//			System.out.println("totalCount"+record[1]);
+//			System.out.println("majorCate"+record[2]);
+		}
+		return result;
+	}
+	
+	/**
 	 * get CrimeByLocation by policeRegion
 	 * @param policeRegion
 	 * @return

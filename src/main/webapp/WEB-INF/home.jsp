@@ -455,7 +455,7 @@
     }
     
     // selected LGA colors, lga1 and lga2 color
-    var selectedLGAColors = ["#7cb5ec","#FF0000"];
+    var selectedLGAColors = ["#7cb5ec","#868686"];
     
     // When click lga area on topojson area, color the area
     // and get the crime data from backend
@@ -475,7 +475,7 @@
     		$( "path[fill='"+selectedLGAColors[0]+"']" ).attr("fill","#ffffff").attr("stroke-opacity","0.5").attr("stroke-width","1");
     		this.setStyle({
                 fillColor:selectedLGAColors[0],
-                fillOpacity: 0.3,
+                fillOpacity: 0.4,
                 weight:2,
                 opacity: 1
             });
@@ -489,7 +489,7 @@
     		$( "path[fill='"+selectedLGAColors[1]+"']" ).attr("fill","#ffffff").attr("stroke-opacity","0.5").attr("stroke-width","1");
     		this.setStyle({
                 fillColor:selectedLGAColors[1],
-                fillOpacity: 0.3,
+                fillOpacity: 0.4,
                 weight:2,
                 opacity: 1
             });
@@ -545,7 +545,6 @@
 	    		setSelectedLGATable(selectedLGA,crimeMajorArr,crimeCountArr,selectedLGAButtonIndex);
 	    		
 	    		for(var i=0;i< crimeCountArr.length;i++){
-	    			console.log(i);
 	    			var crimeCount = crimeCountArr[i];
 	    			var crimeCountPer100000 = crimeCount/(results[0].lgaerp) * 100000;
 	    			crimeCountArr[i] = Math.round(crimeCountPer100000);
@@ -562,13 +561,15 @@
     	var spider = $('#spiderChart').highcharts();
     	
     	if(selectedLGAButtonIndex == 1){
-    		$(".highcharts-legend-item:first").find("text").html(selectedLGA);
+    		$(".highcharts-legend-item:nth-child(2)").find("text").html(selectedLGA);
     	}else if(selectedLGAButtonIndex == 2){
-    		$(".highcharts-legend-item:last").find("text").html(selectedLGA);
+    		$(".highcharts-legend-item:nth-child(3)").find("text").html(selectedLGA);
     	}
     	
+    	spider.series[selectedLGAButtonIndex].setData(lgaCrimeCountSet[selectedLGAButtonIndex-1]);
+    	spider.series[selectedLGAButtonIndex].name = selectedLGA;
     	
-    	if(spider.series.length < selectedLGAButtonIndex){
+    	/* if((spider.series.length-1) < selectedLGAButtonIndex){
     		var spiderData = {
     	            type: 'line',
     	            fillOpacity: 1,
@@ -578,9 +579,9 @@
    	        }
     		spider.addSeries(spiderData);
     	}else {
-    		spider.series[selectedLGAButtonIndex-1].setData(lgaCrimeCountSet[selectedLGAButtonIndex-1]);
-        	spider.series[selectedLGAButtonIndex-1].name = selectedLGA;
-    	}
+    		spider.series[selectedLGAButtonIndex].setData(lgaCrimeCountSet[selectedLGAButtonIndex-1]);
+        	spider.series[selectedLGAButtonIndex].name = selectedLGA;
+    	} */
 	}
     
     // set lga table with crime data
@@ -598,10 +599,10 @@
 		if($(this).hasClass("first-lga-tip")){
 			$(this).css({
 				"background":"#006872",
-				"color":"white"
+				"color":"#f1f1f1"
 			});
 			$(".second-lga-tip").css({
-				"background":"white",
+				"background":"#f1f1f1",
 				"color":"black"
 			});
 			selectedLGAButtonIndex = 1;
@@ -609,10 +610,10 @@
 		}else if($(this).hasClass("second-lga-tip")){
 			$(this).css({
 				"background":"#006872",
-				"color":"white"
+				"color":"#f1f1f1"
 			});
 			$(".first-lga-tip").css({
-				"background":"white",
+				"background":"#f1f1f1",
 				"color":"black"
 			});
 			selectedLGAButtonIndex = 2;
@@ -657,13 +658,12 @@
 
             yAxis: {
                 gridLineInterpolation: 'polygon',
-                lineWidth: 0,
                 min: 0
             },
 
             tooltip: {
                 shared: true,
-                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,0f}</b> offences per 100,000 population<br/>'
+                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y}</b> offences per 100,000 population<br/>'
             },
 
             plotOptions: {
@@ -677,21 +677,43 @@
             legend: {
                 align: 'bottom',
                 verticalAlign: 'top',
-                layout: 'vertical'
+                layout: 'vertical',
+                y: 30
             },
 
-            series: [{
-                type: 'line',
-                fillOpacity: 1,
-                color: '#7cb5ec',
-                name: 'LGA1',
-                data: [5, 5, 5, 5, 5, 5]
-            }]
+        
+			series : [ {
+						type : 'line',
+						fillOpacity : 0.5,
+						color : '#FF0000',
+						name : 'Average Offence for entire VIC',
+						data : [0,0,0,0,0,0]
+					}, {
+						type : 'line',
+						fillOpacity : 1,
+						color : selectedLGAColors[0],
+						name : 'LGA1',
+						data : [0,0,0,0,0,0]
+					}, {
+						type : 'line',
+						fillOpacity : 1,
+						color : selectedLGAColors[1],
+						name : 'LGA2',
+						data : [0,0,0,0,0,0]
+					} ]
 
-        };
-    $('#spiderChart').highcharts(spiderOptions);
+		};
+		$('#spiderChart').highcharts(spiderOptions);
 
-})(jQuery);
+		$.getJSON("getVicAvgCrimeData", function(results) {
+			var vicAvgSet = [];
+			for (var i = 0; i < results.length; i++) {
+				vicAvgSet.push(results[i][0]);
+			}
+			var spider = $('#spiderChart').highcharts();
+			spider.series[0].setData(vicAvgSet);
+		});
+	})(jQuery);
 </script>
   
 </body>
