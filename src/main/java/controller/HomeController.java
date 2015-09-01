@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import entity.CrimeByLocation;
 import entity.LGA;
 import entity.Person;
+import service.AmbulanceRespService;
 import service.CrimeByLocationService;
 import service.CrimeMajorCateService;
 import service.CrimeSubCateService;
 import service.LGAService;
 import service.LgaPopulationService;
 import service.PersonService;
+import service.PoliceStationService;
 
 @Controller
 @RequestMapping("/")
@@ -38,6 +40,10 @@ public class HomeController {
 	private LgaPopulationService lgaPopuSvc;
 	@Autowired
 	private CrimeByLocationService CrimeByLocSvc;
+	@Autowired
+	private AmbulanceRespService ambulanceRespSvc;
+	@Autowired
+	private PoliceStationService policeStaSvc;
 
 	/**
 	 * List all testing service methods
@@ -85,6 +91,21 @@ public class HomeController {
 //		System.out.println("testMethods---crimeByLocation---"+CrimeByLocSvc.searchByLGAERP("122983").get(0).getId());
 //		System.out.println("testMethods---crimeByLocation---"+CrimeByLocSvc.searchByVICERP("5537817").get(0).getId());
 		
+//		System.out.println("testMethods---ambulanceResponse---" + ambulanceRespSvc.getAll().size());
+//		System.out.println("testMethods---ambulanceResponse---" + ambulanceRespSvc.searchByLgaId(1).get(0).getLgaName());
+//		System.out.println("testMethods---ambulanceResponse---" + ambulanceRespSvc.searchByLgaName("Alpine").get(0).getLgaId());
+//		System.out.println("testMethods---ambulanceResponse---" + ambulanceRespSvc.searchByYear("2014").get(0).getLgaId());
+//		System.out.println("testMethods---ambulanceResponse---" + ambulanceRespSvc.searchByLgaIdAndYear(1, "2014").get(0).getLgaName());
+//		System.out.println("testMethods---ambulanceResponse---" + ambulanceRespSvc.searchByLgaNameAndYear("Ararat", "2014").get(0).getAvgResponseTime());
+//		
+//		System.out.println("testMethods---policeStation---" + policeStaSvc.getAll().size());
+//		System.out.println("testMethods---policeStation---" + policeStaSvc.searchByLga("MURRINDINDI").get(0).getStationName());
+//		System.out.println("testMethods---policeStation---" + policeStaSvc.searchByStationId(1).get(0).getStationName());
+//		System.out.println("testMethods---policeStation---" + policeStaSvc.searchByStationName("Alexandra").get(0).getLga());
+//		System.out.println("testMethods---policeStation---" + policeStaSvc.searchBySuburb("ALEXANDRA").get(0).getLga());
+//		System.out.println("testMethods---policeStation---" + policeStaSvc.searchByLat("-37.1886").get(0).getLng());
+//		System.out.println("testMethods---policeStation---" + policeStaSvc.searchByLng("145.708").get(0).getLat());
+//		
 		return "home";
 	}
 
