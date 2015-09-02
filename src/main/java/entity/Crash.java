@@ -23,6 +23,7 @@ public class Crash {
 	
 	private int crashCount;
 	private int score;
+	private int crashTotalCount;
 	private int getId() {
 		return id;
 	}
@@ -69,6 +70,14 @@ public class Crash {
 
 	private void setScore(int score) {
 		this.score = score;
+	}
+
+	private int getCrashTotalCount() {
+		return crashTotalCount;
+	}
+
+	private void setCrashTotalCount(int crashTotalCount) {
+		this.crashTotalCount = crashTotalCount;
 	}
 	
 	
