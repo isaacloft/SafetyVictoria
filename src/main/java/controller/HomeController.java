@@ -14,22 +14,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import entity.CrimeByLocation;
 import entity.LGA;
-import entity.Person;
 import service.AmbulanceRespService;
 import service.CrimeByLocationService;
 import service.CrimeMajorCateService;
 import service.CrimeSubCateService;
 import service.LGAService;
 import service.LgaPopulationService;
-import service.PersonService;
 import service.PoliceStationService;
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
 
-	@Autowired
-	private PersonService personSvc;
 	@Autowired
 	private LGAService lgaSvc;
 	@Autowired
@@ -136,13 +132,4 @@ public class HomeController {
 	    return list;
 	}
 	
-	/**
-	 * POST requests to http://localhost:8080/hello/addPerson goes here. The new
-	 * person data is passed from HTML from and bound into the Person object.
-	 */
-	@RequestMapping(value = "/addPerson", method = RequestMethod.POST)
-	public String addPerson(@ModelAttribute Person person) {
-		personSvc.add(person);
-		return "redirect:/";
-	}
 }

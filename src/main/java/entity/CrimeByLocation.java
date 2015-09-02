@@ -23,6 +23,7 @@ public class CrimeByLocation {
 	private int offenceCount;
 	private String LGAERP; 
 	private String VICERP;
+	private int score;
 	public int getId() {
 		return id;
 	}
@@ -83,6 +84,12 @@ public class CrimeByLocation {
 	}
 	public void setVICERP(String vICERP) {
 		VICERP = vICERP;
+	}
+	private int getScore() {
+		return score;
+	}
+	private void setScore(int score) {
+		this.score = score;
 	}
 	
 	

@@ -16,6 +16,8 @@ public class AmbulanceResponse {
 	private String lgaName;
 	private String avgResponseTime;
 	private String year;
+	private int score;
+	
 	public int getLgaId() {
 		return lgaId;
 	}
@@ -39,6 +41,12 @@ public class AmbulanceResponse {
 	}
 	public void setYear(String year) {
 		this.year = year;
+	}
+	private int getScore() {
+		return score;
+	}
+	private void setScore(int score) {
+		this.score = score;
 	}
 	
 	

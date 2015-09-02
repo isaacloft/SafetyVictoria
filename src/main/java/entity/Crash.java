@@ -22,7 +22,7 @@ public class Crash {
 	private String lgaNameAll;
 	
 	private int crashCount;
-
+	private int score;
 	private int getId() {
 		return id;
 	}
@@ -61,6 +61,14 @@ public class Crash {
 
 	private void setCrashCount(int crashCount) {
 		this.crashCount = crashCount;
+	}
+
+	private int getScore() {
+		return score;
+	}
+
+	private void setScore(int score) {
+		this.score = score;
 	}
 	
 	
