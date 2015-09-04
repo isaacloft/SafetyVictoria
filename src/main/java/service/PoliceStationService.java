@@ -29,14 +29,28 @@ public class PoliceStationService {
 	}
 	
 	/**
-	 * get PoliceStation by Lga
+	 * get PoliceStation by LgaId
 	 * @param lga
 	 * @return
 	 */
 	@Transactional
-	public List<PoliceStation> searchByLga(String lga){
+	public List<PoliceStation> searchByLga(int lgaId){
 		
-		List<PoliceStation> result = em.createQuery("select ps from PoliceStation ps where ps.lga = '"+lga+"'",
+		List<PoliceStation> result = em.createQuery("select ps from PoliceStation ps where ps.lgaId = '"+lgaId+"'",
+				PoliceStation.class).getResultList();
+		
+		return result;
+	}
+	
+	/**
+	 * get PoliceStation by LgaName
+	 * @param lga
+	 * @return
+	 */
+	@Transactional
+	public List<PoliceStation> searchByLga(String lgaName){
+		
+		List<PoliceStation> result = em.createQuery("select ps from PoliceStation ps where ps.lgaName = '"+lgaName+"'",
 				PoliceStation.class).getResultList();
 		
 		return result;

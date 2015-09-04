@@ -107,13 +107,26 @@ public class CrimeByLocationService {
 	}
 	
 	/**
+	 * get CrimeByLocation by LGAID
+	 * @param LGA
+	 * @return
+	 */
+	@Transactional
+	public List<CrimeByLocation> searchByLGAID(int LGAId){
+		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.lgaId = '"+LGAId+"'",
+				CrimeByLocation.class)
+				.getResultList();
+		return result;
+	}
+	
+	/**
 	 * get CrimeByLocation by LGA
 	 * @param LGA
 	 * @return
 	 */
 	@Transactional
-	public List<CrimeByLocation> searchByLGA(String LGA){
-		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.LGA = '"+LGA+"'",
+	public List<CrimeByLocation> searchByLGAName(String LGAName){
+		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.lgaName = '"+LGAName+"'",
 				CrimeByLocation.class)
 				.getResultList();
 		return result;
@@ -127,7 +140,7 @@ public class CrimeByLocationService {
 	 */
 	@Transactional
 	public List<CrimeByLocation> searchByLGAAndYear(int LGA, int year){
-		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.LGA = "+LGA+" "
+		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.lgaId = "+LGA+" "
 				+ "and cbl.year = " + year +" order by cbl.csaOffenceDivision",
 				CrimeByLocation.class)
 				.getResultList();
@@ -135,26 +148,26 @@ public class CrimeByLocationService {
 	}
 	
 	/**
-	 * get CrimeByLocation by csaOffenceDivision
-	 * @param csaOffenceDivision
+	 * get CrimeByLocation by majorCateCode
+	 * @param majorCateCode
 	 * @return
 	 */
 	@Transactional
-	public List<CrimeByLocation> searchByCsaOffenceDivision(String csaOffenceDivision){
-		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.csaOffenceDivision = '"+csaOffenceDivision+"'", 
+	public List<CrimeByLocation> searchByCsaOffenceDivision(String majorCateCode){
+		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.majorCateCode = '"+majorCateCode+"'", 
 				CrimeByLocation.class)
 				.getResultList();
 		return result;
 	}
 	
 	/**
-	 * get CrimeByLocation by csaOffenceSubDivision
-	 * @param csaOffenceSubDivision
+	 * get CrimeByLocation by subCateCode
+	 * @param subCateCode
 	 * @return
 	 */
 	@Transactional
-	public List<CrimeByLocation> searchByCsaOffenceSubDivision(String csaOffenceSubDivision){
-		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.csaOffenceSubDivision = '"+csaOffenceSubDivision+"'",
+	public List<CrimeByLocation> searchByCsaOffenceSubDivision(String subCateCode){
+		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.subCateCode = '"+subCateCode+"'",
 				CrimeByLocation.class)
 				.getResultList();
 		return result;

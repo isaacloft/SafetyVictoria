@@ -15,7 +15,7 @@ public class CrimeMajorCategories {
 	
 	@Id
 	private String code;
-	private String name;
+	private String major_cate_name;
 	
 	public String getCode() {
 		return code;
@@ -23,12 +23,13 @@ public class CrimeMajorCategories {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public String getName() {
-		return name;
+	public String getMajor_cate_name() {
+		return major_cate_name;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setMajor_cate_name(String major_cate_name) {
+		this.major_cate_name = major_cate_name;
 	}
+	
 	
 	
 }

@@ -52,7 +52,7 @@ public class CrimeMajorCateService {
 	@Transactional
 	public List<CrimeMajorCategories> searchByName(String name){
 		
-		List<CrimeMajorCategories> result = em.createQuery("SELECT c FROM CrimeMajorCategories c where c.name = '"+name+"'", 
+		List<CrimeMajorCategories> result = em.createQuery("SELECT c FROM CrimeMajorCategories c where c.majorCateName = '"+name+"'", 
 				CrimeMajorCategories.class)
 				.getResultList();
 		return result;	

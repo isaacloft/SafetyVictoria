@@ -29,7 +29,7 @@ public class CrashService {
 	 */
 	@Transactional
 	public List<Crash> searchByLGAAndYear(int LGA, int year){
-		List<Crash> result= em.createQuery("SELECT c FROM Crash c where c.lgaNameAll = "+LGA+" "
+		List<Crash> result= em.createQuery("SELECT c FROM Crash c where c.lgaName = "+LGA+" "
 				+ "and c.year = " + year +" order by c.accidentType",
 				Crash.class)
 				.getResultList();

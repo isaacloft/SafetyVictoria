@@ -16,14 +16,15 @@ public class Crash {
 	private int id;
 
 	private int year;
-	
+	private int lgaId;
+	private String lgaName;
 	private int accidentType;
-	
-	private String lgaNameAll;
+	private int lgaErp;
 	
 	private int crashCount;
 	private int score;
 	private int crashTotalCount;
+	private int crashCountByPopulation;
 	private int getId() {
 		return id;
 	}
@@ -46,14 +47,6 @@ public class Crash {
 
 	private void setAccidentType(int accidentType) {
 		this.accidentType = accidentType;
-	}
-
-	private String getLgaNameAll() {
-		return lgaNameAll;
-	}
-
-	private void setLgaNameAll(String lgaNameAll) {
-		this.lgaNameAll = lgaNameAll;
 	}
 
 	private int getCrashCount() {
@@ -79,6 +72,39 @@ public class Crash {
 	private void setCrashTotalCount(int crashTotalCount) {
 		this.crashTotalCount = crashTotalCount;
 	}
+
+	public int getLgaId() {
+		return lgaId;
+	}
+
+	public void setLgaId(int lgaId) {
+		this.lgaId = lgaId;
+	}
+
+	public String getLgaName() {
+		return lgaName;
+	}
+
+	public void setLgaName(String lgaName) {
+		this.lgaName = lgaName;
+	}
+
+	public int getLgaErp() {
+		return lgaErp;
+	}
+
+	public void setLgaErp(int lgaErp) {
+		this.lgaErp = lgaErp;
+	}
+
+	public int getCrashCountByPopulation() {
+		return crashCountByPopulation;
+	}
+
+	public void setCrashCountByPopulation(int crashCountByPopulation) {
+		this.crashCountByPopulation = crashCountByPopulation;
+	}
+	
 	
 	
 }

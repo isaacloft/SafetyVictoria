@@ -41,7 +41,7 @@ public class LGAService {
 	 */
 	@Transactional
 	public List<LGA> searchById(int id){
-		List<LGA> result = em.createQuery("SELECT l FROM LGA l WHERE l.id = "+id,LGA.class)
+		List<LGA> result = em.createQuery("SELECT l FROM LGA l WHERE l.lgaId = "+id,LGA.class)
 				.getResultList();
 		return result;
 	}
@@ -53,7 +53,7 @@ public class LGAService {
 	 */
 	@Transactional
 	public LGA searchByLga(String lga){
-		List<LGA> result = em.createQuery("SELECT l FROM LGA l WHERE l.lga like '"+lga+"'",LGA.class)
+		List<LGA> result = em.createQuery("SELECT l FROM LGA l WHERE l.lgaName like '"+lga+"'",LGA.class)
 				.getResultList();
 		if(result.size()>0){
 			return result.get(0);

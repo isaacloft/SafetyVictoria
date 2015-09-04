@@ -14,11 +14,13 @@ public class PoliceStation {
 	@Id
 	private int stationId;
 	private String stationName;
-	private String lga;
+	private int lgaId;
+	private String lgaName;
 	private String suburb;
 	private int postcode;
 	private String lng;
 	private String lat;
+	private int score;
 	
 	public int getStationId() {
 		return stationId;
@@ -32,11 +34,18 @@ public class PoliceStation {
 	public void setStationName(String stationName) {
 		this.stationName = stationName;
 	}
-	public String getLga() {
-		return lga;
+	
+	public int getLgaId() {
+		return lgaId;
 	}
-	public void setLga(String lga) {
-		this.lga = lga;
+	public void setLgaId(int lgaId) {
+		this.lgaId = lgaId;
+	}
+	public String getLgaName() {
+		return lgaName;
+	}
+	public void setLgaName(String lgaName) {
+		this.lgaName = lgaName;
 	}
 	public String getSuburb() {
 		return suburb;
@@ -62,6 +71,13 @@ public class PoliceStation {
 	public void setLat(String lat) {
 		this.lat = lat;
 	}
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
 	
 	
 

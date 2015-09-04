@@ -47,7 +47,7 @@ public class LgaPopulationService {
 	 */
 	@Transactional
 	public List<LgaPopulation> searchByLgaid(int lgaid){
-		List<LgaPopulation> result = em.createQuery("SELECT lp FROM LgaPopulation lp where lp.lgaid = "+lgaid,
+		List<LgaPopulation> result = em.createQuery("SELECT lp FROM LgaPopulation lp where lp.lgaId = "+lgaid,
 				LgaPopulation.class).getResultList();
 		return result;
 	}

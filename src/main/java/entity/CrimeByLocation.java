@@ -17,14 +17,17 @@ public class CrimeByLocation {
 	private int year;
 	private String policeRegion; 
 	private String policeServiceArea; 
-	private String LGA; 
-	private String csaOffenceDivision; 
-	private String csaOffenceSubDivision; 
+	private int lgaId;
+	private String lgaName;
+	private String majorCateCode; 
+	private String subCateCode; 
 	private int offenceCount;
 	private String LGAERP; 
 	private String VICERP;
 	private int score;
 	private int totalOffenceCount;
+	private int offenceCountByPopulation;
+	
 	public int getId() {
 		return id;
 	}
@@ -49,25 +52,7 @@ public class CrimeByLocation {
 	public void setPoliceServiceArea(String policeServiceArea) {
 		this.policeServiceArea = policeServiceArea;
 	}
-	public String getLGA() {
-		return LGA;
-	}
-	public void setLGA(String lGA) {
-		LGA = lGA;
-	}
 	
-	public String getCsaOffenceDivision() {
-		return csaOffenceDivision;
-	}
-	public void setCsaOffenceDivision(String csaOffenceDivision) {
-		this.csaOffenceDivision = csaOffenceDivision;
-	}
-	public String getCsaOffenceSubDivision() {
-		return csaOffenceSubDivision;
-	}
-	public void setCsaOffenceSubDivision(String csaOffenceSubDivision) {
-		this.csaOffenceSubDivision = csaOffenceSubDivision;
-	}
 	public int getOffenceCount() {
 		return offenceCount;
 	}
@@ -86,18 +71,49 @@ public class CrimeByLocation {
 	public void setVICERP(String vICERP) {
 		VICERP = vICERP;
 	}
-	private int getScore() {
+	public int getLgaId() {
+		return lgaId;
+	}
+	public void setLgaId(int lgaId) {
+		this.lgaId = lgaId;
+	}
+	public String getLgaName() {
+		return lgaName;
+	}
+	public void setLgaName(String lgaName) {
+		this.lgaName = lgaName;
+	}
+	public String getMajorCateCode() {
+		return majorCateCode;
+	}
+	public void setMajorCateCode(String majorCateCode) {
+		this.majorCateCode = majorCateCode;
+	}
+	public String getSubCateCode() {
+		return subCateCode;
+	}
+	public void setSubCateCode(String subCateCode) {
+		this.subCateCode = subCateCode;
+	}
+	public int getScore() {
 		return score;
 	}
-	private void setScore(int score) {
+	public void setScore(int score) {
 		this.score = score;
 	}
-	private int getTotalOffenceCount() {
+	public int getTotalOffenceCount() {
 		return totalOffenceCount;
 	}
-	private void setTotalOffenceCount(int totalOffenceCount) {
+	public void setTotalOffenceCount(int totalOffenceCount) {
 		this.totalOffenceCount = totalOffenceCount;
 	}
+	public int getOffenceCountByPopulation() {
+		return offenceCountByPopulation;
+	}
+	public void setOffenceCountByPopulation(int offenceCountByPopulation) {
+		this.offenceCountByPopulation = offenceCountByPopulation;
+	}
+	
 	
 	
 

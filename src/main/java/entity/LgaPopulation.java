@@ -18,7 +18,7 @@ public class LgaPopulation implements Serializable{
 	@Id
 	private int year;
 	@Id
-	private int lgaid;
+	private int lgaId;
 	
 	private int lgaerp;
 	private int vicerp;
@@ -28,11 +28,12 @@ public class LgaPopulation implements Serializable{
 	public void setYear(int year) {
 		this.year = year;
 	}
-	public int getLgaid() {
-		return lgaid;
+	
+	public int getLgaId() {
+		return lgaId;
 	}
-	public void setLgaid(int lgaid) {
-		this.lgaid = lgaid;
+	public void setLgaId(int lgaId) {
+		this.lgaId = lgaId;
 	}
 	public int getLgaerp() {
 		return lgaerp;

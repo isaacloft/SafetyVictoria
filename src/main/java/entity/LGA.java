@@ -13,24 +13,26 @@ public class LGA {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private int lgaId;
 
-	private String lga;
+	private String lgaName;
 
-	public int getId() {
-		return id;
+	public int getLgaId() {
+		return lgaId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setLgaId(int lgaId) {
+		this.lgaId = lgaId;
 	}
 
-	public String getLga() {
-		return lga;
+	public String getLgaName() {
+		return lgaName;
 	}
 
-	public void setLga(String lga) {
-		this.lga = lga;
+	public void setLgaName(String lgaName) {
+		this.lgaName = lgaName;
 	}
+
+	
 
 }
