@@ -180,53 +180,92 @@
     <section id="visualization" class="bg-gray" style="padding-top: 13px;">
         <div class="container" style="width:1240px;">
             <div class="row content-row">
-                <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".2s" style="margin-left:0px;height:640px;width:700px;">
+                <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".2s" style="margin-left:0px;min-height:640px;width:700px;">
                 	<div class="row">
                 		<div id="map1" class="map" style="width: auto;height: 390px;"></div>
-                		<div class="legend-tips" style="display: block;" id="map1-legend-tips">Tips: Click map to select 1st Local Government Areas</div>
+                		<div class="legend-tips" style="display: block;" id="map1-legend-tips">
+                				Tips: <br>1. Click the selection button in right bottom&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
+                				<br>2. Click map to select 1st Local Government Areas
+             			</div>
                 		<div class="first-lga-tip lga-select-tips" style="display: block;">1st LGA</div>
                 		<div class="second-lga-tip lga-select-tips" style="display: block;">2nd LGA</div>
                 	</div>
-                	<div class="row" style="margin-right: 15px; margin-left: 15px;">
-	                	<div class="row">
-	                		<div class="col-sm-6"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;">Overall crime offence <br>count by category</h3></div>
+                	<div class="row" id="compare-table-div">
+                		<table id="compare-table" data-select-item-name="radioName1" data-cache="false"></table>
+	                	<!-- <div class="row">
+	                		<div class="col-sm-6"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;" id="compareTableHeader">Overall Ranking Index</h3></div>
+	                		<div class="col-sm-6"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;" id="compareTableHeader">Overall crime offence <br>count by category</h3></div>
 	                		<div class="col-sm-3"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;" id="lga1Name"><span style='margin-left:25px;'>-</span></h3></div>
 	                		<div class="col-sm-3"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;" id="lga2Name"><span style='margin-left:25px;'>-</span></h3></div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-6">A Crimes against the person</div>
-	                		<div class="col-sm-3 " id="lga1CrimeA"><span style='margin-left:25px;'>-</span></div>
-	                		<div class="col-sm-3 " id="lga2CrimeA"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-6">Population</div>
+	                		<div class="col-sm-3 " id="lga1Level1Pop"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-3 " id="lga2Level1Pop"><span style='margin-left:25px;'>-</span></div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-6 ">B Property and deception offences</div>
-	                		<div class="col-sm-3 " id="lga1CrimeB"><span style='margin-left:25px;'>-</span></div>
-	                		<div class="col-sm-3 " id="lga2CrimeB"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-6">Crime number</div>
+	                		<div class="col-sm-3 " id="lga1Level1Cat1"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-3 " id="lga2Level1Cat1"><span style='margin-left:25px;'>-</span></div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-6 ">C Drug offences</div>
-	                		<div class="col-sm-3 " id="lga1CrimeC"><span style='margin-left:25px;'>-</span></div>
-	                		<div class="col-sm-3 " id="lga2CrimeC"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-6 ">Crash number</div>
+	                		<div class="col-sm-3 " id="lga1Level1Cat2"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-3 " id="lga2Level1Cat2"><span style='margin-left:25px;'>-</span></div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-6 ">D Public order and security offences</div>
-	                		<div class="col-sm-3 " id="lga1CrimeD"><span style='margin-left:25px;'>-</span></div>
-	                		<div class="col-sm-3 " id="lga2CrimeD"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-6 ">Ambulance response time</div>
+	                		<div class="col-sm-3 " id="lga1Level1Cat3"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-3 " id="lga2Level1Cat3"><span style='margin-left:25px;'>-</span></div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-6 ">E Justice procedures offences</div>
-	                		<div class="col-sm-3 " id="lga1CrimeE"><span style='margin-left:25px;'>-</span></div>
-	                		<div class="col-sm-3 " id="lga2CrimeE"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-6 ">Fire brigade number</div>
+	                		<div class="col-sm-3 " id="lga1Level1Cat4"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-3 " id="lga2Level1Cat4"><span style='margin-left:25px;'>-</span></div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-6 ">F Other offences</div>
-	                		<div class="col-sm-3 " id="lga1CrimeF"><span style='margin-left:25px;'>-</span></div>
-	                		<div class="col-sm-3 " id="lga2CrimeF"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-6 ">Police station number</div>
+	                		<div class="col-sm-3 " id="lga1Level1Cat5"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-3 " id="lga2Level1Cat5"><span style='margin-left:25px;'>-</span></div>
 	                	</div>
+	                	<div class="row">
+	                		<div class="col-sm-6 ">Hospital number</div>
+	                		<div class="col-sm-3 " id="lga1Level1Cat6"><span style='margin-left:25px;'>-</span></div>
+	                		<div class="col-sm-3 " id="lga2Level1Cat6"><span style='margin-left:25px;'>-</span></div>
+	                	</div> -->
                 	</div>
                 </div>
                 <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".4s" style="height:640px;width:530px;">
-                    <div id="spiderChart"></div>
+	                <div class="row">
+	                	<div id="level1Dropdown" class="dropdown col-xs-3" style="z-index: 999;">
+						  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    <span id="level1SelectedItem" title="level1All">All Category</span>
+						    <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" style="margin-left: 15px;" aria-labelledby="dropdownMenu1">
+						    <li><a name="level1All">All Category</a></li>
+						    <li><a name="level1Crime">Crime</a></li>
+						    <li><a name="level1Accident">Accident</a></li>
+						  </ul>
+						</div>
+						<div id="level2Dropdown" class="dropdown col-xs-3" style="z-index: 998;">
+						  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    <span id="level2SelectedItem" title="level2All">All sub-category</span>
+						    <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" style="margin-left: 15px;" aria-labelledby="dropdownMenu2">
+						    <li><a name="level2All">All sub-category</a></li>
+						    <li><a name="level2A">A Crimes against the person</a></li>
+						    <li><a name="level2B">B Property and deception offences</a></li>
+						    <li><a name="level2C">C Drug offences</a></li>
+						    <li><a name="level2D">D Public order and security offences</a></li>
+						    <li><a name="level2E">E Justice procedures offences</a></li>
+						    <li><a name="level2F">F Other offences</a></li>
+						  </ul>
+						</div>
+	                    <div id="spiderChart" style="margin-top: -70px;">
+	                    </div>
+	                </div>
                 </div>
             </div>
         </div>
@@ -376,9 +415,37 @@
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/highcharts-more.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
+
+<!-- Latest compiled and minified Locales -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-zh-CN.min.js"></script>
 <script>
 (function ($) {
-	
+	/* $("#compare-table").find("div:gt(3)").remove();
+	$("#compare-table").append( 
+			"<div class='row'>"+
+	    		"<div class='col-sm-6'>A Crimes against the person</div>"+
+	    		"<div class='col-sm-3' id='lga1CrimeA'><span style='margin-left:25px;'>-</span></div>"+
+	    		"<div class='col-sm-3' id='lga2CrimeA'><span style='margin-left:25px;'>-</span></div>"+
+    		"</div>" ); */
+    		
+ 		$("#level2Dropdown").hide(); 
+    		
+	$(".dropdown-menu li a").click(function(){
+	      $(this).parent().parent().parent().children().first().children().first().html($(this).text());
+	      $(this).parent().parent().parent().children().first().children().first().attr('title', $(this)[0].name);
+	      if($(this)[0].name == 'level1Crime'){
+	    	  $("#level2Dropdown").show(); 
+	      }else{
+	    	  $("#level2Dropdown").hide(); 
+	      }
+	   });
+    		
 	// Topojson method use to parse topojson file
 	L.TopoJSON = L.GeoJSON.extend({
 	    addData: function(jsonData) {
@@ -503,10 +570,87 @@
     var lgaDataSet = [];
     var lgaCrimeCountSet = [];
     
+    /* var cateList = ['level1All','level1Crime','level1Accident','level2CrimeAll','level2CrimeA']; */
+    
+    /* var resultJson = JSON.parse(data);
+    for(var i=0;i<resultJson.length;i++){
+        var tableData = [];
+        for(var j=0; j< resultJson[i].index_detail_option.length;j++){
+            tableData.push({
+                id: resultJson[i].index_detail_option[j].id,
+                option_id: resultJson[i].index_detail_option[j].id,
+                name: resultJson[i].index_detail_option[j].index_detail_option_desc
+            });
+        }
+        $('#survey-table'+(i+1)).bootstrapTable({
+            columns: [{
+                field: 'id',
+                radio: true
+            }, {
+                field: 'name',
+                title: '('+(i+1)+'/'+5+') Q'+(i+1)+': ' + resultJson[i].index_detail.index_detail_name
+            }],
+            data: tableData
+        });
+    } */
+    //compare-table
+    
+    var tableData = [];
+    
+    $('#compare-table').bootstrapTable({
+        columns: [{
+            field: 'rowTitle',
+            title: 'Overall Ranking Index'
+        }, {
+            field: 'lga1Name',
+            title: 'First LGA'
+        }, {
+            field: 'lga2Name',
+            title: 'Second LGA'
+        }],
+        data: [{
+        	rowTitle: 'Population',
+        	lga1Name: '-',
+        	lga2Name: '-'
+        },{
+        	rowTitle: 'Crime number',
+        	lga1Name: '-',
+        	lga2Name: '-'
+        },{
+        	rowTitle: 'Accident number',
+        	lga1Name: '-',
+        	lga2Name: '-'
+        },{
+        	rowTitle: 'Ambulance response time',
+        	lga1Name: '-',
+        	lga2Name: '-'
+        },{
+        	rowTitle: 'Fire brigade number',
+        	lga1Name: '-',
+        	lga2Name: '-'
+        },{
+        	rowTitle: 'Police station number',
+        	lga1Name: '-',
+        	lga2Name: '-'
+        },{
+        	rowTitle: 'Hospital number',
+        	lga1Name: '-',
+        	lga2Name: '-'
+        }]
+    });
+    
+    
+    
     // AJAX invoke to get lga crime data from backend 
     function getSelectedLGACrime(selectedLGA, selectedLGAButtonIndex){
-    	selectedLGA = selectedLGA.replace("SHIRE", "").replace("CITY", "").trim();
-    	$.getJSON("getSelectedLGACrime", { selectedLGA: selectedLGA }, function(results) {
+    	selectedLGA = selectedLGA.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim();
+    	console.log($("#compare-table thead tr:nth-child(1) .th-inner:eq(0)").html("aaaa"));
+    	console.log($("#compare-table thead tr:nth-child(1) .th-inner:eq(1)").html("bbbb"));
+    	console.log($("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").html("cccc"));
+    	console.log($("#compare-table tbody tr:nth-child(1) td:eq(0)").html("eee"));
+    	console.log($("#compare-table tbody tr:nth-child(2) td:eq(2)").html("fff"));
+    	
+    	$.getJSON("getSelectedLGACrime", { selectedLGA: selectedLGA, display: "" }, function(results) {
     		
     		lgaDataSet[selectedLGAButtonIndex-1] = results;
     		
@@ -606,7 +750,7 @@
 				"color":"black"
 			});
 			selectedLGAButtonIndex = 1;
-			$("#map1-legend-tips").html("Tips: Click map to select 1st Local Government Areas");
+			$("#map1-legend-tips").html('Tips: <br>1. Click the selection button in right bottom&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i><br>2. Click map to select 1st Local Government Areas');
 		}else if($(this).hasClass("second-lga-tip")){
 			$(this).css({
 				"background":"#006872",
@@ -617,7 +761,7 @@
 				"color":"black"
 			});
 			selectedLGAButtonIndex = 2;
-			$("#map1-legend-tips").html("Tips: Click map to select 2nd Local Government Areas");
+			$("#map1-legend-tips").html('Tips: <br>1. Click the selection button in right bottom&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i><br>2. Click map to select 2nd Local Government Areas');
 		}
     });
     
@@ -625,12 +769,13 @@
     var spiderOptions = {
             chart: {
                 height: 600,
+                marginTop: -50,
                 polar: true,
                 type: 'line'
             },
 
             title: {
-                text: 'Crime Index'
+                text: 'Overall Ranking Index'
             },
 
             pane: {
@@ -649,9 +794,11 @@
                 labels: {
                     align: 'center'
                 },
-                categories: ['A Crimes against the person','B Property and deception offences',
+                /* categories: ['A Crimes against the person','B Property and deception offences',
                              'C Drug offences','D Public order and security offences',
-                             'E Justice procedures offences','F Other offences'],
+                             'E Justice procedures offences','F Other offences'], */
+                categories: ['Crime index', 'Accident index', 'Ambulance response time index', 
+                             'Fire brigade index', 'Police station index', 'Hospital index'],             
                 tickmarkPlacement: 'on',
                 lineWidth: 0
             },
@@ -663,7 +810,7 @@
 
             tooltip: {
                 shared: true,
-                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y}</b> offences per 100,000 population<br/>'
+                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y}</b> offences/100,000 population<br/>'
             },
 
             plotOptions: {
@@ -678,7 +825,7 @@
                 align: 'bottom',
                 verticalAlign: 'top',
                 layout: 'vertical',
-                y: 30
+                y: 5
             },
 
         
@@ -686,7 +833,7 @@
 						type : 'line',
 						fillOpacity : 0.5,
 						color : '#FF0000',
-						name : 'Average Offence for entire VIC',
+						name : 'Average for VIC',
 						data : [0,0,0,0,0,0]
 					}, {
 						type : 'line',
@@ -705,14 +852,14 @@
 		};
 		$('#spiderChart').highcharts(spiderOptions);
 
-		$.getJSON("getVicAvgCrimeData", function(results) {
+		/* $.getJSON("getVicAvgCrimeData", function(results) {
 			var vicAvgSet = [];
 			for (var i = 0; i < results.length; i++) {
 				vicAvgSet.push(results[i][0]);
 			}
 			var spider = $('#spiderChart').highcharts();
 			spider.series[0].setData(vicAvgSet);
-		});
+		}); */
 	})(jQuery);
 </script>
   

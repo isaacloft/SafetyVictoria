@@ -26,6 +26,7 @@ import service.PoliceStationService;
 @RequestMapping("/")
 public class HomeController {
 
+	public static int YEAR = 2015;
 	@Autowired
 	private LGAService lgaSvc;
 	@Autowired
@@ -106,13 +107,13 @@ public class HomeController {
 	}
 
 	/**
-	 * Get crime data by seleted LGA
+	 * Get crime data by total LGA in year 2015
 	 * @param selectedLGA
 	 * @return
 	 */
 	@RequestMapping(value="getVicAvgCrimeData", method=RequestMethod.GET)
 	public @ResponseBody List<Object[]> getVicAvgCrimeData() {
-		List<Object[]> list = CrimeByLocSvc.searchTotalVicAvgByYear(2015);
+		List<Object[]> list = CrimeByLocSvc.searchTotalVicAvgByYear(YEAR);
 		return list;
 	}
 	
@@ -128,7 +129,7 @@ public class HomeController {
 		if(lga == null){
 			return list;
 		}
-		list = CrimeByLocSvc.searchByLGAAndYear(lga.getId(), 2015);
+		list = CrimeByLocSvc.searchByLGAAndYear(lga.getLgaId(), YEAR);
 	    return list;
 	}
 	

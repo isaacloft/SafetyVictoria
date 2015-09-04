@@ -9,8 +9,9 @@ div.section-border {
 
 .legend-tips {
     position: absolute;
-    top: 0.5em;
-    left: 0.5em;
+    width: 310px;
+    top: 25em;
+    left: 0.4em;
     z-index: 6;
     background: #006872;
     color: white;
@@ -24,7 +25,7 @@ div.section-border {
     border-style: solid;
     border-width: thin;
     position: absolute;
-    top: 26.9em;
+    top: 26.7em;
     right: 20.5em;
     z-index: 6;
     background: #006872;
@@ -39,7 +40,7 @@ div.section-border {
     border-style: solid;
     border-width: thin;
     position: absolute;
-    top: 26.9em;
+    top: 26.7em;
     right: 7.2em;
     z-index: 6;
     background: #f1f1f1;
