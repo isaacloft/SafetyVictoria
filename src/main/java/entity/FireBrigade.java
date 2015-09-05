@@ -21,6 +21,10 @@ public class FireBrigade {
 	
 	private int lgaId;
 	
+	private double noByPopulation;
+	
+	private int score;
+	
 	private String type;
 	
 	private String subtype;
@@ -35,85 +39,102 @@ public class FireBrigade {
 	
 	private String lng;
 
-	private int getId() {
+	public int getId() {
 		return id;
 	}
 
-	private void setId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	private String getLgaName() {
+	public String getLgaName() {
 		return lgaName;
 	}
 
-	private void setLgaName(String lgaName) {
+	public void setLgaName(String lgaName) {
 		this.lgaName = lgaName;
 	}
 
-	private int getLgaId() {
+	public int getLgaId() {
 		return lgaId;
 	}
 
-	private void setLgaId(int lgaId) {
+	public void setLgaId(int lgaId) {
 		this.lgaId = lgaId;
 	}
 
-	private String getType() {
+	public double getNoByPopulation() {
+		return noByPopulation;
+	}
+
+	public void setNoByPopulation(double noByPopulation) {
+		this.noByPopulation = noByPopulation;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public String getType() {
 		return type;
 	}
 
-	private void setType(String type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
-	private String getSubtype() {
+	public String getSubtype() {
 		return subtype;
 	}
 
-	private void setSubtype(String subtype) {
+	public void setSubtype(String subtype) {
 		this.subtype = subtype;
 	}
 
-	private int getStationNo() {
+	public int getStationNo() {
 		return stationNo;
 	}
 
-	private void setStationNo(int stationNo) {
+	public void setStationNo(int stationNo) {
 		this.stationNo = stationNo;
 	}
 
-	private String getAddress() {
+	public String getAddress() {
 		return address;
 	}
 
-	private void setAddress(String address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
 
-	private String getFireAppliances() {
+	public String getFireAppliances() {
 		return fireAppliances;
 	}
 
-	private void setFireAppliances(String fireAppliances) {
+	public void setFireAppliances(String fireAppliances) {
 		this.fireAppliances = fireAppliances;
 	}
 
-	private String getLat() {
+	public String getLat() {
 		return lat;
 	}
 
-	private void setLat(String lat) {
+	public void setLat(String lat) {
 		this.lat = lat;
 	}
 
-	private String getLng() {
+	public String getLng() {
 		return lng;
 	}
 
-	private void setLng(String lng) {
+	public void setLng(String lng) {
 		this.lng = lng;
 	}
+
 	
 	
 	

@@ -20,6 +20,7 @@ public class PoliceStation {
 	private int postcode;
 	private String lng;
 	private String lat;
+	private double noByPopulation;
 	private int score;
 	
 	public int getStationId() {
@@ -27,6 +28,12 @@ public class PoliceStation {
 	}
 	public void setStationId(int stationId) {
 		this.stationId = stationId;
+	}
+	public double getNoByPopulation() {
+		return noByPopulation;
+	}
+	public void setNoByPopulation(double noByPopulation) {
+		this.noByPopulation = noByPopulation;
 	}
 	public String getStationName() {
 		return stationName;
