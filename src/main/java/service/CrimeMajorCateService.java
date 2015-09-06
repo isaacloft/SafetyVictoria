@@ -24,7 +24,7 @@ public class CrimeMajorCateService {
 	@Transactional
 	public List<CrimeMajorCategories> getAll(){
 		
-		List<CrimeMajorCategories> result = em.createQuery("SELECT c FROM CrimeMajorCategories c", 
+		List<CrimeMajorCategories> result = em.createQuery("SELECT c FROM CrimeMajorCategories c order by c.code", 
 				CrimeMajorCategories.class)
 				.getResultList();
 		return result;	

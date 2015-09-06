@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import entity.AmbulanceResponse;
 import entity.Crash;
+import entity.CrashAccidentType;
 import entity.CrimeByLocation;
+import entity.CrimeMajorCategories;
 import entity.FireBrigade;
 import entity.Hospital;
 import entity.LGA;
@@ -187,12 +189,19 @@ public class HomeController {
 			
 			return list;
 		}else if(DataSourceEnum.LEVEL1CRIME.getValue().equals(dataSource)){
-			List<CrimeByLocation> crimeList = crimeByLocSvc.searchByLGAAndYear(selectedLGA, YEAR);
+			List<Object[]> resultList =  crimeByLocSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA);
+			List<CrimeMajorCategories> majorTypeList = crimeMajorSvc.getAll();
 			List<Object> lgaTableData = new ArrayList<Object>();
 			List<Object> lgaSpiderData = new ArrayList<Object>();
-			for(CrimeByLocation crime:crimeList){
-				lgaTableData.add(crime.getTotalOffenceCount());
-				lgaSpiderData.add(crime.getOffenceCountByPopulation());
+			for(int i=0;i<resultList.size();i++){
+				if(majorTypeList.get(i).getCode().equals(resultList.get(i)[2].toString())){
+					lgaSpiderData.add(resultList.get(i)[0]);
+					lgaTableData.add(resultList.get(i)[1]);
+				}else{
+					i--;
+					lgaSpiderData.add(0);
+					lgaTableData.add(0);
+				}
 			}
 			
 			List<List<Object>> list = new ArrayList<List<Object>>();
@@ -202,12 +211,19 @@ public class HomeController {
 			return list;
 			
 		}else if(DataSourceEnum.LEVEL1ACCIDENT.getValue().equals(dataSource)){
-			List<Crash> crashList = crashSvc.searchByLGAAndYear(selectedLGA, YEAR);
+			List<Object[]> resultList =  crashSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA);
+			List<CrashAccidentType> crashTypeList = crashTypeSvc.getAll();
 			List<Object> lgaTableData = new ArrayList<Object>();
 			List<Object> lgaSpiderData = new ArrayList<Object>();
-			for(Crash crash:crashList){
-				lgaTableData.add(crash.getCrashTotalCount());
-				lgaSpiderData.add(crash.getCrashCountByPopulation());
+			for(int i=0;i<resultList.size();i++){
+				if(crashTypeList.get(i).getId() == Integer.parseInt(resultList.get(i)[2].toString())){
+					lgaSpiderData.add(resultList.get(i)[0]);
+					lgaTableData.add(resultList.get(i)[1]);
+				}else{
+					i--;
+					lgaSpiderData.add(0);
+					lgaTableData.add(0);
+				}
 			}
 			
 			List<List<Object>> list = new ArrayList<List<Object>>();

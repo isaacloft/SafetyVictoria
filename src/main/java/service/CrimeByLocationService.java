@@ -63,10 +63,33 @@ public class CrimeByLocationService {
 	 */
 	@Transactional
 	public List<Object[]> searchTotalVicAvgByYear(int year){
+//		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.year = ' "+year+"'", 
+//				CrimeByLocation.class)
+//				.getResultList();
 		int vicPopulation = searchTotalVicPopulationByYear(year);
 		List<Object[]> result = em.createNativeQuery("SELECT CONVERT((sum(c.offence_count)*100000)/"+vicPopulation+", SIGNED INTEGER) as avgCount,"
 				+ "sum(c.offence_count) as totalCount, c.major_cate_code as majorCate "
 				+ "FROM crime_by_location c where c.year='" + year + "' "
+				+ "group by c.major_cate_code "
+				+ "order by c.major_cate_code").getResultList();
+		for(Object[] record: result){
+//			System.out.println("avgcount:"+record[0]);
+//			System.out.println("totalCount"+record[1]);
+//			System.out.println("majorCate"+record[2]);
+		}
+		return result;
+	}
+	
+	/**
+	 * get crime count per 100000 people by year and lganame
+	 * @param year
+	 * @return
+	 */
+	@Transactional
+	public List<Object[]> searchCountByPopByYearAndLga(int year, String lgaName){
+		List<Object[]> result = em.createNativeQuery("SELECT CONVERT((sum(c.offence_count)*100000)/c.lgaerp, SIGNED INTEGER) as cateCountByPop,"
+				+ "sum(c.offence_count) as totalCateCount, c.major_cate_code as majorCate "
+				+ "FROM crime_by_location c where c.year='" + year + "' and lga_name='"+lgaName+"' " 
 				+ "group by c.major_cate_code "
 				+ "order by c.major_cate_code").getResultList();
 		return result;

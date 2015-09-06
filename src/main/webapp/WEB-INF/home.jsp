@@ -868,7 +868,7 @@
     		for(var i=0;i<results[0].length;i++){
     			$("#compare-table tbody tr:nth-child("+(i+1)+") td:eq("+selectedLGAButtonIndex+") div").html(results[0][i]);
     		}
-    		updateSpiderChart(selectedLGA, selectedLGAButtonIndex, results[1]);
+    		updateSpiderChart(selectedLGA, selectedLGAButtonIndex, results[1], dataSource);
     		return;
     		/* lgaDataSet[selectedLGAButtonIndex-1] = results;
     		
@@ -918,14 +918,20 @@
     }
     
     // after the crime data updated in table, then update the spider chart
-    function updateSpiderChart(selectedLGA, selectedLGAButtonIndex, dataset){
+    function updateSpiderChart(selectedLGA, selectedLGAButtonIndex, dataset, dataSource){
     	
     	var spider = $('#spiderChart').highcharts();
     	
-   		$(".highcharts-legend-item:nth-child("+selectedLGAButtonIndex+")").find("text").html(selectedLGA);
-    	
-    	spider.series[selectedLGAButtonIndex-1].setData(dataset);
-    	spider.series[selectedLGAButtonIndex-1].name = selectedLGA;
+    	console.log("updateSpiderChart:"+dataSource);
+   		if(dataSource == "level1All"){
+   			$(".highcharts-legend-item:nth-child("+selectedLGAButtonIndex+")").find("text").html(selectedLGA);
+   			spider.series[selectedLGAButtonIndex-1].setData(dataset);
+   	    	spider.series[selectedLGAButtonIndex-1].name = selectedLGA;
+   		}else if(dataSource == "level1Crime" || dataSource == "level1Accident"){
+   			$(".highcharts-legend-item:nth-child("+(selectedLGAButtonIndex+1)+")").find("text").html(selectedLGA);
+   			spider.series[selectedLGAButtonIndex].setData(dataset);
+   	    	spider.series[selectedLGAButtonIndex].name = selectedLGA;
+   		}
     	
 	}
     

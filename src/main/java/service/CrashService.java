@@ -51,4 +51,18 @@ public class CrashService {
 		return result;
 	}
 	
+	/**
+	 * get crime count per 100000 people by year and lganame
+	 * @param year
+	 * @return
+	 */
+	@Transactional
+	public List<Object[]> searchCountByPopByYearAndLga(int year, String lgaName){
+		List<Object[]> result = em.createNativeQuery("SELECT CONVERT((sum(c.crash_count)*100000)/c.lga_erp, SIGNED INTEGER) as cateCountByPop,"
+				+ "sum(c.crash_count) as totalCateCount, c.accident_type as majorCate "
+				+ "FROM crash_data c where c.year='" + year + "' and lga_name='"+lgaName+"' " 
+				+ "group by c.accident_type "
+				+ "order by c.accident_type").getResultList();
+		return result;
+	}
 }

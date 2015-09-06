@@ -30,7 +30,8 @@ public class CrashAccidentTypeService {
 	// call rollback()
 	@Transactional
 	public List<CrashAccidentType> getAll() {
-		List<CrashAccidentType> result = em.createQuery("SELECT c FROM CrashAccidentType c", CrashAccidentType.class)
+		List<CrashAccidentType> result = em.createQuery("SELECT c FROM CrashAccidentType c order by c.id", 
+				CrashAccidentType.class)
 				.getResultList();
 		return result;
 	}
