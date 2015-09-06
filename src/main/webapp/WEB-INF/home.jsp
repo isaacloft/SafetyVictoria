@@ -452,7 +452,7 @@
 	function changeTableAndSpider(dataSource){
 		var lga1Header = $("#compare-table thead tr:nth-child(1) .th-inner:eq(1)").html();
 		var lga2Header = $("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").html();
-		var selectedLGA = "";
+		/* var selectedLGA = "";
 		if(lga1Header == "First LGA" && lga2Header == "Second LGA"){
 			selectedLGA = "00";
 		}else if(lga1Header != "First LGA" && lga2Header == "Second LGA"){
@@ -461,135 +461,142 @@
 			selectedLGA = "01";
 		}else if(lga1Header != "First LGA" && lga2Header != "Second LGA"){
 			selectedLGA = "11";
-		}
+		} */
 		$("#compare-table-div").empty();
         $("#compare-table-div").html('<table id="compare-table" data-select-item-name="radioName1" data-cache="false"></table>');
       	//level1All level1Crime level1Accident level2All level2A level2B level2C level2D level2E level2F
         if(dataSource == "level1All"){
-        	var tableHead = [{
-	            field: 'rowTitle',
-	            title: 'Overall Statistic Data'
-	        }, {
-	            field: 'lga1Name',
-	            title: lga1Header,
-	            formatter: lga1Formatter
-	        }, {
-	            field: 'lga2Name',
-	            title: lga2Header,
-	            formatter: lga2Formatter
-	        }];
         	
-        	var lga1TableData = ['-','-','-','-','-','-','-'];
-    		var lga2TableData = ['-','-','-','-','-','-','-'];
-    		var rowTitleData = ['Population','Crime number','Accident number',
-    		                    'Ambulance response time','Fire brigade number',
-    		                    'Police station number','Hospital number'];
-    		var tableData = [];
-    		for(var i=0;i<rowTitleData.length;i++){
-    			tableData.push({
-    				rowTitle: rowTitleData[i],
-    	        	lga1Name: lga1TableData[i],
-    	        	lga2Name: lga2TableData[i]
-    			});
-    		}
+        	$.getJSON("getLgaTableDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
+				
+	        	var tableHead = [{
+		            field: 'rowTitle',
+		            title: 'Overall Statistic Data'
+		        }, {
+		            field: 'lga1Name',
+		            title: lga1Header,
+		            formatter: lga1Formatter
+		        }, {
+		            field: 'lga2Name',
+		            title: lga2Header,
+		            formatter: lga2Formatter
+		        }];
+	        	
+	        	var lga1TableData = results[0];
+	    		var lga2TableData = results[1];
+	    		var rowTitleData = ['Population','Crime number','Accident number',
+	    		                    'Ambulance response time','Fire brigade number',
+	    		                    'Police station number','Hospital number'];
+	    		var tableData = [];
+	    		for(var i=0;i<rowTitleData.length;i++){
+	    			tableData.push({
+	    				rowTitle: rowTitleData[i],
+	    	        	lga1Name: lga1TableData[i],
+	    	        	lga2Name: lga2TableData[i]
+	    			});
+	    		}
+	    		
+	    		createTable(tableHead, tableData);
+        	}); 
     		
-    		createTable(tableHead, tableData);
-    		changeSpider(dataSource, rowTitleData);
+    		changeSpider(dataSource, rowTitleData, lga1Header, lga2Header);
         	
         }else if(dataSource == "level1Crime"){
-        	var tableHead = [{
-	            field: 'rowTitle',
-	            title: 'Crime Statistic Data'
-	        }, {
-	        	field: 'lga1Name',
-	            title: lga1Header,
-	            formatter: lga1Formatter
-	        }, {
-	            field: 'lga2Name',
-	            title: lga2Header,
-	            formatter: lga2Formatter
-	        }];
+        	$.getJSON("getLgaTableDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
+	        	var tableHead = [{
+		            field: 'rowTitle',
+		            title: 'Crime Statistic Data'
+		        }, {
+		        	field: 'lga1Name',
+		            title: lga1Header,
+		            formatter: lga1Formatter
+		        }, {
+		            field: 'lga2Name',
+		            title: lga2Header,
+		            formatter: lga2Formatter
+		        }];
+	        	
+	        	var lga1TableData = results[0];
+	    		var lga2TableData = results[1];
+	    		var rowTitleData = ['A Crimes against the person','B Property and deception offences',
+	    		                    'C Drug offences','D Public order and security offences',
+	    		                    'E Justice procedures offences','F Other offences'];
+	    		var tableData = [];
+	    		for(var i=0;i<rowTitleData.length;i++){
+	    			tableData.push({
+	    				rowTitle: rowTitleData[i],
+	    	        	lga1Name: lga1TableData[i],
+	    	        	lga2Name: lga2TableData[i]
+	    			});
+	    		}
+	        	createTable(tableHead, tableData);
+        	});
         	
-        	var lga1TableData = ['-','-','-','-','-','-'];
-    		var lga2TableData = ['-','-','-','-','-','-'];
-    		var rowTitleData = ['A Crimes against the person','B Property and deception offences',
-    		                    'C Drug offences','D Public order and security offences',
-    		                    'E Justice procedures offences','F Other offences'];
-    		var tableData = [];
-    		for(var i=0;i<rowTitleData.length;i++){
-    			tableData.push({
-    				rowTitle: rowTitleData[i],
-    	        	lga1Name: lga1TableData[i],
-    	        	lga2Name: lga2TableData[i]
-    			});
-    		}
-        	createTable(tableHead, tableData);
-        	changeSpider(dataSource, rowTitleData);
+        	changeSpider(dataSource, rowTitleData, lga1Header, lga2Header);
         	
         }else if(dataSource == "level1Accident"){
-        	var tableHead = [{
-	            field: 'rowTitle',
-	            title: 'Accident Statistic Data'
-	        }, {
-	        	field: 'lga1Name',
-	            title: lga1Header,
-	            formatter: lga1Formatter
-	        }, {
-	            field: 'lga2Name',
-	            title: lga2Header,
-	            formatter: lga2Formatter
-	        }];
+        	$.getJSON("getLgaTableDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
+	        	var tableHead = [{
+		            field: 'rowTitle',
+		            title: 'Accident Statistic Data'
+		        }, {
+		        	field: 'lga1Name',
+		            title: lga1Header,
+		            formatter: lga1Formatter
+		        }, {
+		            field: 'lga2Name',
+		            title: lga2Header,
+		            formatter: lga2Formatter
+		        }];
+	        	
+	        	var lga1TableData = results[0];
+	    		var lga2TableData = results[1];
+	    		var rowTitleData = ['Collision with a fixed object','Collision with some other object',
+	    		                    'Collision with vehicle','Fall from or in moving vehicle',
+	    		                    'No collision and no object struck','Struck animal',
+	    		                    'Struck Pedestrian','Vehicle overturned (no collision)',
+	    		                    'Other accident'];
+	    		var tableData = [];
+	    		for(var i=0;i<rowTitleData.length;i++){
+	    			tableData.push({
+	    				rowTitle: rowTitleData[i],
+	    	        	lga1Name: lga1TableData[i],
+	    	        	lga2Name: lga2TableData[i]
+	    			});
+	    		}
+	        	createTable(tableHead, tableData);
+        	});
         	
-        	var lga1TableData = ['-','-','-','-','-','-','-','-','-'];
-    		var lga2TableData = ['-','-','-','-','-','-','-','-','-'];
-    		var rowTitleData = ['Collision with a fixed object','Collision with some other object',
-    		                    'Collision with vehicle','Fall from or in moving vehicle',
-    		                    'No collision and no object struck','Struck animal',
-    		                    'Struck Pedestrian','Vehicle overturned (no collision)',
-    		                    'Other accident'];
-    		var tableData = [];
-    		for(var i=0;i<rowTitleData.length;i++){
-    			tableData.push({
-    				rowTitle: rowTitleData[i],
-    	        	lga1Name: lga1TableData[i],
-    	        	lga2Name: lga2TableData[i]
-    			});
-    		}
-        	createTable(tableHead, tableData);
-        	changeSpider(dataSource, rowTitleData);
+        	changeSpider(dataSource, rowTitleData, lga1Header, lga2Header);
         }
 		
 	}
 	
-	function changeSpider(dataSource, categories){
+	function changeSpider(dataSource, categories, lga1Header, lga2Header){
 		if(dataSource == "level1All"){
-			spiderOptions.title.text = 'Overall Ranking Index';
-			spiderOptions.xAxis.categories = ['Crime Safety index', 'Accident Safety index', 'Ambulance response time index', 
-			                                  'Fire brigade index', 'Police station index', 'Hospital index'];
-            spiderOptions.tooltip.pointFormat = '<span style="color:{series.color}">{series.name} Ranking Score: <b>{point.y}</b> <br/>';
-            spiderOptions.series = [{
-				type : 'line',
-				fillOpacity : 1,
-				color : selectedLGAColors[0],
-				name : 'LGA1',
-				data : [0,0,0,0,0,0]
-			}, {
-				type : 'line',
-				fillOpacity : 1,
-				color : selectedLGAColors[1],
-				name : 'LGA2',
-				data : [0,0,0,0,0,0]
-			}];
-			$('#spiderChart').highcharts(spiderOptions);
+			$.getJSON("getLgaSpiderDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) { 
+				spiderOptions.title.text = 'Overall Ranking Index';
+				spiderOptions.xAxis.categories = ['Crime Safety index', 'Accident Safety index', 'Ambulance response time index', 
+				                                  'Fire brigade index', 'Police station index', 'Hospital index'];
+	            spiderOptions.tooltip.pointFormat = '<span style="color:{series.color}">{series.name} Ranking Score: <b>{point.y}</b> <br/>';
+	            spiderOptions.series = [{
+					type : 'line',
+					fillOpacity : 1,
+					color : selectedLGAColors[0],
+					name : 'LGA1',
+					data : results[0]
+				}, {
+					type : 'line',
+					fillOpacity : 1,
+					color : selectedLGAColors[1],
+					name : 'LGA2',
+					data : results[1]
+				}];
+				$('#spiderChart').highcharts(spiderOptions);
+			});
         }else if(dataSource == "level1Crime"){
-        	$.getJSON("getVicAvgCrimeData", function(results) {
-				var vicAvgSet = [];
-				for (var i = 0; i < results.length; i++) {
-					vicAvgSet.push(results[i][0]);
-				}
-				//var spider = $('#spiderChart').highcharts();
-				//spider.series[0].setData(vicAvgSet);
-				
+        	$.getJSON("getLgaSpiderDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
+        		
 				spiderOptions.title.text = 'Crime Data';
 	        	spiderOptions.xAxis.categories = categories;
 	            spiderOptions.tooltip.pointFormat = '<span style="color:{series.color}">{series.name}: <b>{point.y}</b> offences/100,000 population<br/>';
@@ -598,25 +605,25 @@
 					fillOpacity : 1,
 					color : '#ff0000',
 					name : 'Average for VIC',
-					data : vicAvgSet
+					data : results[0]
 				},{
 					type : 'line',
 					fillOpacity : 1,
 					color : selectedLGAColors[0],
 					name : 'LGA1',
-					data : [0,0,0,0,0,0]
+					data : results[1]
 				}, {
 					type : 'line',
 					fillOpacity : 1,
 					color : selectedLGAColors[1],
 					name : 'LGA2',
-					data : [0,0,0,0,0,0]
+					data : results[2]
 				}];
 	    		$('#spiderChart').highcharts(spiderOptions);
 			}); 
         	
         }else if(dataSource == "level1Accident"){
-        	$.getJSON("getVicAvgCrashData", function(results) {
+        	$.getJSON("getLgaSpiderDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
 				var vicAvgSet = [];
 				for (var i = 0; i < results.length; i++) {
 					vicAvgSet.push(results[i][0]);
@@ -632,19 +639,19 @@
 					fillOpacity : 1,
 					color : '#ff0000',
 					name : 'Average for VIC',
-					data : vicAvgSet
+					data : results[0]
 				},{
 					type : 'line',
 					fillOpacity : 1,
 					color : selectedLGAColors[0],
 					name : 'LGA1',
-					data : [0,0,0,0,0,0,0,0,0]
+					data : results[1]
 				}, {
 					type : 'line',
 					fillOpacity : 1,
 					color : selectedLGAColors[1],
 					name : 'LGA2',
-					data : [0,0,0,0,0,0,0,0,0]
+					data : results[2]
 				}];
 	    		$('#spiderChart').highcharts(spiderOptions);
         	}); 

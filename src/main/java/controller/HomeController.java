@@ -154,6 +154,187 @@ public class HomeController {
 	 * @param selectedLGA
 	 * @return
 	 */
+	@RequestMapping(value="getLgaSpiderDataByDrop", method=RequestMethod.GET)
+	public @ResponseBody List<List<Object>> getLgaSpiderDataByDrop(
+			@RequestParam String selectedLGA1, @RequestParam String selectedLGA2, @RequestParam String dataSource) {
+		//level1All level1Accident level2All level2A level2B level2C level2D level2E level2F
+		if(DataSourceEnum.LEVEL1ALL.getValue().equals(dataSource)){
+			List<Object> lgaSpiderData1 = new ArrayList<Object>();
+			List<Object> lgaSpiderData2 = new ArrayList<Object>();
+			
+			if(!"First LGA".equals(selectedLGA1)){
+				CrimeByLocation crime = crimeByLocSvc.searchByLGAAndYear(selectedLGA1, YEAR).get(0);	
+				Crash crash = crashSvc.searchByLGAAndYear(selectedLGA1, YEAR).get(0);
+				AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA1, YEAR-1);
+				FireBrigade fireBrigade = fireBriSvc.searchByLgaNameAndYear(selectedLGA1).get(0);
+				PoliceStation policeStation = policeStaSvc.searchByLga(selectedLGA1).get(0);
+				Hospital hospital = hospitalSvc.searchByLga(selectedLGA1).get(0);
+				
+				lgaSpiderData1.add(crime.getScore());
+				lgaSpiderData1.add(crash.getScore());
+				lgaSpiderData1.add(amResp.getScore());
+				lgaSpiderData1.add(fireBrigade.getScore());
+				lgaSpiderData1.add(policeStation.getScore());
+				lgaSpiderData1.add(hospital.getScore());
+			}else{
+				lgaSpiderData1.add(0);
+				lgaSpiderData1.add(0);
+				lgaSpiderData1.add(0);
+				lgaSpiderData1.add(0);
+				lgaSpiderData1.add(0);
+				lgaSpiderData1.add(0);
+			}
+			if(!"Second LGA".equals(selectedLGA1)){
+				CrimeByLocation crime = crimeByLocSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0);	
+				Crash crash = crashSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0);
+				AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA2, YEAR-1);
+				FireBrigade fireBrigade = fireBriSvc.searchByLgaNameAndYear(selectedLGA2).get(0);
+				PoliceStation policeStation = policeStaSvc.searchByLga(selectedLGA2).get(0);
+				Hospital hospital = hospitalSvc.searchByLga(selectedLGA2).get(0);
+				
+				lgaSpiderData2.add(crime.getScore());
+				lgaSpiderData2.add(crash.getScore());
+				lgaSpiderData2.add(amResp.getScore());
+				lgaSpiderData2.add(fireBrigade.getScore());
+				lgaSpiderData2.add(policeStation.getScore());
+				lgaSpiderData2.add(hospital.getScore());
+			}else{
+				lgaSpiderData2.add(0);
+				lgaSpiderData2.add(0);
+				lgaSpiderData2.add(0);
+				lgaSpiderData2.add(0);
+				lgaSpiderData2.add(0);
+				lgaSpiderData2.add(0);
+			}
+			
+			
+			List<List<Object>> list = new ArrayList<List<Object>>();
+			list.add(lgaSpiderData1);
+			list.add(lgaSpiderData2);
+			
+			return list;
+		}else if(DataSourceEnum.LEVEL1CRIME.getValue().equals(dataSource)){
+			List<Object[]> resultList1 =  crimeByLocSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA1);
+			List<CrimeMajorCategories> majorTypeList1 = crimeMajorSvc.getAll();
+			List<Object> lgaSpiderData1 = new ArrayList<Object>();
+			
+			for(int i=0;i<majorTypeList1.size();i++){
+				Object[] matchObj = null;
+				for(Object[] obj:resultList1){
+					if(majorTypeList1.get(i).getCode().equals(obj[2].toString())){
+						matchObj = obj;
+						break;
+					}
+				}
+				if(matchObj != null){
+					lgaSpiderData1.add(matchObj[0]);
+				}else{
+					lgaSpiderData1.add(0);
+				}
+			}
+			
+			List<Object[]> resultList2 =  crimeByLocSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA2);
+			List<CrimeMajorCategories> majorTypeList2 = crimeMajorSvc.getAll();
+			List<Object> lgaSpiderData2 = new ArrayList<Object>();
+			
+			for(int i=0;i<majorTypeList2.size();i++){
+				Object[] matchObj = null;
+				for(Object[] obj:resultList2){
+					if(majorTypeList2.get(i).getCode().equals(obj[2].toString())){
+						matchObj = obj;
+						break;
+					}
+				}
+				if(matchObj != null){
+					lgaSpiderData2.add(matchObj[0]);
+				}else{
+					lgaSpiderData2.add(0);
+				}
+			}
+			
+			List<List<Object>> list = new ArrayList<List<Object>>();
+			List<Object> avgList = new ArrayList<Object>();
+			for(Object[] obj:crimeByLocSvc.searchTotalVicAvgByYear(YEAR)){
+				avgList.add(obj[0]);
+			}
+			list.add(avgList);
+			list.add(lgaSpiderData1);
+			list.add(lgaSpiderData2);
+			
+			return list;
+			
+		}else if(DataSourceEnum.LEVEL1ACCIDENT.getValue().equals(dataSource)){
+			List<Object[]> resultList1 =  crashSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA1);
+			List<CrashAccidentType> crashTypeList1 = crashTypeSvc.getAll();
+			List<Object> lgaSpiderData1 = new ArrayList<Object>();
+			
+			for(int i=0;i<crashTypeList1.size();i++){
+				Object[] matchObj = null;
+				for(Object[] obj:resultList1){
+					if(crashTypeList1.get(i).getId() == Integer.parseInt(obj[2].toString())){
+						matchObj = obj;
+						break;
+					}
+				}
+				if(matchObj != null){
+					lgaSpiderData1.add(matchObj[0]);
+				}else{
+					lgaSpiderData1.add(0);
+				}
+			}
+			List<Object[]> resultList2 =  crashSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA2);
+			List<CrashAccidentType> crashTypeList2 = crashTypeSvc.getAll();
+			List<Object> lgaSpiderData2 = new ArrayList<Object>();
+			
+			for(int i=0;i<crashTypeList2.size();i++){
+				Object[] matchObj = null;
+				for(Object[] obj:resultList2){
+					if(crashTypeList2.get(i).getId() == Integer.parseInt(obj[2].toString())){
+						matchObj = obj;
+						break;
+					}
+				}
+				if(matchObj != null){
+					lgaSpiderData2.add(matchObj[0]);
+				}else{
+					lgaSpiderData2.add(0);
+				}
+			}
+			
+			List<List<Object>> list = new ArrayList<List<Object>>();
+			List<Object> avgList = new ArrayList<Object>();int vicPop = crimeByLocSvc.searchTotalVicPopulationByYear(YEAR);
+			for(Object[] obj:crashSvc.searchTotalVicAvgByYear(YEAR, vicPop)){
+				avgList.add(obj[0]);
+			}
+			list.add(avgList);
+			list.add(lgaSpiderData1);
+			list.add(lgaSpiderData2);
+			
+			return list;
+			
+		}else if(DataSourceEnum.LEVEL2ALL.getValue().equals(dataSource)){
+			
+		}else if(DataSourceEnum.LEVEL2A.getValue().equals(dataSource)){
+			
+		}else if(DataSourceEnum.LEVEL2B.getValue().equals(dataSource)){
+			
+		}else if(DataSourceEnum.LEVEL2C.getValue().equals(dataSource)){
+			
+		}else if(DataSourceEnum.LEVEL2D.getValue().equals(dataSource)){
+			
+		}else if(DataSourceEnum.LEVEL2E.getValue().equals(dataSource)){
+			
+		}else if(DataSourceEnum.LEVEL2F.getValue().equals(dataSource)){
+			
+		}
+//		List<CrimeByLocation> list = crimeByLocSvc.searchByLGAAndYear(selectedLGA, YEAR);
+		return null;
+	}
+	/**
+	 * Get crime data by seleted LGA
+	 * @param selectedLGA
+	 * @return
+	 */
 	@RequestMapping(value="getSelectedLGAData", method=RequestMethod.GET)
 	public @ResponseBody List<List<Object>> getSelectedLGAData(
 			@RequestParam String selectedLGA, @RequestParam String dataSource) {
@@ -263,6 +444,184 @@ public class HomeController {
 		}
 //		List<CrimeByLocation> list = crimeByLocSvc.searchByLGAAndYear(selectedLGA, YEAR);
 	    return null;
+	}
+	
+	/**
+	 * Get crime data by seleted LGA
+	 * @param selectedLGA
+	 * @return
+	 */
+	@RequestMapping(value="getLgaTableDataByDrop", method=RequestMethod.GET)
+	public @ResponseBody List<List<Object>> getLgaTableDataByDrop(
+			@RequestParam String selectedLGA1, @RequestParam String selectedLGA2, @RequestParam String dataSource) {
+		//level1All level1Accident level2All level2A level2B level2C level2D level2E level2F
+		// First LGA Second LGA
+		if(DataSourceEnum.LEVEL1ALL.getValue().equals(dataSource)){
+			List<Object> lgaTableData1 = new ArrayList<Object>();
+			List<Object> lgaTableData2 = new ArrayList<Object>();
+			if(!"First LGA".equals(selectedLGA1)){
+				CrimeByLocation crime = crimeByLocSvc.searchByLGAAndYear(selectedLGA1, YEAR).get(0);	
+				Crash crash = crashSvc.searchByLGAAndYear(selectedLGA1, YEAR).get(0);
+				AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA1, YEAR-1);
+				FireBrigade fireBrigade = fireBriSvc.searchByLgaNameAndYear(selectedLGA1).get(0);
+				PoliceStation policeStation = policeStaSvc.searchByLga(selectedLGA1).get(0);
+				Hospital hospital = hospitalSvc.searchByLga(selectedLGA1).get(0);
+				
+				List<Object> lgaTableData = new ArrayList<Object>();
+				lgaTableData.add(crime.getLGAERP());
+				lgaTableData.add(crime.getTotalOffenceCount());
+				lgaTableData.add(crash.getCrashTotalCount());
+				lgaTableData.add(amResp.getAvgResponseTime());
+				lgaTableData.add(fireBrigade.getFireBrigadeNo());
+				lgaTableData.add(policeStation.getPoliceStationNo());
+				lgaTableData.add(hospital.getHospitalNo());
+			}else{
+				lgaTableData1.add("-");
+				lgaTableData1.add("-");
+				lgaTableData1.add("-");
+				lgaTableData1.add("-");
+				lgaTableData1.add("-");
+				lgaTableData1.add("-");
+				lgaTableData1.add("-");
+			}
+			if(!"Second LGA".equals(selectedLGA1)){
+				CrimeByLocation crime = crimeByLocSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0);	
+				Crash crash = crashSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0);
+				AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA2, YEAR-1);
+				FireBrigade fireBrigade = fireBriSvc.searchByLgaNameAndYear(selectedLGA2).get(0);
+				PoliceStation policeStation = policeStaSvc.searchByLga(selectedLGA2).get(0);
+				Hospital hospital = hospitalSvc.searchByLga(selectedLGA2).get(0);
+				
+				List<Object> lgaTableData = new ArrayList<Object>();
+				lgaTableData.add(crime.getLGAERP());
+				lgaTableData.add(crime.getTotalOffenceCount());
+				lgaTableData.add(crash.getCrashTotalCount());
+				lgaTableData.add(amResp.getAvgResponseTime());
+				lgaTableData.add(fireBrigade.getFireBrigadeNo());
+				lgaTableData.add(policeStation.getPoliceStationNo());
+				lgaTableData.add(hospital.getHospitalNo());
+			}else{
+				lgaTableData2.add("-");
+				lgaTableData2.add("-");
+				lgaTableData2.add("-");
+				lgaTableData2.add("-");
+				lgaTableData2.add("-");
+				lgaTableData2.add("-");
+				lgaTableData2.add("-");
+			}
+			
+			List<List<Object>> list = new ArrayList<List<Object>>();
+			list.add(lgaTableData1);
+			list.add(lgaTableData2);
+			
+			return list;
+		}else if(DataSourceEnum.LEVEL1CRIME.getValue().equals(dataSource)){
+			List<Object[]> resultList1 =  crimeByLocSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA1);
+			List<CrimeMajorCategories> majorTypeList1 = crimeMajorSvc.getAll();
+			List<Object> lgaTableData1 = new ArrayList<Object>();
+			
+			for(int i=0;i<majorTypeList1.size();i++){
+				Object[] matchObj = null;
+				for(Object[] obj:resultList1){
+					if(majorTypeList1.get(i).getCode().equals(obj[2].toString())){
+						matchObj = obj;
+						break;
+					}
+				}
+				if(matchObj != null){
+					lgaTableData1.add(matchObj[1]);
+				}else{
+					lgaTableData1.add(0);
+				}
+			}
+			
+			List<Object[]> resultList2 =  crimeByLocSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA2);
+			List<CrimeMajorCategories> majorTypeList2 = crimeMajorSvc.getAll();
+			List<Object> lgaTableData2 = new ArrayList<Object>();
+			
+			for(int i=0;i<majorTypeList2.size();i++){
+				Object[] matchObj = null;
+				for(Object[] obj:resultList2){
+					if(majorTypeList2.get(i).getCode().equals(obj[2].toString())){
+						matchObj = obj;
+						break;
+					}
+				}
+				if(matchObj != null){
+					lgaTableData2.add(matchObj[1]);
+				}else{
+					lgaTableData2.add(0);
+				}
+			}
+			
+			List<List<Object>> list = new ArrayList<List<Object>>();
+			list.add(lgaTableData1);
+			list.add(lgaTableData2);
+			
+			return list;
+			
+		}else if(DataSourceEnum.LEVEL1ACCIDENT.getValue().equals(dataSource)){
+			List<Object[]> resultList1 =  crashSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA1);
+			List<CrashAccidentType> crashTypeList1 = crashTypeSvc.getAll();
+			List<Object> lgaTableData1 = new ArrayList<Object>();
+			
+			for(int i=0;i<crashTypeList1.size();i++){
+				Object[] matchObj = null;
+				for(Object[] obj:resultList1){
+					if(crashTypeList1.get(i).getId() == Integer.parseInt(obj[2].toString())){
+						matchObj = obj;
+						break;
+					}
+				}
+				if(matchObj != null){
+					lgaTableData1.add(matchObj[1]);
+				}else{
+					lgaTableData1.add(0);
+				}
+			}
+			
+			List<Object[]> resultList2 =  crashSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA2);
+			List<CrashAccidentType> crashTypeList2 = crashTypeSvc.getAll();
+			List<Object> lgaTableData2 = new ArrayList<Object>();
+			
+			for(int i=0;i<crashTypeList2.size();i++){
+				Object[] matchObj = null;
+				for(Object[] obj:resultList2){
+					if(crashTypeList2.get(i).getId() == Integer.parseInt(obj[2].toString())){
+						matchObj = obj;
+						break;
+					}
+				}
+				if(matchObj != null){
+					lgaTableData2.add(matchObj[1]);
+				}else{
+					lgaTableData2.add(0);
+				}
+			}
+			
+			List<List<Object>> list = new ArrayList<List<Object>>();
+			list.add(lgaTableData1);
+			list.add(lgaTableData2);
+			
+			return list;
+			
+		}else if(DataSourceEnum.LEVEL2ALL.getValue().equals(dataSource)){
+			
+		}else if(DataSourceEnum.LEVEL2A.getValue().equals(dataSource)){
+			
+		}else if(DataSourceEnum.LEVEL2B.getValue().equals(dataSource)){
+			
+		}else if(DataSourceEnum.LEVEL2C.getValue().equals(dataSource)){
+			
+		}else if(DataSourceEnum.LEVEL2D.getValue().equals(dataSource)){
+			
+		}else if(DataSourceEnum.LEVEL2E.getValue().equals(dataSource)){
+			
+		}else if(DataSourceEnum.LEVEL2F.getValue().equals(dataSource)){
+			
+		}
+//		List<CrimeByLocation> list = crimeByLocSvc.searchByLGAAndYear(selectedLGA, YEAR);
+		return null;
 	}
 	
 }
