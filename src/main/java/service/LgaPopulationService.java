@@ -75,5 +75,17 @@ public class LgaPopulationService {
 				LgaPopulation.class).getResultList();
 		return result;
 	}
+	
+	/**
+	 * get LgaPopulation by year and lga id
+	 * @param vicerp
+	 * @return
+	 */
+	@Transactional
+	public List<LgaPopulation> searchByLgaAndYear(int year, int lgaId){
+		List<LgaPopulation> result = em.createQuery("SELECT lp FROM LgaPopulation lp where lp.year = "+year,
+				LgaPopulation.class).getResultList();
+		return result;
+	}
 
 }

@@ -42,10 +42,10 @@ public class AmbulanceResponse {
 	public void setYear(String year) {
 		this.year = year;
 	}
-	private int getScore() {
+	public int getScore() {
 		return score;
 	}
-	private void setScore(int score) {
+	public void setScore(int score) {
 		this.score = score;
 	}
 	

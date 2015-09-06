@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import entity.AmbulanceResponse;
 import entity.FireBrigade;
 import entity.LGA;
 
@@ -33,6 +34,22 @@ public class FireBrigadeService {
 		List<FireBrigade> result = em.createQuery("SELECT f FROM FireBrigade f", FireBrigade.class)
 				.getResultList();
 		return result;
+	}
+	
+	/**
+	 * get FireBrigade by lgaName and year
+	 * @param lgaName
+	 * @param year
+	 * @return
+	 */
+	@Transactional
+	public List<FireBrigade> searchByLgaNameAndYear(String lgaName){
+		
+		List<FireBrigade> result = em.createQuery("select f from FireBrigade f where f.lgaName ='"+lgaName+"'",
+				FireBrigade.class)
+				.getResultList();
+		return result;
+
 	}
 	
 

@@ -192,57 +192,16 @@
                 	</div>
                 	<div class="row" id="compare-table-div">
                 		<table id="compare-table" data-select-item-name="radioName1" data-cache="false"></table>
-	                	<!-- <div class="row">
-	                		<div class="col-sm-6"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;" id="compareTableHeader">Overall Ranking Index</h3></div>
-	                		<div class="col-sm-6"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;" id="compareTableHeader">Overall crime offence <br>count by category</h3></div>
-	                		<div class="col-sm-3"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;" id="lga1Name"><span style='margin-left:25px;'>-</span></h3></div>
-	                		<div class="col-sm-3"><h3 style="font-family: inherit;font-weight: 500;text-transform:none;margin-top:30px;" id="lga2Name"><span style='margin-left:25px;'>-</span></h3></div>
-	                	</div>
-	                	<div class="row">
-	                		<div class="col-sm-6">Population</div>
-	                		<div class="col-sm-3 " id="lga1Level1Pop"><span style='margin-left:25px;'>-</span></div>
-	                		<div class="col-sm-3 " id="lga2Level1Pop"><span style='margin-left:25px;'>-</span></div>
-	                	</div>
-	                	<div class="row">
-	                		<div class="col-sm-6">Crime number</div>
-	                		<div class="col-sm-3 " id="lga1Level1Cat1"><span style='margin-left:25px;'>-</span></div>
-	                		<div class="col-sm-3 " id="lga2Level1Cat1"><span style='margin-left:25px;'>-</span></div>
-	                	</div>
-	                	<div class="row">
-	                		<div class="col-sm-6 ">Crash number</div>
-	                		<div class="col-sm-3 " id="lga1Level1Cat2"><span style='margin-left:25px;'>-</span></div>
-	                		<div class="col-sm-3 " id="lga2Level1Cat2"><span style='margin-left:25px;'>-</span></div>
-	                	</div>
-	                	<div class="row">
-	                		<div class="col-sm-6 ">Ambulance response time</div>
-	                		<div class="col-sm-3 " id="lga1Level1Cat3"><span style='margin-left:25px;'>-</span></div>
-	                		<div class="col-sm-3 " id="lga2Level1Cat3"><span style='margin-left:25px;'>-</span></div>
-	                	</div>
-	                	<div class="row">
-	                		<div class="col-sm-6 ">Fire brigade number</div>
-	                		<div class="col-sm-3 " id="lga1Level1Cat4"><span style='margin-left:25px;'>-</span></div>
-	                		<div class="col-sm-3 " id="lga2Level1Cat4"><span style='margin-left:25px;'>-</span></div>
-	                	</div>
-	                	<div class="row">
-	                		<div class="col-sm-6 ">Police station number</div>
-	                		<div class="col-sm-3 " id="lga1Level1Cat5"><span style='margin-left:25px;'>-</span></div>
-	                		<div class="col-sm-3 " id="lga2Level1Cat5"><span style='margin-left:25px;'>-</span></div>
-	                	</div>
-	                	<div class="row">
-	                		<div class="col-sm-6 ">Hospital number</div>
-	                		<div class="col-sm-3 " id="lga1Level1Cat6"><span style='margin-left:25px;'>-</span></div>
-	                		<div class="col-sm-3 " id="lga2Level1Cat6"><span style='margin-left:25px;'>-</span></div>
-	                	</div> -->
                 	</div>
                 </div>
-                <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".4s" style="height:640px;width:530px;">
+                <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".4s" style="min-height:640px;width:530px;">
 	                <div class="row">
 	                	<div id="level1Dropdown" class="dropdown col-xs-3" style="z-index: 999;">
 						  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    <span id="level1SelectedItem" title="level1All">All Category</span>
+						    <span id="level1SelectedItem" title="level1All">Please select a level 1 category</span>
 						    <span class="caret"></span>
 						  </button>
-						  <ul class="dropdown-menu" style="margin-left: 15px;" aria-labelledby="dropdownMenu1">
+						  <ul class="dropdown-menu dropdown-menu1" style="margin-left: 15px;" aria-labelledby="dropdownMenu1">
 						    <li><a name="level1All">All Category</a></li>
 						    <li><a name="level1Crime">Crime</a></li>
 						    <li><a name="level1Accident">Accident</a></li>
@@ -250,11 +209,11 @@
 						</div>
 						<div id="level2Dropdown" class="dropdown col-xs-3" style="z-index: 998;">
 						  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    <span id="level2SelectedItem" title="level2All">All sub-category</span>
+						    <span id="level2SelectedItem" title="level2All">Please select a level 2 category</span>
 						    <span class="caret"></span>
 						  </button>
-						  <ul class="dropdown-menu" style="margin-left: 15px;" aria-labelledby="dropdownMenu2">
-						    <li><a name="level2All">All sub-category</a></li>
+						  <ul class="dropdown-menu dropdown-menu2"  style="margin-left: 15px;" aria-labelledby="dropdownMenu2">
+						    <li><a name="level2All" id="level2All">All Category</a></li>
 						    <li><a name="level2A">A Crimes against the person</a></li>
 						    <li><a name="level2B">B Property and deception offences</a></li>
 						    <li><a name="level2C">C Drug offences</a></li>
@@ -271,7 +230,7 @@
         </div>
     </section>
 	
-	<section id="projects" class="bg-gray">
+	<section id="projects" >
         <div class="container text-center wow fadeIn">
             <h2>My Projects</h2>
             <hr class="colored">
@@ -436,16 +395,256 @@
     		
  		$("#level2Dropdown").hide(); 
     		
-	$(".dropdown-menu li a").click(function(){
-	      $(this).parent().parent().parent().children().first().children().first().html($(this).text());
-	      $(this).parent().parent().parent().children().first().children().first().attr('title', $(this)[0].name);
-	      if($(this)[0].name == 'level1Crime'){
-	    	  $("#level2Dropdown").show(); 
-	      }else{
-	    	  $("#level2Dropdown").hide(); 
-	      }
+	$(".dropdown-menu1 li a").click(function(){
+			if($("#level2Dropdown").is(":visible")){
+				if($("#level2SelectedItem").attr('title') == $(this)[0].name){
+					$(this).parent().parent().parent().children().first().children().first().html($(this).text());
+			      	$(this).parent().parent().parent().children().first().children().first().attr('title', $(this)[0].name);
+			      	console.log("same 1");
+					return;
+				}
+			}else{
+				if($("#level1SelectedItem").attr('title') == $(this)[0].name){
+					$(this).parent().parent().parent().children().first().children().first().html($(this).text());
+			      	$(this).parent().parent().parent().children().first().children().first().attr('title', $(this)[0].name);
+			      	console.log("same 2");
+					return;
+				}
+			}
+			$(this).parent().parent().parent().children().first().children().first().html($(this).text());
+			$(this).parent().parent().parent().children().first().children().first().attr('title', $(this)[0].name);
+			
+			if($(this)[0].name == 'level1Crime'){
+				//$("#level2Dropdown").show(); 
+				$("#level2All").trigger("click");
+			}else if ($(this)[0].name.startsWith('level2')){
+				//$("#level2Dropdown").show(); 
+			}else{
+				$("#level2Dropdown").hide(); 
+			}
+			
+			if(($("#compare-table thead tr:nth-child(1) .th-inner:eq(1)").html() == "First LGA" ) 
+			  && ($("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").html() == "Second LGA" )){
+				console.log("no lga selected");
+				
+				changeTableAndSpider($(this)[0].name);
+				
+				
+				return;
+			}else{
+				
+				changeTableAndSpider($(this)[0].name);
+				
+				
+				
+				console.log("get data....");
+			}
+	      
+	      
 	   });
+	
+ 	
+	function createTable(tableHead, tableData){
+		$('#compare-table').bootstrapTable({
+	  	        columns: tableHead,
+	  	        data: tableData
+  	    });
+		$("#compare-table thead tr:nth-child(1) .th-inner:eq(1)").css("color",selectedLGAColors[0]);
+		$("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").css("color",selectedLGAColors[1]);
+	}
     		
+	function changeTableAndSpider(dataSource){
+		var lga1Header = $("#compare-table thead tr:nth-child(1) .th-inner:eq(1)").html();
+		var lga2Header = $("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").html();
+		$("#compare-table-div").empty();
+        $("#compare-table-div").html('<table id="compare-table" data-select-item-name="radioName1" data-cache="false"></table>');
+      	//level1All level1Crime level1Accident level2All level2A level2B level2C level2D level2E level2F
+        if(dataSource == "level1All"){
+        	var tableHead = [{
+	            field: 'rowTitle',
+	            title: 'Overall Statistic Data'
+	        }, {
+	            field: 'lga1Name',
+	            title: lga1Header,
+	            formatter: lga1Formatter
+	        }, {
+	            field: 'lga2Name',
+	            title: lga2Header,
+	            formatter: lga2Formatter
+	        }];
+        	
+        	var lga1TableData = ['-','-','-','-','-','-','-'];
+    		var lga2TableData = ['-','-','-','-','-','-','-'];
+    		var rowTitleData = ['Population','Crime number','Accident number',
+    		                    'Ambulance response time','Fire brigade number',
+    		                    'Police station number','Hospital number'];
+    		var tableData = [];
+    		for(var i=0;i<rowTitleData.length;i++){
+    			tableData.push({
+    				rowTitle: rowTitleData[i],
+    	        	lga1Name: lga1TableData[i],
+    	        	lga2Name: lga2TableData[i]
+    			});
+    		}
+    		
+    		createTable(tableHead, tableData);
+    		changeSpider(dataSource, rowTitleData);
+        	
+        }else if(dataSource == "level1Crime"){
+        	var tableHead = [{
+	            field: 'rowTitle',
+	            title: 'Crime Statistic Data'
+	        }, {
+	        	field: 'lga1Name',
+	            title: lga1Header,
+	            formatter: lga1Formatter
+	        }, {
+	            field: 'lga2Name',
+	            title: lga2Header,
+	            formatter: lga2Formatter
+	        }];
+        	
+        	var lga1TableData = ['-','-','-','-','-','-'];
+    		var lga2TableData = ['-','-','-','-','-','-'];
+    		var rowTitleData = ['A Crimes against the person','B Property and deception offences',
+    		                    'C Drug offences','D Public order and security offences',
+    		                    'E Justice procedures offences','F Other offences'];
+    		var tableData = [];
+    		for(var i=0;i<rowTitleData.length;i++){
+    			tableData.push({
+    				rowTitle: rowTitleData[i],
+    	        	lga1Name: lga1TableData[i],
+    	        	lga2Name: lga2TableData[i]
+    			});
+    		}
+        	createTable(tableHead, tableData);
+        	changeSpider(dataSource, rowTitleData);
+        	
+        }else if(dataSource == "level1Accident"){
+        	var tableHead = [{
+	            field: 'rowTitle',
+	            title: 'Accident Statistic Data'
+	        }, {
+	        	field: 'lga1Name',
+	            title: lga1Header,
+	            formatter: lga1Formatter
+	        }, {
+	            field: 'lga2Name',
+	            title: lga2Header,
+	            formatter: lga2Formatter
+	        }];
+        	
+        	var lga1TableData = ['-','-','-','-','-','-','-','-','-'];
+    		var lga2TableData = ['-','-','-','-','-','-','-','-','-'];
+    		var rowTitleData = ['Collision with a fixed object','Collision with some other object',
+    		                    'Collision with vehicle','Fall from or in moving vehicle',
+    		                    'No collision and no object struck','Struck animal',
+    		                    'Struck Pedestrian','Vehicle overturned (no collision)',
+    		                    'Other accident'];
+    		var tableData = [];
+    		for(var i=0;i<rowTitleData.length;i++){
+    			tableData.push({
+    				rowTitle: rowTitleData[i],
+    	        	lga1Name: lga1TableData[i],
+    	        	lga2Name: lga2TableData[i]
+    			});
+    		}
+        	createTable(tableHead, tableData);
+        	changeSpider(dataSource, rowTitleData);
+        }
+		
+	}
+	
+	function changeSpider(dataSource, categories){
+		if(dataSource == "level1All"){
+			spiderOptions.title.text = 'Overall Ranking Index';
+			spiderOptions.xAxis.categories = ['Crime Safety index', 'Accident Safety index', 'Ambulance response time index', 
+			                                  'Fire brigade index', 'Police station index', 'Hospital index'];
+            spiderOptions.tooltip.pointFormat = '<span style="color:{series.color}">{series.name} Ranking Score: <b>{point.y}</b> <br/>';
+            spiderOptions.series = [{
+				type : 'line',
+				fillOpacity : 1,
+				color : selectedLGAColors[0],
+				name : 'LGA1',
+				data : [0,0,0,0,0,0]
+			}, {
+				type : 'line',
+				fillOpacity : 1,
+				color : selectedLGAColors[1],
+				name : 'LGA2',
+				data : [0,0,0,0,0,0]
+			}];
+			$('#spiderChart').highcharts(spiderOptions);
+        }else if(dataSource == "level1Crime"){
+        	$.getJSON("getVicAvgCrimeData", function(results) {
+				var vicAvgSet = [];
+				for (var i = 0; i < results.length; i++) {
+					vicAvgSet.push(results[i][0]);
+				}
+				//var spider = $('#spiderChart').highcharts();
+				//spider.series[0].setData(vicAvgSet);
+				
+				spiderOptions.title.text = 'Crime Data';
+	        	spiderOptions.xAxis.categories = categories;
+	            spiderOptions.tooltip.pointFormat = '<span style="color:{series.color}">{series.name}: <b>{point.y}</b> offences/100,000 population<br/>';
+	            spiderOptions.series = [{
+					type : 'line',
+					fillOpacity : 1,
+					color : '#ff0000',
+					name : 'Average for VIC',
+					data : vicAvgSet
+				},{
+					type : 'line',
+					fillOpacity : 1,
+					color : selectedLGAColors[0],
+					name : 'LGA1',
+					data : [0,0,0,0,0,0]
+				}, {
+					type : 'line',
+					fillOpacity : 1,
+					color : selectedLGAColors[1],
+					name : 'LGA2',
+					data : [0,0,0,0,0,0]
+				}];
+	    		$('#spiderChart').highcharts(spiderOptions);
+			}); 
+        	
+        }else if(dataSource == "level1Accident"){
+        	$.getJSON("getVicAvgCrashData", function(results) {
+				var vicAvgSet = [];
+				for (var i = 0; i < results.length; i++) {
+					vicAvgSet.push(results[i][0]);
+				}
+				//var spider = $('#spiderChart').highcharts();
+				//spider.series[0].setData(vicAvgSet);
+				
+	        	spiderOptions.title.text = 'Crash Data';
+	        	spiderOptions.xAxis.categories = categories;
+	            spiderOptions.tooltip.pointFormat = '<span style="color:{series.color}">{series.name}: <b>{point.y}</b> accidents/100,000 population<br/>';
+	            spiderOptions.series = [{
+					type : 'line',
+					fillOpacity : 1,
+					color : '#ff0000',
+					name : 'Average for VIC',
+					data : vicAvgSet
+				},{
+					type : 'line',
+					fillOpacity : 1,
+					color : selectedLGAColors[0],
+					name : 'LGA1',
+					data : [0,0,0,0,0,0,0,0,0]
+				}, {
+					type : 'line',
+					fillOpacity : 1,
+					color : selectedLGAColors[1],
+					name : 'LGA2',
+					data : [0,0,0,0,0,0,0,0,0]
+				}];
+	    		$('#spiderChart').highcharts(spiderOptions);
+        	}); 
+        }
+	}
+	
 	// Topojson method use to parse topojson file
 	L.TopoJSON = L.GeoJSON.extend({
 	    addData: function(jsonData) {
@@ -479,6 +678,9 @@
         lgaVicLayer.addData(topoData);
         lgaVicLayer.addTo(map);
         lgaVicLayer.eachLayer(handleLgaVicLayer);
+        
+        $(".leaflet-control-attribution").hide();
+        $(".leaflet-control-zoom").css("margin-bottom","40px;");
     }
     
     // handle lga layer event
@@ -530,11 +732,6 @@
     	this.bringToFront();
     	var selectedLGA = this.feature.properties.gaz_lga;
     	
-    	
-    	/* if(selectedLGAColors.indexOf(this.options.fillColor) >= 0){
-    		return;
-    	} */
-    	
     	if(selectedLGAButtonIndex == 1){
     		if(selectedLGAColors[1] == this._path.attributes[6].value){
     			return;
@@ -547,7 +744,7 @@
                 opacity: 1
             });
     		
-    		getSelectedLGACrime(selectedLGA, selectedLGAButtonIndex);
+    		getSelectedLGAData(selectedLGA, selectedLGAButtonIndex);
     		
     	}else if(selectedLGAButtonIndex == 2){
     		if(selectedLGAColors[0] == this._path.attributes[6].value){
@@ -561,7 +758,7 @@
                 opacity: 1
             });
     		
-    		getSelectedLGACrime(selectedLGA, selectedLGAButtonIndex);
+    		getSelectedLGAData(selectedLGA, selectedLGAButtonIndex);
     		
     	}
     }
@@ -597,62 +794,83 @@
     
     var tableData = [];
     
-    $('#compare-table').bootstrapTable({
-        columns: [{
-            field: 'rowTitle',
-            title: 'Overall Ranking Index'
-        }, {
-            field: 'lga1Name',
-            title: 'First LGA'
-        }, {
-            field: 'lga2Name',
-            title: 'Second LGA'
-        }],
-        data: [{
-        	rowTitle: 'Population',
-        	lga1Name: '-',
-        	lga2Name: '-'
-        },{
-        	rowTitle: 'Crime number',
-        	lga1Name: '-',
-        	lga2Name: '-'
-        },{
-        	rowTitle: 'Accident number',
-        	lga1Name: '-',
-        	lga2Name: '-'
-        },{
-        	rowTitle: 'Ambulance response time',
-        	lga1Name: '-',
-        	lga2Name: '-'
-        },{
-        	rowTitle: 'Fire brigade number',
-        	lga1Name: '-',
-        	lga2Name: '-'
-        },{
-        	rowTitle: 'Police station number',
-        	lga1Name: '-',
-        	lga2Name: '-'
-        },{
-        	rowTitle: 'Hospital number',
-        	lga1Name: '-',
-        	lga2Name: '-'
-        }]
-    });
+    {
+	    var tableHead = [{
+	        field: 'rowTitle',
+	        title: 'Overall Statistic Data'
+	    }, {
+	        field: 'lga1Name',
+	        title: 'First LGA',
+	        formatter: lga1Formatter
+	    }, {
+	        field: 'lga2Name',
+	        title: 'Second LGA',
+	        formatter: lga2Formatter
+	    }];
+		
+		var lga1TableData = ['-','-','-','-','-','-','-'];
+		var lga2TableData = ['-','-','-','-','-','-','-'];
+		var rowTitleData = ['Population','Crime number','Accident number',
+		                    'Ambulance response time','Fire brigade number',
+		                    'Police station number','Hospital number'];
+		var tableData = [];
+		for(var i=0;i<rowTitleData.length;i++){
+			tableData.push({
+				rowTitle: rowTitleData[i],
+	        	lga1Name: lga1TableData[i],
+	        	lga2Name: lga2TableData[i]
+			});
+		}
+		
+		createTable(tableHead, tableData);
+		$("#compare-table thead tr:nth-child(1) .th-inner:eq(1)").css("color",selectedLGAColors[0]);
+		$("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").css("color",selectedLGAColors[1]);
+    }
     
+    function lga1Formatter(value) {
+        return '<div  style="color: ' + selectedLGAColors[0] + '">' +
+                value +
+                '</div>';
+    }
     
+    function lga2Formatter(value) {
+        return '<div  style="color: ' + selectedLGAColors[1] + '">' +
+                value +
+                '</div>';
+    }
     
     // AJAX invoke to get lga crime data from backend 
-    function getSelectedLGACrime(selectedLGA, selectedLGAButtonIndex){
+    function getSelectedLGAData(selectedLGA, selectedLGAButtonIndex){
     	selectedLGA = selectedLGA.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim();
+    	/*
     	console.log($("#compare-table thead tr:nth-child(1) .th-inner:eq(0)").html("aaaa"));
     	console.log($("#compare-table thead tr:nth-child(1) .th-inner:eq(1)").html("bbbb"));
     	console.log($("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").html("cccc"));
     	console.log($("#compare-table tbody tr:nth-child(1) td:eq(0)").html("eee"));
     	console.log($("#compare-table tbody tr:nth-child(2) td:eq(2)").html("fff"));
+    	*/
+    	// $("#compare-table tbody tr:nth-child(2) td:eq(2) div").html("fff");
+    	$("#compare-table thead tr:nth-child(1) .th-inner:eq("+selectedLGAButtonIndex+")").css("color",selectedLGAColors[selectedLGAButtonIndex-1]);
+    	$("#compare-table thead tr:nth-child(1) .th-inner:eq("+selectedLGAButtonIndex+")").html(selectedLGA);
     	
-    	$.getJSON("getSelectedLGACrime", { selectedLGA: selectedLGA, display: "" }, function(results) {
+    	var dataSource = "";
+    	if($("#level2Dropdown").is(":visible")){
+    		dataSource = $("#level2SelectedItem").attr("title");
+    	}else{
+    		dataSource = $("#level1SelectedItem").attr("title");
+    	}
+    	
+    	console.log(dataSource);
+    	
+    	$.getJSON("getSelectedLGAData", { selectedLGA: selectedLGA, dataSource: dataSource }, function(results) {
     		
-    		lgaDataSet[selectedLGAButtonIndex-1] = results;
+    		console.log(results);
+    		for(var i=0;i<results[0].length;i++){
+    			$("#compare-table tbody tr:nth-child("+(i+1)+") td:eq("+selectedLGAButtonIndex+") div").html(results[0][i]);
+    		}
+    		updateSpiderChart(selectedLGA, selectedLGAButtonIndex, results[1]);
+    		return;
+    		/* lgaDataSet[selectedLGAButtonIndex-1] = results;
     		
     		var crimeMajorArr = ['A','B','C','D','E','F'];
     		var crimeCountArr = [0,0,0,0,0,0];
@@ -695,37 +913,20 @@
 	    		}
 	    		
 	    		updateSpiderChart(selectedLGA, selectedLGAButtonIndex);
-    		}
+    		} */
         });
     }
     
     // after the crime data updated in table, then update the spider chart
-    function updateSpiderChart(selectedLGA, selectedLGAButtonIndex){
+    function updateSpiderChart(selectedLGA, selectedLGAButtonIndex, dataset){
     	
     	var spider = $('#spiderChart').highcharts();
     	
-    	if(selectedLGAButtonIndex == 1){
-    		$(".highcharts-legend-item:nth-child(2)").find("text").html(selectedLGA);
-    	}else if(selectedLGAButtonIndex == 2){
-    		$(".highcharts-legend-item:nth-child(3)").find("text").html(selectedLGA);
-    	}
+   		$(".highcharts-legend-item:nth-child("+selectedLGAButtonIndex+")").find("text").html(selectedLGA);
     	
-    	spider.series[selectedLGAButtonIndex].setData(lgaCrimeCountSet[selectedLGAButtonIndex-1]);
-    	spider.series[selectedLGAButtonIndex].name = selectedLGA;
+    	spider.series[selectedLGAButtonIndex-1].setData(dataset);
+    	spider.series[selectedLGAButtonIndex-1].name = selectedLGA;
     	
-    	/* if((spider.series.length-1) < selectedLGAButtonIndex){
-    		var spiderData = {
-    	            type: 'line',
-    	            fillOpacity: 1,
-    	            color: selectedLGAColors[selectedLGAButtonIndex-1],
-    	            name: selectedLGA,
-    	            data: lgaCrimeCountSet[selectedLGAButtonIndex-1]
-   	        }
-    		spider.addSeries(spiderData);
-    	}else {
-    		spider.series[selectedLGAButtonIndex].setData(lgaCrimeCountSet[selectedLGAButtonIndex-1]);
-        	spider.series[selectedLGAButtonIndex].name = selectedLGA;
-    	} */
 	}
     
     // set lga table with crime data
@@ -746,7 +947,7 @@
 				"color":"#f1f1f1"
 			});
 			$(".second-lga-tip").css({
-				"background":"#f1f1f1",
+				"background":"#d7e8f9",
 				"color":"black"
 			});
 			selectedLGAButtonIndex = 1;
@@ -757,7 +958,7 @@
 				"color":"#f1f1f1"
 			});
 			$(".first-lga-tip").css({
-				"background":"#f1f1f1",
+				"background":"#d7e8f9",
 				"color":"black"
 			});
 			selectedLGAButtonIndex = 2;
@@ -789,7 +990,7 @@
             credits: {
                 enabled: false
             },
-
+            
             xAxis: {
                 labels: {
                     align: 'center'
@@ -797,7 +998,7 @@
                 /* categories: ['A Crimes against the person','B Property and deception offences',
                              'C Drug offences','D Public order and security offences',
                              'E Justice procedures offences','F Other offences'], */
-                categories: ['Crime index', 'Accident index', 'Ambulance response time index', 
+                categories: ['Crime Safety index', 'Accident Safety index', 'Ambulance response time index', 
                              'Fire brigade index', 'Police station index', 'Hospital index'],             
                 tickmarkPlacement: 'on',
                 lineWidth: 0
@@ -807,10 +1008,11 @@
                 gridLineInterpolation: 'polygon',
                 min: 0
             },
-
+            
             tooltip: {
                 shared: true,
-                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y}</b> offences/100,000 population<br/>'
+                pointFormat: '<span style="color:{series.color}">{series.name} Ranking Score: <b>{point.y}</b> <br/>'
+                //pointFormat: '<span style="color:{series.color}">{series.name} Ranking Score: <b>{point.y}</b> offences/100,000 population<br/>'
             },
 
             plotOptions: {
@@ -828,14 +1030,7 @@
                 y: 5
             },
 
-        
 			series : [ {
-						type : 'line',
-						fillOpacity : 0.5,
-						color : '#FF0000',
-						name : 'Average for VIC',
-						data : [0,0,0,0,0,0]
-					}, {
 						type : 'line',
 						fillOpacity : 1,
 						color : selectedLGAColors[0],

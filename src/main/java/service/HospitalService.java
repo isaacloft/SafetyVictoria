@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import entity.FireBrigade;
 import entity.Hospital;
 import entity.LGA;
+import entity.PoliceStation;
 
 
 @Service
@@ -36,5 +37,17 @@ public class HospitalService {
 		return result;
 	}
 	
-
+	/**
+	 * get Hospital by LgaName
+	 * @param lga
+	 * @return
+	 */
+	@Transactional
+	public List<Hospital> searchByLga(String lgaName){
+		
+		List<Hospital> result = em.createQuery("select ps from Hospital ps where ps.lgaName = '"+lgaName+"'",
+				Hospital.class).getResultList();
+		
+		return result;
+	}
 }

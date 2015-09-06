@@ -99,11 +99,11 @@ public class AmbulanceRespService {
 	 * @return
 	 */
 	@Transactional
-	public List<AmbulanceResponse> searchByLgaNameAndYear(String lgaName, String year){
+	public AmbulanceResponse searchByLgaNameAndYear(String lgaName, int year){
 		
-		List<AmbulanceResponse> result = em.createQuery("select ar from AmbulanceResponse ar where ar.lgaName ='"+lgaName +"' and ar.year = '"+year+"'",
+		AmbulanceResponse result = em.createQuery("select ar from AmbulanceResponse ar where ar.lgaName ='"+lgaName +"' and ar.year = "+year+"",
 				AmbulanceResponse.class)
-				.getResultList();
+				.getSingleResult();
 		return result;
 
 	}

@@ -21,6 +21,8 @@ public class Hospital {
 	
 	private String lgaName;
 	
+	private int hospitalNo;
+	
 	private double noByPopulation;
 	
 	private int score;
@@ -123,6 +125,14 @@ public class Hospital {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public int getHospitalNo() {
+		return hospitalNo;
+	}
+
+	public void setHospitalNo(int hospitalNo) {
+		this.hospitalNo = hospitalNo;
 	}
 
 	

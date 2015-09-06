@@ -26,7 +26,7 @@ div.section-border {
     border-width: thin;
     position: absolute;
     top: 26.7em;
-    right: 20.5em;
+    right: 250px;
     z-index: 6;
     background: #006872;
     color: white;
@@ -41,9 +41,9 @@ div.section-border {
     border-width: thin;
     position: absolute;
     top: 26.7em;
-    right: 7.2em;
+    right: 80px;
     z-index: 6;
-    background: #f1f1f1;
+    background: #d7e8f9;
     color: black;
     padding: .5em .75em;
     font-size: 0.8em;

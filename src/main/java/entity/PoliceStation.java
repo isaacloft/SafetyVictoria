@@ -20,6 +20,7 @@ public class PoliceStation {
 	private int postcode;
 	private String lng;
 	private String lat;
+	private int policeStationNo;
 	private double noByPopulation;
 	private int score;
 	
@@ -83,6 +84,12 @@ public class PoliceStation {
 	}
 	public void setScore(int score) {
 		this.score = score;
+	}
+	public int getPoliceStationNo() {
+		return policeStationNo;
+	}
+	public void setPoliceStationNo(int policeStationNo) {
+		this.policeStationNo = policeStationNo;
 	}
 	
 	

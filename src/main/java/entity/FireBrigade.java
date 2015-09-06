@@ -21,6 +21,8 @@ public class FireBrigade {
 	
 	private int lgaId;
 	
+	private int fireBrigadeNo;
+	
 	private double noByPopulation;
 	
 	private int score;
@@ -133,6 +135,14 @@ public class FireBrigade {
 
 	public void setLng(String lng) {
 		this.lng = lng;
+	}
+
+	public int getFireBrigadeNo() {
+		return fireBrigadeNo;
+	}
+
+	public void setFireBrigadeNo(int fireBrigadeNo) {
+		this.fireBrigadeNo = fireBrigadeNo;
 	}
 
 	

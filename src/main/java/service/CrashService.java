@@ -28,11 +28,27 @@ public class CrashService {
 	 * @return
 	 */
 	@Transactional
-	public List<Crash> searchByLGAAndYear(int LGA, int year){
-		List<Crash> result= em.createQuery("SELECT c FROM Crash c where c.lgaName = "+LGA+" "
+	public List<Crash> searchByLGAAndYear(String lgaName, int year){
+		List<Crash> result= em.createQuery("SELECT c FROM Crash c where c.lgaName = '"+lgaName+"' "
 				+ "and c.year = " + year +" order by c.accidentType",
 				Crash.class)
 				.getResultList();
 		return result;
 	}
+	
+	/**
+	 * get search total vic average crime count by year
+	 * @param year
+	 * @return
+	 */
+	@Transactional
+	public List<Object[]> searchTotalVicAvgByYear(int year, int vicPop){
+		List<Object[]> result = em.createNativeQuery("SELECT CONVERT((sum(c.crash_count)*100000)/"+vicPop+", SIGNED INTEGER) as avgCount,"
+				+ "sum(c.crash_count) as totalCount, c.accident_type as majorCate "
+				+ "FROM crash_data c where c.year='" + year + "' "
+				+ "group by c.accident_type "
+				+ "order by c.accident_type").getResultList();
+		return result;
+	}
+	
 }

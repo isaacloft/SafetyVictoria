@@ -25,53 +25,6 @@ public class Crash {
 	private int score;
 	private int crashTotalCount;
 	private int crashCountByPopulation;
-	private int getId() {
-		return id;
-	}
-
-	private void setId(int id) {
-		this.id = id;
-	}
-
-	private int getYear() {
-		return year;
-	}
-
-	private void setYear(int year) {
-		this.year = year;
-	}
-
-	private int getAccidentType() {
-		return accidentType;
-	}
-
-	private void setAccidentType(int accidentType) {
-		this.accidentType = accidentType;
-	}
-
-	private int getCrashCount() {
-		return crashCount;
-	}
-
-	private void setCrashCount(int crashCount) {
-		this.crashCount = crashCount;
-	}
-
-	private int getScore() {
-		return score;
-	}
-
-	private void setScore(int score) {
-		this.score = score;
-	}
-
-	private int getCrashTotalCount() {
-		return crashTotalCount;
-	}
-
-	private void setCrashTotalCount(int crashTotalCount) {
-		this.crashTotalCount = crashTotalCount;
-	}
 
 	public int getLgaId() {
 		return lgaId;
@@ -103,6 +56,54 @@ public class Crash {
 
 	public void setCrashCountByPopulation(int crashCountByPopulation) {
 		this.crashCountByPopulation = crashCountByPopulation;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public int getAccidentType() {
+		return accidentType;
+	}
+
+	public void setAccidentType(int accidentType) {
+		this.accidentType = accidentType;
+	}
+
+	public int getCrashCount() {
+		return crashCount;
+	}
+
+	public void setCrashCount(int crashCount) {
+		this.crashCount = crashCount;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public int getCrashTotalCount() {
+		return crashTotalCount;
+	}
+
+	public void setCrashTotalCount(int crashTotalCount) {
+		this.crashTotalCount = crashTotalCount;
 	}
 	
 	
