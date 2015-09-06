@@ -467,14 +467,13 @@ public class HomeController {
 				PoliceStation policeStation = policeStaSvc.searchByLga(selectedLGA1).get(0);
 				Hospital hospital = hospitalSvc.searchByLga(selectedLGA1).get(0);
 				
-				List<Object> lgaTableData = new ArrayList<Object>();
-				lgaTableData.add(crime.getLGAERP());
-				lgaTableData.add(crime.getTotalOffenceCount());
-				lgaTableData.add(crash.getCrashTotalCount());
-				lgaTableData.add(amResp.getAvgResponseTime());
-				lgaTableData.add(fireBrigade.getFireBrigadeNo());
-				lgaTableData.add(policeStation.getPoliceStationNo());
-				lgaTableData.add(hospital.getHospitalNo());
+				lgaTableData1.add(crime.getLGAERP());
+				lgaTableData1.add(crime.getTotalOffenceCount());
+				lgaTableData1.add(crash.getCrashTotalCount());
+				lgaTableData1.add(amResp.getAvgResponseTime());
+				lgaTableData1.add(fireBrigade.getFireBrigadeNo());
+				lgaTableData1.add(policeStation.getPoliceStationNo());
+				lgaTableData1.add(hospital.getHospitalNo());
 			}else{
 				lgaTableData1.add("-");
 				lgaTableData1.add("-");
@@ -492,14 +491,13 @@ public class HomeController {
 				PoliceStation policeStation = policeStaSvc.searchByLga(selectedLGA2).get(0);
 				Hospital hospital = hospitalSvc.searchByLga(selectedLGA2).get(0);
 				
-				List<Object> lgaTableData = new ArrayList<Object>();
-				lgaTableData.add(crime.getLGAERP());
-				lgaTableData.add(crime.getTotalOffenceCount());
-				lgaTableData.add(crash.getCrashTotalCount());
-				lgaTableData.add(amResp.getAvgResponseTime());
-				lgaTableData.add(fireBrigade.getFireBrigadeNo());
-				lgaTableData.add(policeStation.getPoliceStationNo());
-				lgaTableData.add(hospital.getHospitalNo());
+				lgaTableData2.add(crime.getLGAERP());
+				lgaTableData2.add(crime.getTotalOffenceCount());
+				lgaTableData2.add(crash.getCrashTotalCount());
+				lgaTableData2.add(amResp.getAvgResponseTime());
+				lgaTableData2.add(fireBrigade.getFireBrigadeNo());
+				lgaTableData2.add(policeStation.getPoliceStationNo());
+				lgaTableData2.add(hospital.getHospitalNo());
 			}else{
 				lgaTableData2.add("-");
 				lgaTableData2.add("-");
