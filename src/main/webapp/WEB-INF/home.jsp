@@ -400,14 +400,12 @@
 				if($("#level2SelectedItem").attr('title') == $(this)[0].name){
 					$(this).parent().parent().parent().children().first().children().first().html($(this).text());
 			      	$(this).parent().parent().parent().children().first().children().first().attr('title', $(this)[0].name);
-			      	console.log("same 1");
 					return;
 				}
 			}else{
 				if($("#level1SelectedItem").attr('title') == $(this)[0].name){
 					$(this).parent().parent().parent().children().first().children().first().html($(this).text());
 			      	$(this).parent().parent().parent().children().first().children().first().attr('title', $(this)[0].name);
-			      	console.log("same 2");
 					return;
 				}
 			}
@@ -425,7 +423,6 @@
 			
 			if(($("#compare-table thead tr:nth-child(1) .th-inner:eq(1)").html() == "First LGA" ) 
 			  && ($("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").html() == "Second LGA" )){
-				console.log("no lga selected");
 				
 				changeTableAndSpider($(this)[0].name);
 				
@@ -437,7 +434,6 @@
 				
 				
 				
-				console.log("get data....");
 			}
 	      
 	      
@@ -456,6 +452,16 @@
 	function changeTableAndSpider(dataSource){
 		var lga1Header = $("#compare-table thead tr:nth-child(1) .th-inner:eq(1)").html();
 		var lga2Header = $("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").html();
+		var selectedLGA = "";
+		if(lga1Header == "First LGA" && lga2Header == "Second LGA"){
+			selectedLGA = "00";
+		}else if(lga1Header != "First LGA" && lga2Header == "Second LGA"){
+			selectedLGA = "10";
+		}else if(lga1Header == "First LGA" && lga2Header != "Second LGA"){
+			selectedLGA = "01";
+		}else if(lga1Header != "First LGA" && lga2Header != "Second LGA"){
+			selectedLGA = "11";
+		}
 		$("#compare-table-div").empty();
         $("#compare-table-div").html('<table id="compare-table" data-select-item-name="radioName1" data-cache="false"></table>');
       	//level1All level1Crime level1Accident level2All level2A level2B level2C level2D level2E level2F
@@ -842,14 +848,6 @@
     // AJAX invoke to get lga crime data from backend 
     function getSelectedLGAData(selectedLGA, selectedLGAButtonIndex){
     	selectedLGA = selectedLGA.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim();
-    	/*
-    	console.log($("#compare-table thead tr:nth-child(1) .th-inner:eq(0)").html("aaaa"));
-    	console.log($("#compare-table thead tr:nth-child(1) .th-inner:eq(1)").html("bbbb"));
-    	console.log($("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").html("cccc"));
-    	console.log($("#compare-table tbody tr:nth-child(1) td:eq(0)").html("eee"));
-    	console.log($("#compare-table tbody tr:nth-child(2) td:eq(2)").html("fff"));
-    	*/
-    	// $("#compare-table tbody tr:nth-child(2) td:eq(2) div").html("fff");
     	$("#compare-table thead tr:nth-child(1) .th-inner:eq("+selectedLGAButtonIndex+")").css("color",selectedLGAColors[selectedLGAButtonIndex-1]);
     	$("#compare-table thead tr:nth-child(1) .th-inner:eq("+selectedLGAButtonIndex+")").html(selectedLGA);
     	
@@ -860,11 +858,8 @@
     		dataSource = $("#level1SelectedItem").attr("title");
     	}
     	
-    	console.log(dataSource);
-    	
     	$.getJSON("getSelectedLGAData", { selectedLGA: selectedLGA, dataSource: dataSource }, function(results) {
     		
-    		console.log(results);
     		for(var i=0;i<results[0].length;i++){
     			$("#compare-table tbody tr:nth-child("+(i+1)+") td:eq("+selectedLGAButtonIndex+") div").html(results[0][i]);
     		}
@@ -922,7 +917,6 @@
     	
     	var spider = $('#spiderChart').highcharts();
     	
-    	console.log("updateSpiderChart:"+dataSource);
    		if(dataSource == "level1All"){
    			$(".highcharts-legend-item:nth-child("+selectedLGAButtonIndex+")").find("text").html(selectedLGA);
    			spider.series[selectedLGAButtonIndex-1].setData(dataset);
@@ -932,7 +926,6 @@
    			spider.series[selectedLGAButtonIndex].setData(dataset);
    	    	spider.series[selectedLGAButtonIndex].name = selectedLGA;
    		}
-    	
 	}
     
     // set lga table with crime data

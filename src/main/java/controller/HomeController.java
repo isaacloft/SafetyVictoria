@@ -193,12 +193,19 @@ public class HomeController {
 			List<CrimeMajorCategories> majorTypeList = crimeMajorSvc.getAll();
 			List<Object> lgaTableData = new ArrayList<Object>();
 			List<Object> lgaSpiderData = new ArrayList<Object>();
-			for(int i=0;i<resultList.size();i++){
-				if(majorTypeList.get(i).getCode().equals(resultList.get(i)[2].toString())){
-					lgaSpiderData.add(resultList.get(i)[0]);
-					lgaTableData.add(resultList.get(i)[1]);
+			
+			for(int i=0;i<majorTypeList.size();i++){
+				Object[] matchObj = null;
+				for(Object[] obj:resultList){
+					if(majorTypeList.get(i).getCode().equals(obj[2].toString())){
+						matchObj = obj;
+						break;
+					}
+				}
+				if(matchObj != null){
+					lgaSpiderData.add(matchObj[0]);
+					lgaTableData.add(matchObj[1]);
 				}else{
-					i--;
 					lgaSpiderData.add(0);
 					lgaTableData.add(0);
 				}
@@ -215,12 +222,19 @@ public class HomeController {
 			List<CrashAccidentType> crashTypeList = crashTypeSvc.getAll();
 			List<Object> lgaTableData = new ArrayList<Object>();
 			List<Object> lgaSpiderData = new ArrayList<Object>();
-			for(int i=0;i<resultList.size();i++){
-				if(crashTypeList.get(i).getId() == Integer.parseInt(resultList.get(i)[2].toString())){
-					lgaSpiderData.add(resultList.get(i)[0]);
-					lgaTableData.add(resultList.get(i)[1]);
+			
+			for(int i=0;i<crashTypeList.size();i++){
+				Object[] matchObj = null;
+				for(Object[] obj:resultList){
+					if(crashTypeList.get(i).getId() == Integer.parseInt(obj[2].toString())){
+						matchObj = obj;
+						break;
+					}
+				}
+				if(matchObj != null){
+					lgaSpiderData.add(matchObj[0]);
+					lgaTableData.add(matchObj[1]);
 				}else{
-					i--;
 					lgaSpiderData.add(0);
 					lgaTableData.add(0);
 				}
