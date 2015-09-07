@@ -100,10 +100,15 @@ public class AmbulanceRespService {
 	 */
 	@Transactional
 	public AmbulanceResponse searchByLgaNameAndYear(String lgaName, int year){
+		AmbulanceResponse result = null;
+		try{
+			result = em.createQuery("select ar from AmbulanceResponse ar where ar.lgaName ='"+lgaName +"' and ar.year = "+year+"",
+					AmbulanceResponse.class)
+					.getSingleResult();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
-		AmbulanceResponse result = em.createQuery("select ar from AmbulanceResponse ar where ar.lgaName ='"+lgaName +"' and ar.year = "+year+"",
-				AmbulanceResponse.class)
-				.getSingleResult();
 		return result;
 
 	}

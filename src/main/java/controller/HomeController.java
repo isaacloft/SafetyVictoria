@@ -168,14 +168,23 @@ public class HomeController {
 				AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA1, YEAR-1);
 				FireBrigade fireBrigade = fireBriSvc.searchByLgaNameAndYear(selectedLGA1).get(0);
 				PoliceStation policeStation = policeStaSvc.searchByLga(selectedLGA1).get(0);
-				Hospital hospital = hospitalSvc.searchByLga(selectedLGA1).get(0);
 				
 				lgaSpiderData1.add(crime.getScore());
 				lgaSpiderData1.add(crash.getScore());
-				lgaSpiderData1.add(amResp.getScore());
+				
+				if(amResp != null){
+					lgaSpiderData1.add(amResp.getScore());
+				}else{
+					lgaSpiderData1.add("0");
+				}
 				lgaSpiderData1.add(fireBrigade.getScore());
 				lgaSpiderData1.add(policeStation.getScore());
-				lgaSpiderData1.add(hospital.getScore());
+				if(hospitalSvc.searchByLga(selectedLGA1).size() == 0){
+					lgaSpiderData1.add('0');
+				}else{
+					lgaSpiderData1.add(hospitalSvc.searchByLga(selectedLGA1).get(0).getScore());
+				}
+				
 			}else{
 				lgaSpiderData1.add(0);
 				lgaSpiderData1.add(0);
@@ -184,20 +193,28 @@ public class HomeController {
 				lgaSpiderData1.add(0);
 				lgaSpiderData1.add(0);
 			}
-			if(!"Second LGA".equals(selectedLGA1)){
+			if(!"Second LGA".equals(selectedLGA2)){
 				CrimeByLocation crime = crimeByLocSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0);	
 				Crash crash = crashSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0);
 				AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA2, YEAR-1);
 				FireBrigade fireBrigade = fireBriSvc.searchByLgaNameAndYear(selectedLGA2).get(0);
 				PoliceStation policeStation = policeStaSvc.searchByLga(selectedLGA2).get(0);
-				Hospital hospital = hospitalSvc.searchByLga(selectedLGA2).get(0);
 				
 				lgaSpiderData2.add(crime.getScore());
 				lgaSpiderData2.add(crash.getScore());
-				lgaSpiderData2.add(amResp.getScore());
+				
+				if(amResp != null){
+					lgaSpiderData2.add(amResp.getScore());
+				}else{
+					lgaSpiderData2.add("0");
+				}
 				lgaSpiderData2.add(fireBrigade.getScore());
 				lgaSpiderData2.add(policeStation.getScore());
-				lgaSpiderData2.add(hospital.getScore());
+				if(hospitalSvc.searchByLga(selectedLGA2).size() == 0){
+					lgaSpiderData2.add('0');
+				}else{
+					lgaSpiderData2.add(hospitalSvc.searchByLga(selectedLGA2).get(0).getScore());
+				}
 			}else{
 				lgaSpiderData2.add(0);
 				lgaSpiderData2.add(0);
@@ -346,23 +363,32 @@ public class HomeController {
 			AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA, YEAR-1);
 			FireBrigade fireBrigade = fireBriSvc.searchByLgaNameAndYear(selectedLGA).get(0);
 			PoliceStation policeStation = policeStaSvc.searchByLga(selectedLGA).get(0);
-			Hospital hospital = hospitalSvc.searchByLga(selectedLGA).get(0);
 			
 			List<Object> lgaTableData = new ArrayList<Object>();
+			List<Object> lgaSpiderData = new ArrayList<Object>();
 			lgaTableData.add(crime.getLGAERP());
 			lgaTableData.add(crime.getTotalOffenceCount());
-			lgaTableData.add(crash.getCrashTotalCount());
-			lgaTableData.add(amResp.getAvgResponseTime());
-			lgaTableData.add(fireBrigade.getFireBrigadeNo());
-			lgaTableData.add(policeStation.getPoliceStationNo());
-			lgaTableData.add(hospital.getHospitalNo());
-			List<Object> lgaSpiderData = new ArrayList<Object>();
 			lgaSpiderData.add(crime.getScore());
+			lgaTableData.add(crash.getCrashTotalCount());
 			lgaSpiderData.add(crash.getScore());
-			lgaSpiderData.add(amResp.getScore());
+			if(amResp != null){
+				lgaTableData.add(amResp.getAvgResponseTime());
+				lgaSpiderData.add(amResp.getScore());
+			}else{
+				lgaTableData.add("-");
+				lgaSpiderData.add(0);
+			}
+			lgaTableData.add(fireBrigade.getFireBrigadeNo());
 			lgaSpiderData.add(fireBrigade.getScore());
+			lgaTableData.add(policeStation.getPoliceStationNo());
 			lgaSpiderData.add(policeStation.getScore());
-			lgaSpiderData.add(hospital.getScore());
+			if(hospitalSvc.searchByLga(selectedLGA).size() == 0){
+				lgaTableData.add('-');
+				lgaSpiderData.add(0);
+			}else{
+				lgaTableData.add(hospitalSvc.searchByLga(selectedLGA).get(0).getHospitalNo());
+				lgaSpiderData.add(hospitalSvc.searchByLga(selectedLGA).get(0).getScore());
+			}
 			
 			List<List<Object>> list = new ArrayList<List<Object>>();
 			list.add(lgaTableData);
@@ -465,15 +491,22 @@ public class HomeController {
 				AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA1, YEAR-1);
 				FireBrigade fireBrigade = fireBriSvc.searchByLgaNameAndYear(selectedLGA1).get(0);
 				PoliceStation policeStation = policeStaSvc.searchByLga(selectedLGA1).get(0);
-				Hospital hospital = hospitalSvc.searchByLga(selectedLGA1).get(0);
 				
 				lgaTableData1.add(crime.getLGAERP());
 				lgaTableData1.add(crime.getTotalOffenceCount());
 				lgaTableData1.add(crash.getCrashTotalCount());
-				lgaTableData1.add(amResp.getAvgResponseTime());
+				if(amResp != null){
+					lgaTableData1.add(amResp.getAvgResponseTime());
+				}else{
+					lgaTableData1.add("-");
+				}
 				lgaTableData1.add(fireBrigade.getFireBrigadeNo());
 				lgaTableData1.add(policeStation.getPoliceStationNo());
-				lgaTableData1.add(hospital.getHospitalNo());
+				if(hospitalSvc.searchByLga(selectedLGA1).size() == 0){
+					lgaTableData1.add('-');
+				}else{
+					lgaTableData1.add(hospitalSvc.searchByLga(selectedLGA1).get(0).getHospitalNo());
+				}
 			}else{
 				lgaTableData1.add("-");
 				lgaTableData1.add("-");
@@ -483,21 +516,29 @@ public class HomeController {
 				lgaTableData1.add("-");
 				lgaTableData1.add("-");
 			}
-			if(!"Second LGA".equals(selectedLGA1)){
+			if(!"Second LGA".equals(selectedLGA2)){
 				CrimeByLocation crime = crimeByLocSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0);	
 				Crash crash = crashSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0);
 				AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA2, YEAR-1);
 				FireBrigade fireBrigade = fireBriSvc.searchByLgaNameAndYear(selectedLGA2).get(0);
 				PoliceStation policeStation = policeStaSvc.searchByLga(selectedLGA2).get(0);
-				Hospital hospital = hospitalSvc.searchByLga(selectedLGA2).get(0);
 				
 				lgaTableData2.add(crime.getLGAERP());
 				lgaTableData2.add(crime.getTotalOffenceCount());
 				lgaTableData2.add(crash.getCrashTotalCount());
-				lgaTableData2.add(amResp.getAvgResponseTime());
+				if(amResp != null){
+					lgaTableData2.add(amResp.getAvgResponseTime());
+				}else{
+					lgaTableData2.add("-");
+				}
 				lgaTableData2.add(fireBrigade.getFireBrigadeNo());
 				lgaTableData2.add(policeStation.getPoliceStationNo());
-				lgaTableData2.add(hospital.getHospitalNo());
+				if(hospitalSvc.searchByLga(selectedLGA1).size() == 0){
+					lgaTableData2.add('-');
+				}else{
+					lgaTableData2.add(hospitalSvc.searchByLga(selectedLGA2).get(0).getHospitalNo());
+				}
+				
 			}else{
 				lgaTableData2.add("-");
 				lgaTableData2.add("-");
