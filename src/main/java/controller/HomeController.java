@@ -39,6 +39,7 @@ import util.DataSourceEnum;
 public class HomeController {
 
 	public static int YEAR = 2014;
+	public static String EMPTYDASH = "-";
 	@Autowired
 	private LGAService lgaSvc;
 	@Autowired
@@ -163,24 +164,35 @@ public class HomeController {
 			List<Object> lgaSpiderData2 = new ArrayList<Object>();
 			
 			if(!"First LGA".equals(selectedLGA1)){
-				CrimeByLocation crime = crimeByLocSvc.searchByLGAAndYear(selectedLGA1, YEAR).get(0);	
-				Crash crash = crashSvc.searchByLGAAndYear(selectedLGA1, YEAR).get(0);
+				
+				if(crimeByLocSvc.searchByLGAAndYear(selectedLGA1, YEAR).size()==0){
+					lgaSpiderData1.add(0);
+				}else{
+					lgaSpiderData1.add(crimeByLocSvc.searchByLGAAndYear(selectedLGA1, YEAR).get(0).getScore());
+				}
+				if(crashSvc.searchByLGAAndYear(selectedLGA1, YEAR).size()==0){
+					lgaSpiderData1.add(0);
+				}else{
+					lgaSpiderData1.add(crashSvc.searchByLGAAndYear(selectedLGA1, YEAR).get(0).getScore());
+				}
 				AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA1, YEAR-1);
-				FireBrigade fireBrigade = fireBriSvc.searchByLgaNameAndYear(selectedLGA1).get(0);
-				PoliceStation policeStation = policeStaSvc.searchByLga(selectedLGA1).get(0);
-				
-				lgaSpiderData1.add(crime.getScore());
-				lgaSpiderData1.add(crash.getScore());
-				
 				if(amResp != null){
 					lgaSpiderData1.add(amResp.getScore());
 				}else{
-					lgaSpiderData1.add("0");
+					lgaSpiderData1.add(0);
 				}
-				lgaSpiderData1.add(fireBrigade.getScore());
-				lgaSpiderData1.add(policeStation.getScore());
+				if(fireBriSvc.searchByLgaNameAndYear(selectedLGA1).size()==0){
+					lgaSpiderData1.add(0);
+				}else{
+					lgaSpiderData1.add(fireBriSvc.searchByLgaNameAndYear(selectedLGA1).get(0).getScore());
+				}
+				if(policeStaSvc.searchByLga(selectedLGA1).size()==0){
+					lgaSpiderData1.add(0);
+				}else{
+					lgaSpiderData1.add(policeStaSvc.searchByLga(selectedLGA1).get(0).getScore());
+				}
 				if(hospitalSvc.searchByLga(selectedLGA1).size() == 0){
-					lgaSpiderData1.add('0');
+					lgaSpiderData1.add(0);
 				}else{
 					lgaSpiderData1.add(hospitalSvc.searchByLga(selectedLGA1).get(0).getScore());
 				}
@@ -194,24 +206,34 @@ public class HomeController {
 				lgaSpiderData1.add(0);
 			}
 			if(!"Second LGA".equals(selectedLGA2)){
-				CrimeByLocation crime = crimeByLocSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0);	
-				Crash crash = crashSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0);
+				if(crimeByLocSvc.searchByLGAAndYear(selectedLGA2, YEAR).size()==0){
+					lgaSpiderData2.add(0);
+				}else{
+					lgaSpiderData2.add(crimeByLocSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0).getScore());
+				}
+				if(crashSvc.searchByLGAAndYear(selectedLGA2, YEAR).size()==0){
+					lgaSpiderData2.add(0);
+				}else{
+					lgaSpiderData2.add(crashSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0).getScore());
+				}
 				AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA2, YEAR-1);
-				FireBrigade fireBrigade = fireBriSvc.searchByLgaNameAndYear(selectedLGA2).get(0);
-				PoliceStation policeStation = policeStaSvc.searchByLga(selectedLGA2).get(0);
-				
-				lgaSpiderData2.add(crime.getScore());
-				lgaSpiderData2.add(crash.getScore());
-				
 				if(amResp != null){
 					lgaSpiderData2.add(amResp.getScore());
 				}else{
-					lgaSpiderData2.add("0");
+					lgaSpiderData2.add(0);
 				}
-				lgaSpiderData2.add(fireBrigade.getScore());
-				lgaSpiderData2.add(policeStation.getScore());
-				if(hospitalSvc.searchByLga(selectedLGA2).size() == 0){
-					lgaSpiderData2.add('0');
+				if(fireBriSvc.searchByLgaNameAndYear(selectedLGA2).size()==0){
+					lgaSpiderData2.add(0);
+				}else{
+					lgaSpiderData2.add(fireBriSvc.searchByLgaNameAndYear(selectedLGA2).get(0).getScore());
+				}
+				if(policeStaSvc.searchByLga(selectedLGA2).size()==0){
+					lgaSpiderData2.add(0);
+				}else{
+					lgaSpiderData2.add(policeStaSvc.searchByLga(selectedLGA2).get(0).getScore());
+				}
+				if(hospitalSvc.searchByLga(selectedLGA1).size() == 0){
+					lgaSpiderData2.add(0);
 				}else{
 					lgaSpiderData2.add(hospitalSvc.searchByLga(selectedLGA2).get(0).getScore());
 				}
@@ -358,32 +380,48 @@ public class HomeController {
 		//level1All level1Accident level2All level2A level2B level2C level2D level2E level2F
 		if(DataSourceEnum.LEVEL1ALL.getValue().equals(dataSource)){
 			
-			CrimeByLocation crime = crimeByLocSvc.searchByLGAAndYear(selectedLGA, YEAR).get(0);	
-			Crash crash = crashSvc.searchByLGAAndYear(selectedLGA, YEAR).get(0);
-			AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA, YEAR-1);
-			FireBrigade fireBrigade = fireBriSvc.searchByLgaNameAndYear(selectedLGA).get(0);
-			PoliceStation policeStation = policeStaSvc.searchByLga(selectedLGA).get(0);
-			
 			List<Object> lgaTableData = new ArrayList<Object>();
 			List<Object> lgaSpiderData = new ArrayList<Object>();
-			lgaTableData.add(crime.getLGAERP());
-			lgaTableData.add(crime.getTotalOffenceCount());
-			lgaSpiderData.add(crime.getScore());
-			lgaTableData.add(crash.getCrashTotalCount());
-			lgaSpiderData.add(crash.getScore());
+			if(crimeByLocSvc.searchByLGAAndYear(selectedLGA, YEAR).size() == 0){
+				lgaTableData.add(EMPTYDASH);
+				lgaTableData.add(EMPTYDASH);
+				lgaSpiderData.add(0);
+			}else{
+				lgaTableData.add(crimeByLocSvc.searchByLGAAndYear(selectedLGA, YEAR).get(0).getLGAERP());
+				lgaTableData.add(crimeByLocSvc.searchByLGAAndYear(selectedLGA, YEAR).get(0).getTotalOffenceCount());
+				lgaSpiderData.add(crimeByLocSvc.searchByLGAAndYear(selectedLGA, YEAR).get(0).getScore());
+			}
+			if(crashSvc.searchByLGAAndYear(selectedLGA, YEAR).size() == 0){
+				lgaTableData.add(EMPTYDASH);
+				lgaSpiderData.add(0);
+			}else{
+				lgaTableData.add(crashSvc.searchByLGAAndYear(selectedLGA, YEAR).get(0).getCrashTotalCount());
+				lgaSpiderData.add(crashSvc.searchByLGAAndYear(selectedLGA, YEAR).get(0).getScore());
+			}
+			AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA, YEAR-1);
 			if(amResp != null){
 				lgaTableData.add(amResp.getAvgResponseTime());
 				lgaSpiderData.add(amResp.getScore());
 			}else{
-				lgaTableData.add("-");
+				lgaTableData.add(EMPTYDASH);
 				lgaSpiderData.add(0);
 			}
-			lgaTableData.add(fireBrigade.getFireBrigadeNo());
-			lgaSpiderData.add(fireBrigade.getScore());
-			lgaTableData.add(policeStation.getPoliceStationNo());
-			lgaSpiderData.add(policeStation.getScore());
+			if(fireBriSvc.searchByLgaNameAndYear(selectedLGA).size() == 0){
+				lgaTableData.add(EMPTYDASH);
+				lgaSpiderData.add(0);
+			}else{
+				lgaTableData.add(fireBriSvc.searchByLgaNameAndYear(selectedLGA).get(0).getFireBrigadeNo());
+				lgaSpiderData.add(fireBriSvc.searchByLgaNameAndYear(selectedLGA).get(0).getScore());
+			}
+			if(policeStaSvc.searchByLga(selectedLGA).size() == 0){
+				lgaTableData.add(EMPTYDASH);
+				lgaSpiderData.add(0);
+			}else{
+				lgaTableData.add(policeStaSvc.searchByLga(selectedLGA).get(0).getPoliceStationNo());
+				lgaSpiderData.add(policeStaSvc.searchByLga(selectedLGA).get(0).getScore());
+			}
 			if(hospitalSvc.searchByLga(selectedLGA).size() == 0){
-				lgaTableData.add('-');
+				lgaTableData.add(EMPTYDASH);
 				lgaSpiderData.add(0);
 			}else{
 				lgaTableData.add(hospitalSvc.searchByLga(selectedLGA).get(0).getHospitalNo());
@@ -486,67 +524,93 @@ public class HomeController {
 			List<Object> lgaTableData1 = new ArrayList<Object>();
 			List<Object> lgaTableData2 = new ArrayList<Object>();
 			if(!"First LGA".equals(selectedLGA1)){
-				CrimeByLocation crime = crimeByLocSvc.searchByLGAAndYear(selectedLGA1, YEAR).get(0);	
-				Crash crash = crashSvc.searchByLGAAndYear(selectedLGA1, YEAR).get(0);
-				AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA1, YEAR-1);
-				FireBrigade fireBrigade = fireBriSvc.searchByLgaNameAndYear(selectedLGA1).get(0);
-				PoliceStation policeStation = policeStaSvc.searchByLga(selectedLGA1).get(0);
 				
-				lgaTableData1.add(crime.getLGAERP());
-				lgaTableData1.add(crime.getTotalOffenceCount());
-				lgaTableData1.add(crash.getCrashTotalCount());
+				if(crimeByLocSvc.searchByLGAAndYear(selectedLGA1, YEAR).size()==0){
+					lgaTableData1.add(EMPTYDASH);
+					lgaTableData1.add(EMPTYDASH);
+				}else{
+					lgaTableData1.add(crimeByLocSvc.searchByLGAAndYear(selectedLGA1, YEAR).get(0).getLGAERP());
+					lgaTableData1.add(crimeByLocSvc.searchByLGAAndYear(selectedLGA1, YEAR).get(0).getTotalOffenceCount());
+				}
+				if(crashSvc.searchByLGAAndYear(selectedLGA1, YEAR).size()==0){
+					lgaTableData1.add(EMPTYDASH);
+				}else{
+					lgaTableData1.add(crashSvc.searchByLGAAndYear(selectedLGA1, YEAR).get(0).getCrashTotalCount());
+				}
+				AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA1, YEAR-1);
 				if(amResp != null){
 					lgaTableData1.add(amResp.getAvgResponseTime());
 				}else{
-					lgaTableData1.add("-");
+					lgaTableData1.add(EMPTYDASH);
 				}
-				lgaTableData1.add(fireBrigade.getFireBrigadeNo());
-				lgaTableData1.add(policeStation.getPoliceStationNo());
+				if(fireBriSvc.searchByLgaNameAndYear(selectedLGA1).size()==0){
+					lgaTableData1.add(EMPTYDASH);
+				}else{
+					lgaTableData1.add(fireBriSvc.searchByLgaNameAndYear(selectedLGA1).get(0).getFireBrigadeNo());
+				}
+				if(policeStaSvc.searchByLga(selectedLGA1).size()==0){
+					lgaTableData1.add(EMPTYDASH);
+				}else{
+					lgaTableData1.add(policeStaSvc.searchByLga(selectedLGA1).get(0).getPoliceStationNo());
+				}
 				if(hospitalSvc.searchByLga(selectedLGA1).size() == 0){
-					lgaTableData1.add('-');
+					lgaTableData1.add(EMPTYDASH);
 				}else{
 					lgaTableData1.add(hospitalSvc.searchByLga(selectedLGA1).get(0).getHospitalNo());
 				}
 			}else{
-				lgaTableData1.add("-");
-				lgaTableData1.add("-");
-				lgaTableData1.add("-");
-				lgaTableData1.add("-");
-				lgaTableData1.add("-");
-				lgaTableData1.add("-");
-				lgaTableData1.add("-");
+				lgaTableData1.add(EMPTYDASH);
+				lgaTableData1.add(EMPTYDASH);
+				lgaTableData1.add(EMPTYDASH);
+				lgaTableData1.add(EMPTYDASH);
+				lgaTableData1.add(EMPTYDASH);
+				lgaTableData1.add(EMPTYDASH);
+				lgaTableData1.add(EMPTYDASH);
 			}
 			if(!"Second LGA".equals(selectedLGA2)){
-				CrimeByLocation crime = crimeByLocSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0);	
-				Crash crash = crashSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0);
-				AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA2, YEAR-1);
-				FireBrigade fireBrigade = fireBriSvc.searchByLgaNameAndYear(selectedLGA2).get(0);
-				PoliceStation policeStation = policeStaSvc.searchByLga(selectedLGA2).get(0);
 				
-				lgaTableData2.add(crime.getLGAERP());
-				lgaTableData2.add(crime.getTotalOffenceCount());
-				lgaTableData2.add(crash.getCrashTotalCount());
+				if(crimeByLocSvc.searchByLGAAndYear(selectedLGA2, YEAR).size()==0){
+					lgaTableData2.add(EMPTYDASH);
+					lgaTableData2.add(EMPTYDASH);
+				}else{
+					lgaTableData2.add(crimeByLocSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0).getLGAERP());
+					lgaTableData2.add(crimeByLocSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0).getTotalOffenceCount());
+				}
+				if(crashSvc.searchByLGAAndYear(selectedLGA2, YEAR).size()==0){
+					lgaTableData2.add(EMPTYDASH);
+				}else{
+					lgaTableData2.add(crashSvc.searchByLGAAndYear(selectedLGA2, YEAR).get(0).getCrashTotalCount());
+				}
+				AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA2, YEAR-1);
 				if(amResp != null){
 					lgaTableData2.add(amResp.getAvgResponseTime());
 				}else{
-					lgaTableData2.add("-");
+					lgaTableData2.add(EMPTYDASH);
 				}
-				lgaTableData2.add(fireBrigade.getFireBrigadeNo());
-				lgaTableData2.add(policeStation.getPoliceStationNo());
+				if(fireBriSvc.searchByLgaNameAndYear(selectedLGA2).size()==0){
+					lgaTableData2.add(EMPTYDASH);
+				}else{
+					lgaTableData2.add(fireBriSvc.searchByLgaNameAndYear(selectedLGA2).get(0).getFireBrigadeNo());
+				}
+				if(policeStaSvc.searchByLga(selectedLGA2).size()==0){
+					lgaTableData2.add(EMPTYDASH);
+				}else{
+					lgaTableData2.add(policeStaSvc.searchByLga(selectedLGA2).get(0).getPoliceStationNo());
+				}
 				if(hospitalSvc.searchByLga(selectedLGA1).size() == 0){
-					lgaTableData2.add('-');
+					lgaTableData2.add(EMPTYDASH);
 				}else{
 					lgaTableData2.add(hospitalSvc.searchByLga(selectedLGA2).get(0).getHospitalNo());
 				}
 				
 			}else{
-				lgaTableData2.add("-");
-				lgaTableData2.add("-");
-				lgaTableData2.add("-");
-				lgaTableData2.add("-");
-				lgaTableData2.add("-");
-				lgaTableData2.add("-");
-				lgaTableData2.add("-");
+				lgaTableData2.add(EMPTYDASH);
+				lgaTableData2.add(EMPTYDASH);
+				lgaTableData2.add(EMPTYDASH);
+				lgaTableData2.add(EMPTYDASH);
+				lgaTableData2.add(EMPTYDASH);
+				lgaTableData2.add(EMPTYDASH);
+				lgaTableData2.add(EMPTYDASH);
 			}
 			
 			List<List<Object>> list = new ArrayList<List<Object>>();
