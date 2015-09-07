@@ -393,8 +393,9 @@
 	    		"<div class='col-sm-3' id='lga2CrimeA'><span style='margin-left:25px;'>-</span></div>"+
     		"</div>" ); */
     		
- 		$("#level2Dropdown").hide(); 
-    		
+	$("#level2Dropdown").hide(); 
+    	
+    // event for dropdown menu select
 	$(".dropdown-menu1 li a").click(function(){
 			if($("#level2Dropdown").is(":visible")){
 				if($("#level2SelectedItem").attr('title') == $(this)[0].name){
@@ -426,20 +427,17 @@
 				
 				changeTableAndSpider($(this)[0].name);
 				
-				
 				return;
 			}else{
 				
 				changeTableAndSpider($(this)[0].name);
-				
-				
 				
 			}
 	      
 	      
 	   });
 	
- 	
+ 	// create table by tablehead and tabledata
 	function createTable(tableHead, tableData){
 		$('#compare-table').bootstrapTable({
 	  	        columns: tableHead,
@@ -448,7 +446,8 @@
 		$("#compare-table thead tr:nth-child(1) .th-inner:eq(1)").css("color",selectedLGAColors[0]);
 		$("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").css("color",selectedLGAColors[1]);
 	}
-    		
+    	
+ 	// change table and spider data by datasource
 	function changeTableAndSpider(dataSource){
 		var lga1Header = $("#compare-table thead tr:nth-child(1) .th-inner:eq(1)").html();
 		var lga2Header = $("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").html();
@@ -576,6 +575,7 @@
 		
 	}
 	
+ 	// change spider chart dimensions and inner data by datasource
 	function changeSpider(dataSource, categories, lga1Header, lga2Header){
 		if(dataSource == "level1All"){
 			$.getJSON("getLgaSpiderDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) { 
@@ -777,31 +777,7 @@
     var lgaDataSet = [];
     var lgaCrimeCountSet = [];
     
-    /* var cateList = ['level1All','level1Crime','level1Accident','level2CrimeAll','level2CrimeA']; */
-    
-    /* var resultJson = JSON.parse(data);
-    for(var i=0;i<resultJson.length;i++){
-        var tableData = [];
-        for(var j=0; j< resultJson[i].index_detail_option.length;j++){
-            tableData.push({
-                id: resultJson[i].index_detail_option[j].id,
-                option_id: resultJson[i].index_detail_option[j].id,
-                name: resultJson[i].index_detail_option[j].index_detail_option_desc
-            });
-        }
-        $('#survey-table'+(i+1)).bootstrapTable({
-            columns: [{
-                field: 'id',
-                radio: true
-            }, {
-                field: 'name',
-                title: '('+(i+1)+'/'+5+') Q'+(i+1)+': ' + resultJson[i].index_detail.index_detail_name
-            }],
-            data: tableData
-        });
-    } */
     //compare-table
-    
     var tableData = [];
     
     {
@@ -837,12 +813,14 @@
 		$("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").css("color",selectedLGAColors[1]);
     }
     
+    // set lga1 column color
     function lga1Formatter(value) {
         return '<div  style="color: ' + selectedLGAColors[0] + '">' +
                 value +
                 '</div>';
     }
     
+ 	// set lga2 column color
     function lga2Formatter(value) {
         return '<div  style="color: ' + selectedLGAColors[1] + '">' +
                 value +
@@ -869,50 +847,6 @@
     		}
     		updateSpiderChart(selectedLGA, selectedLGAButtonIndex, results[1], dataSource);
     		return;
-    		/* lgaDataSet[selectedLGAButtonIndex-1] = results;
-    		
-    		var crimeMajorArr = ['A','B','C','D','E','F'];
-    		var crimeCountArr = [0,0,0,0,0,0];
-    		
-    		if(results.length == 0){
-    			// set '-' to lga table
-    			crimeCountArr = ["-","-","-","-","-","-"];
-    			setSelectedLGATable(selectedLGA,crimeMajorArr,crimeCountArr,selectedLGAButtonIndex);
-    			
-    			crimeCountArr = [0,0,0,0,0,0];
-    			lgaCrimeCountSet[selectedLGAButtonIndex-1] = crimeCountArr;
-    			updateSpiderChart(selectedLGA, selectedLGAButtonIndex);
-    			return;
-    		}else{
-    		
-	    		for(var i in results){
-	    			var cbl = results[i];
-	    			if(cbl.csaOffenceDivision == crimeMajorArr[0]){
-	    				crimeCountArr[0] = crimeCountArr[0] + cbl.offenceCount;
-	    			}else if(cbl.csaOffenceDivision == crimeMajorArr[1]){
-	    				crimeCountArr[1] = crimeCountArr[1] + cbl.offenceCount;
-	    			}else if(cbl.csaOffenceDivision == crimeMajorArr[2]){
-	    				crimeCountArr[2] = crimeCountArr[2] + cbl.offenceCount;
-	    			}else if(cbl.csaOffenceDivision == crimeMajorArr[3]){
-	    				crimeCountArr[3] = crimeCountArr[3] + cbl.offenceCount;
-	    			}else if(cbl.csaOffenceDivision == crimeMajorArr[4]){
-	    				crimeCountArr[4] = crimeCountArr[4] + cbl.offenceCount;
-	    			}else if(cbl.csaOffenceDivision == crimeMajorArr[5]){
-	    				crimeCountArr[5] = crimeCountArr[5] + cbl.offenceCount;
-	    			}
-	    		}
-	    		
-	    		lgaCrimeCountSet[selectedLGAButtonIndex-1] = crimeCountArr;
-	    		setSelectedLGATable(selectedLGA,crimeMajorArr,crimeCountArr,selectedLGAButtonIndex);
-	    		
-	    		for(var i=0;i< crimeCountArr.length;i++){
-	    			var crimeCount = crimeCountArr[i];
-	    			var crimeCountPer100000 = crimeCount/(results[0].lgaerp) * 100000;
-	    			crimeCountArr[i] = Math.round(crimeCountPer100000);
-	    		}
-	    		
-	    		updateSpiderChart(selectedLGA, selectedLGAButtonIndex);
-    		} */
         });
     }
     
@@ -998,9 +932,6 @@
                 labels: {
                     align: 'center'
                 },
-                /* categories: ['A Crimes against the person','B Property and deception offences',
-                             'C Drug offences','D Public order and security offences',
-                             'E Justice procedures offences','F Other offences'], */
                 categories: ['Crime Safety index', 'Accident Safety index', 'Ambulance response time index', 
                              'Fire brigade index', 'Police station index', 'Hospital index'],             
                 tickmarkPlacement: 'on',
@@ -1015,7 +946,6 @@
             tooltip: {
                 shared: true,
                 pointFormat: '<span style="color:{series.color}">{series.name} Ranking Score: <b>{point.y}</b> <br/>'
-                //pointFormat: '<span style="color:{series.color}">{series.name} Ranking Score: <b>{point.y}</b> offences/100,000 population<br/>'
             },
 
             plotOptions: {

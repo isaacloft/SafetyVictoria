@@ -77,58 +77,11 @@ public class HomeController {
 ////		System.out.println(p.getName());
 //
 //		model.addAttribute("lgaList", lgaSvc.getAll());
-//		
-//		
-//		//Test all sevice method
-//		System.out.println("testMethods---lga---"+lgaSvc.searchById(1).get(0).getLga());
-//		System.out.println("testMethods---lga---"+lgaSvc.searchByLga("BANYULE").get(0).getId());
-//		
-//		System.out.println("testMethods---majorCC---"+crimeMajorSvc.getAll().size());
-//		System.out.println("testMethods---majorCC---"+crimeMajorSvc.searchByCode("A").get(0).getName());
-//		System.out.println("testMethods---majorCC---"+crimeMajorSvc.searchByName("C Drug offences").get(0).getCode());
-//		
-//		System.out.println("testMethods---subCC---"+crimeSubSvc.getAll().size());
-//		System.out.println("testMethods---subCC---"+crimeSubSvc.searchByMajorCode("A").get(0).getSubCateCode());
-//		System.out.println("testMethods---subCC---"+crimeSubSvc.searchBySubCode("A10").get(0).getMajorCateCode());
-//		System.out.println("testMethods---subCC---"+crimeSubSvc.searchBySubName("B10 Arson").get(0).getSubCateCode());
-//		
-//		System.out.println("testMethods---lgaPopulation---"+lgaPopuSvc.getAll().size());
-//		System.out.println("testMethods---lgaPopulation---"+lgaPopuSvc.searchByYear(2011).get(0).getLgaid());
-//		System.out.println("testMethods---lgaPopulation---"+lgaPopuSvc.searchByLgaid(1).get(0).getYear());
-//		System.out.println("testMethods---lgaPopulation---"+lgaPopuSvc.searchByLgaerp(122983).get(0).getYear());
-//		System.out.println("testMethods---lgaPopulation---"+lgaPopuSvc.searchByVicerp(5537817).get(0).getLgaerp());
-//		
-//		System.out.println("testMethods---crimeByLocation---"+crimeByLocSvc.getAll().size());
-//		System.out.println("testMethods---crimeByLocation---"+crimeByLocSvc.searchByYear(2011).get(0).getId());
-//		System.out.println("testMethods---crimeByLocation---"+crimeByLocSvc.searchByPoliceRegion("North West Metro").get(0).getId());
-//		System.out.println("testMethods---crimeByLocation---"+crimeByLocSvc.searchByPoliceServiceArea("1").get(0).getId());
-//		System.out.println("testMethods---crimeByLocation---"+crimeByLocSvc.searchByLGA("1").get(0).getId());
-//		System.out.println("testMethods---crimeByLocation---"+crimeByLocSvc.searchByCsaOffenceDivision("A").get(0).getId());
-//		System.out.println("testMethods---crimeByLocation---"+crimeByLocSvc.searchByCsaOffenceSubDivision("A10").get(0).getId());
-//		System.out.println("testMethods---crimeByLocation---"+crimeByLocSvc.searchByOffenceCount(2).get(0).getId());
-//		System.out.println("testMethods---crimeByLocation---"+crimeByLocSvc.searchByLGAERP("122983").get(0).getId());
-//		System.out.println("testMethods---crimeByLocation---"+crimeByLocSvc.searchByVICERP("5537817").get(0).getId());
-		
-//		System.out.println("testMethods---ambulanceResponse---" + ambulanceRespSvc.getAll().size());
-//		System.out.println("testMethods---ambulanceResponse---" + ambulanceRespSvc.searchByLgaId(1).get(0).getLgaName());
-//		System.out.println("testMethods---ambulanceResponse---" + ambulanceRespSvc.searchByLgaName("Alpine").get(0).getLgaId());
-//		System.out.println("testMethods---ambulanceResponse---" + ambulanceRespSvc.searchByYear("2014").get(0).getLgaId());
-//		System.out.println("testMethods---ambulanceResponse---" + ambulanceRespSvc.searchByLgaIdAndYear(1, "2014").get(0).getLgaName());
-//		System.out.println("testMethods---ambulanceResponse---" + ambulanceRespSvc.searchByLgaNameAndYear("Ararat", "2014").get(0).getAvgResponseTime());
-//		
-//		System.out.println("testMethods---policeStation---" + policeStaSvc.getAll().size());
-//		System.out.println("testMethods---policeStation---" + policeStaSvc.searchByLga("MURRINDINDI").get(0).getStationName());
-//		System.out.println("testMethods---policeStation---" + policeStaSvc.searchByStationId(1).get(0).getStationName());
-//		System.out.println("testMethods---policeStation---" + policeStaSvc.searchByStationName("Alexandra").get(0).getLga());
-//		System.out.println("testMethods---policeStation---" + policeStaSvc.searchBySuburb("ALEXANDRA").get(0).getLga());
-//		System.out.println("testMethods---policeStation---" + policeStaSvc.searchByLat("-37.1886").get(0).getLng());
-//		System.out.println("testMethods---policeStation---" + policeStaSvc.searchByLng("145.708").get(0).getLat());
-//		
 		return "home";
 	}
 
 	/**
-	 * Get crime data by total LGA in year 2015
+	 * Get average crime data by total LGA in year 2015
 	 * @param selectedLGA
 	 * @return
 	 */
@@ -139,7 +92,7 @@ public class HomeController {
 	}
 	
 	/**
-	 * Get crash data by total LGA in year 2015
+	 * Get average crash data by total LGA in year 2015
 	 * @param selectedLGA
 	 * @return
 	 */
@@ -151,7 +104,7 @@ public class HomeController {
 	}
 	
 	/**
-	 * Get crime data by seleted LGA
+	 * Get lga1 and lga2 spider data by dropdown selection
 	 * @param selectedLGA
 	 * @return
 	 */
@@ -511,7 +464,7 @@ public class HomeController {
 	}
 	
 	/**
-	 * Get crime data by seleted LGA
+	 * Get lga1 and lga2 table data by dropdown selection
 	 * @param selectedLGA
 	 * @return
 	 */
