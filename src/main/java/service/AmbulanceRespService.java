@@ -106,7 +106,7 @@ public class AmbulanceRespService {
 					AmbulanceResponse.class)
 					.getSingleResult();
 		}catch(Exception e){
-			e.printStackTrace();
+			
 		}
 		
 		return result;

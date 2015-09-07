@@ -415,7 +415,7 @@
 			if($(this)[0].name == 'level1Crime'){
 				//$("#level2Dropdown").show(); 
 				$("#level2All").trigger("click");
-			}else if ($(this)[0].name.startsWith('level2')){
+			}else if ($(this)[0].name.indexOf('level2') >= 0){
 				//$("#level2Dropdown").show(); 
 			}else{
 				$("#level2Dropdown").hide(); 
