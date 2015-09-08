@@ -258,7 +258,7 @@ public class HomeController {
 		}else if(DataSourceEnum.LEVEL1ACCIDENT.getValue().equals(dataSource)){
 			List<Object[]> resultList1 =  crashSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA1);
 			List<CrashAccidentType> crashTypeList1 = crashTypeSvc.getAll();
-			List<Object> lgaSpiderData1 = new ArrayList<Object>();
+			List<Object> lgaSpiderData1Temp = new ArrayList<Object>();
 			
 			for(int i=0;i<crashTypeList1.size();i++){
 				Object[] matchObj = null;
@@ -269,14 +269,14 @@ public class HomeController {
 					}
 				}
 				if(matchObj != null){
-					lgaSpiderData1.add(matchObj[0]);
+					lgaSpiderData1Temp.add(matchObj[0]);
 				}else{
-					lgaSpiderData1.add(0);
+					lgaSpiderData1Temp.add(0);
 				}
 			}
 			List<Object[]> resultList2 =  crashSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA2);
 			List<CrashAccidentType> crashTypeList2 = crashTypeSvc.getAll();
-			List<Object> lgaSpiderData2 = new ArrayList<Object>();
+			List<Object> lgaSpiderData2Temp = new ArrayList<Object>();
 			
 			for(int i=0;i<crashTypeList2.size();i++){
 				Object[] matchObj = null;
@@ -287,17 +287,51 @@ public class HomeController {
 					}
 				}
 				if(matchObj != null){
-					lgaSpiderData2.add(matchObj[0]);
+					lgaSpiderData2Temp.add(matchObj[0]);
 				}else{
-					lgaSpiderData2.add(0);
+					lgaSpiderData2Temp.add(0);
 				}
 			}
 			
 			List<List<Object>> list = new ArrayList<List<Object>>();
-			List<Object> avgList = new ArrayList<Object>();int vicPop = crimeByLocSvc.searchTotalVicPopulationByYear(YEAR);
+			List<Object> avgListTemp = new ArrayList<Object>();int vicPop = crimeByLocSvc.searchTotalVicPopulationByYear(YEAR);
 			for(Object[] obj:crashSvc.searchTotalVicAvgByYear(YEAR, vicPop)){
-				avgList.add(obj[0]);
+				avgListTemp.add(obj[0]);
 			}
+			
+			List<Object> avgList = new ArrayList<Object>();
+			avgList.add(avgListTemp.get(2));
+			avgList.add(avgListTemp.get(0));
+			avgList.add(avgListTemp.get(6));
+			avgList.add(avgListTemp.get(4));
+			avgList.add(avgListTemp.get(7));
+			avgList.add(avgListTemp.get(5));
+			avgList.add(avgListTemp.get(1));
+			avgList.add(avgListTemp.get(3));
+			avgList.add(avgListTemp.get(8));
+			
+			List<Object> lgaSpiderData1 = new ArrayList<Object>();
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(2));
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(0));
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(6));
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(4));
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(7));
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(5));
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(1));
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(3));
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(8));
+			
+			List<Object> lgaSpiderData2 = new ArrayList<Object>();
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(2));
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(0));
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(6));
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(4));
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(7));
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(5));
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(1));
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(3));
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(8));
+			
 			list.add(avgList);
 			list.add(lgaSpiderData1);
 			list.add(lgaSpiderData2);
@@ -418,8 +452,8 @@ public class HomeController {
 		}else if(DataSourceEnum.LEVEL1ACCIDENT.getValue().equals(dataSource)){
 			List<Object[]> resultList =  crashSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA);
 			List<CrashAccidentType> crashTypeList = crashTypeSvc.getAll();
-			List<Object> lgaTableData = new ArrayList<Object>();
-			List<Object> lgaSpiderData = new ArrayList<Object>();
+			List<Object> lgaTableDataTemp = new ArrayList<Object>();
+			List<Object> lgaSpiderDataTemp = new ArrayList<Object>();
 			
 			for(int i=0;i<crashTypeList.size();i++){
 				Object[] matchObj = null;
@@ -430,15 +464,38 @@ public class HomeController {
 					}
 				}
 				if(matchObj != null){
-					lgaSpiderData.add(matchObj[0]);
-					lgaTableData.add(matchObj[1]);
+					lgaSpiderDataTemp.add(matchObj[0]);
+					lgaTableDataTemp.add(matchObj[1]);
 				}else{
-					lgaSpiderData.add(0);
-					lgaTableData.add(0);
+					lgaSpiderDataTemp.add(0);
+					lgaTableDataTemp.add(0);
 				}
 			}
 			
 			List<List<Object>> list = new ArrayList<List<Object>>();
+			
+			List<Object> lgaTableData = new ArrayList<Object>();
+			lgaTableData.add(lgaTableDataTemp.get(2));
+			lgaTableData.add(lgaTableDataTemp.get(0));
+			lgaTableData.add(lgaTableDataTemp.get(6));
+			lgaTableData.add(lgaTableDataTemp.get(4));
+			lgaTableData.add(lgaTableDataTemp.get(7));
+			lgaTableData.add(lgaTableDataTemp.get(5));
+			lgaTableData.add(lgaTableDataTemp.get(1));
+			lgaTableData.add(lgaTableDataTemp.get(3));
+			lgaTableData.add(lgaTableDataTemp.get(8));
+			
+			List<Object> lgaSpiderData = new ArrayList<Object>();
+			lgaSpiderData.add(lgaSpiderDataTemp.get(2));
+			lgaSpiderData.add(lgaSpiderDataTemp.get(0));
+			lgaSpiderData.add(lgaSpiderDataTemp.get(6));
+			lgaSpiderData.add(lgaSpiderDataTemp.get(4));
+			lgaSpiderData.add(lgaSpiderDataTemp.get(7));
+			lgaSpiderData.add(lgaSpiderDataTemp.get(5));
+			lgaSpiderData.add(lgaSpiderDataTemp.get(1));
+			lgaSpiderData.add(lgaSpiderDataTemp.get(3));
+			lgaSpiderData.add(lgaSpiderDataTemp.get(8));
+			
 			list.add(lgaTableData);
 			list.add(lgaSpiderData);
 			
@@ -619,7 +676,7 @@ public class HomeController {
 		}else if(DataSourceEnum.LEVEL1ACCIDENT.getValue().equals(dataSource)){
 			List<Object[]> resultList1 =  crashSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA1);
 			List<CrashAccidentType> crashTypeList1 = crashTypeSvc.getAll();
-			List<Object> lgaTableData1 = new ArrayList<Object>();
+			List<Object> lgaTableData1Temp = new ArrayList<Object>();
 			
 			for(int i=0;i<crashTypeList1.size();i++){
 				Object[] matchObj = null;
@@ -630,15 +687,15 @@ public class HomeController {
 					}
 				}
 				if(matchObj != null){
-					lgaTableData1.add(matchObj[1]);
+					lgaTableData1Temp.add(matchObj[1]);
 				}else{
-					lgaTableData1.add(0);
+					lgaTableData1Temp.add(0);
 				}
 			}
 			
 			List<Object[]> resultList2 =  crashSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA2);
 			List<CrashAccidentType> crashTypeList2 = crashTypeSvc.getAll();
-			List<Object> lgaTableData2 = new ArrayList<Object>();
+			List<Object> lgaTableData2Temp = new ArrayList<Object>();
 			
 			for(int i=0;i<crashTypeList2.size();i++){
 				Object[] matchObj = null;
@@ -649,11 +706,33 @@ public class HomeController {
 					}
 				}
 				if(matchObj != null){
-					lgaTableData2.add(matchObj[1]);
+					lgaTableData2Temp.add(matchObj[1]);
 				}else{
-					lgaTableData2.add(0);
+					lgaTableData2Temp.add(0);
 				}
 			}
+			
+			List<Object> lgaTableData1 = new ArrayList<Object>();
+			lgaTableData1.add(lgaTableData1Temp.get(2));
+			lgaTableData1.add(lgaTableData1Temp.get(0));
+			lgaTableData1.add(lgaTableData1Temp.get(6));
+			lgaTableData1.add(lgaTableData1Temp.get(4));
+			lgaTableData1.add(lgaTableData1Temp.get(7));
+			lgaTableData1.add(lgaTableData1Temp.get(5));
+			lgaTableData1.add(lgaTableData1Temp.get(1));
+			lgaTableData1.add(lgaTableData1Temp.get(3));
+			lgaTableData1.add(lgaTableData1Temp.get(8));
+			
+			List<Object> lgaTableData2 = new ArrayList<Object>();
+			lgaTableData2.add(lgaTableData2Temp.get(2));
+			lgaTableData2.add(lgaTableData2Temp.get(0));
+			lgaTableData2.add(lgaTableData2Temp.get(6));
+			lgaTableData2.add(lgaTableData2Temp.get(4));
+			lgaTableData2.add(lgaTableData2Temp.get(7));
+			lgaTableData2.add(lgaTableData2Temp.get(5));
+			lgaTableData2.add(lgaTableData2Temp.get(1));
+			lgaTableData2.add(lgaTableData2Temp.get(3));
+			lgaTableData2.add(lgaTableData2Temp.get(8));
 			
 			List<List<Object>> list = new ArrayList<List<Object>>();
 			list.add(lgaTableData1);

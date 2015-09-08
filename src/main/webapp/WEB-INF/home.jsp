@@ -198,7 +198,7 @@
 	                <div class="row">
 	                	<div id="level1Dropdown" class="dropdown col-xs-3" style="z-index: 999;">
 						  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    <span id="level1SelectedItem" title="level1All">Please select a level 1 category</span>
+						    <span id="level1SelectedItem" title="level1All">Select a category</span>
 						    <span class="caret"></span>
 						  </button>
 						  <ul class="dropdown-menu dropdown-menu1" style="margin-left: 15px;" aria-labelledby="dropdownMenu1">
@@ -374,6 +374,7 @@
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/highcharts-more.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script src="http://code.highcharts.com/modules/broken-axis.js"></script>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css">
@@ -473,7 +474,7 @@
 				
 	        	var tableHead = [{
 		            field: 'rowTitle',
-		            title: 'Overall Statistic Data'
+		            title: 'Overall Statistic Data (2015)'
 		        }, {
 		            field: 'lga1Name',
 		            title: lga1Header,
@@ -509,7 +510,7 @@
         	$.getJSON("getLgaTableDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
 	        	var tableHead = [{
 		            field: 'rowTitle',
-		            title: 'Crime Statistic Data'
+		            title: 'Crime Statistic Data (2015)'
 		        }, {
 		        	field: 'lga1Name',
 		            title: lga1Header,
@@ -537,15 +538,15 @@
         	changeSpider(dataSource, rowTitleData, lga1Header, lga2Header);
         	
         }else if(dataSource == "level1Accident"){
-        	var rowTitleData = ['Collision with a fixed object','Collision with some other object',
-    		                    'Collision with vehicle','Fall from or in moving vehicle',
-    		                    'No collision and no object struck','Struck animal',
-    		                    'Struck Pedestrian','Vehicle overturned (no collision)',
-    		                    'Other accident'];
+        	var rowTitleData = ['Collision with vehicle','Collision with a fixed object',
+        	                    'Struck Pedestrian','No collision and no object struck',
+        	                    'Vehicle overturned (no collision)','Struck animal',
+        	                    'Collision with some other object','Fall from or in moving vehicle',
+        	                    'Other accident'];
         	$.getJSON("getLgaTableDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
 	        	var tableHead = [{
 		            field: 'rowTitle',
-		            title: 'Accident Statistic Data'
+		            title: 'Accident Statistic Data (2015)'
 		        }, {
 		        	field: 'lga1Name',
 		            title: lga1Header,
@@ -579,7 +580,7 @@
 	function changeSpider(dataSource, categories, lga1Header, lga2Header){
 		if(dataSource == "level1All"){
 			$.getJSON("getLgaSpiderDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) { 
-				spiderOptions.title.text = 'Overall Ranking Index';
+				spiderOptions.title.text = 'Overall Ranking Scores (2015)';
 				spiderOptions.xAxis.categories = ['Crime Safety index', 'Accident Safety index', 'Ambulance response time index', 
 				                                  'Fire brigade index', 'Police station index', 'Hospital index'];
 	            spiderOptions.tooltip.pointFormat = '<span style="color:{series.color}">{series.name} Ranking Score: <b>{point.y}</b> <br/>';
@@ -601,14 +602,14 @@
         }else if(dataSource == "level1Crime"){
         	$.getJSON("getLgaSpiderDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
         		
-				spiderOptions.title.text = 'Crime Data';
+				spiderOptions.title.text = 'Crime Relative Data (2015)';
 	        	spiderOptions.xAxis.categories = categories;
 	            spiderOptions.tooltip.pointFormat = '<span style="color:{series.color}">{series.name}: <b>{point.y}</b> offences/100,000 population<br/>';
 	            spiderOptions.series = [{
 					type : 'line',
 					fillOpacity : 1,
 					color : '#ff0000',
-					name : 'Average for VIC',
+					name : 'VIC Average',
 					data : results[0]
 				},{
 					type : 'line',
@@ -628,14 +629,20 @@
         	
         }else if(dataSource == "level1Accident"){
         	$.getJSON("getLgaSpiderDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
-	        	spiderOptions.title.text = 'Crash Data';
+        		console.log("getLgaSpiderDataByDrop=====");
+	        	spiderOptions.title.text = 'Accident Relative Data (2015)';
 	        	spiderOptions.xAxis.categories = categories;
+	        	/* spiderOptions.yAxis.breaks = [{
+	                from: 50,
+	                to: 100,
+	                breakSize: 0
+	            }];  */
 	            spiderOptions.tooltip.pointFormat = '<span style="color:{series.color}">{series.name}: <b>{point.y}</b> accidents/100,000 population<br/>';
 	            spiderOptions.series = [{
 					type : 'line',
 					fillOpacity : 1,
 					color : '#ff0000',
-					name : 'Average for VIC',
+					name : 'VIC Average',
 					data : results[0]
 				},{
 					type : 'line',
@@ -650,6 +657,7 @@
 					name : ("Second LGA"==lga2Header)?'LGA2':lga2Header,
 					data : results[2]
 				}];
+	            console.log(spiderOptions);
 	    		$('#spiderChart').highcharts(spiderOptions);
         	}); 
         }
@@ -783,7 +791,7 @@
     {
 	    var tableHead = [{
 	        field: 'rowTitle',
-	        title: 'Overall Statistic Data'
+	        title: 'Overall Statistic Data (2015)'
 	    }, {
 	        field: 'lga1Name',
 	        title: 'First LGA',
@@ -907,13 +915,13 @@
     var spiderOptions = {
             chart: {
                 height: 600,
-                marginTop: -50,
+                marginTop: -10,
                 polar: true,
                 type: 'line'
             },
 
             title: {
-                text: 'Overall Ranking Index'
+                text: 'Overall Ranking Scores (2015)'
             },
 
             pane: {
@@ -960,7 +968,11 @@
                 align: 'bottom',
                 verticalAlign: 'top',
                 layout: 'vertical',
-                y: 5
+                y: 10,
+                itemStyle: {
+                    font: '9pt',
+                    color: '#A0A0A0'
+                }
             },
 
 			series : [ {
