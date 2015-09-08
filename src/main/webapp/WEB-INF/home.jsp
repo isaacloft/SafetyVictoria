@@ -184,7 +184,7 @@
                 	<div class="row">
                 		<div id="map1" class="map" style="width: auto;height: 390px;"></div>
                 		<div class="legend-tips" style="display: block;" id="map1-legend-tips">
-                				Tips: <br>1. Click the selection button in right bottom&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
+                				Tips: <br>1. Click "1st LGA" button in right &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
                 				<br>2. Click map to select 1st Local Government Areas
              			</div>
                 		<div class="first-lga-tip lga-select-tips" style="display: block;">1st LGA</div>
@@ -503,9 +503,9 @@
     		changeSpider(dataSource, rowTitleData, lga1Header, lga2Header);
         	
         }else if(dataSource == "level1Crime"){
-        	var rowTitleData = ['A Crimes against the person','B Property and deception offences',
-    		                    'C Drug offences','D Public order and security offences',
-    		                    'E Justice procedures offences','F Other offences'];
+        	var rowTitleData = ['C Drug offences','D Public order and security offences',
+    		                    'E Justice procedures offences','F Other offences',
+    		                    'A Crimes against the person','B Property and deception offences'];
         	
         	$.getJSON("getLgaTableDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
 	        	var tableHead = [{
@@ -538,11 +538,11 @@
         	changeSpider(dataSource, rowTitleData, lga1Header, lga2Header);
         	
         }else if(dataSource == "level1Accident"){
-        	var rowTitleData = ['Collision with vehicle','Collision with a fixed object',
-        	                    'Struck Pedestrian','No collision and no object struck',
+        	var rowTitleData = ['No collision and no object struck',
         	                    'Vehicle overturned (no collision)','Struck animal',
         	                    'Collision with some other object','Fall from or in moving vehicle',
-        	                    'Other accident'];
+        	                    'Other accident','Collision with vehicle','Collision with a fixed object',
+        	                    'Struck Pedestrian'];
         	$.getJSON("getLgaTableDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
 	        	var tableHead = [{
 		            field: 'rowTitle',
@@ -629,7 +629,6 @@
         	
         }else if(dataSource == "level1Accident"){
         	$.getJSON("getLgaSpiderDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
-        		console.log("getLgaSpiderDataByDrop=====");
 	        	spiderOptions.title.text = 'Accident Relative Data (2015)';
 	        	spiderOptions.xAxis.categories = categories;
 	        	/* spiderOptions.yAxis.breaks = [{
@@ -657,7 +656,6 @@
 					name : ("Second LGA"==lga2Header)?'LGA2':lga2Header,
 					data : results[2]
 				}];
-	            console.log(spiderOptions);
 	    		$('#spiderChart').highcharts(spiderOptions);
         	}); 
         }
@@ -711,6 +709,8 @@
             opacity:.5
           });
     	layer.on({
+    		mouseover : mouseoverLga,
+            mouseout: mouseoutLga,
             click : selectLGA
           });
         /* var selectedCityCouncil = layer.feature.properties.gaz_lga;
@@ -759,7 +759,8 @@
                 fillColor:selectedLGAColors[0],
                 fillOpacity: 0.4,
                 weight:2,
-                opacity: 1
+                opacity: 1,
+                dashArray: " "
             });
     		
     		getSelectedLGAData(selectedLGA, selectedLGAButtonIndex);
@@ -773,12 +774,34 @@
                 fillColor:selectedLGAColors[1],
                 fillOpacity: 0.4,
                 weight:2,
-                opacity: 1
+                opacity: 1,
+                dashArray: " "
             });
     		
     		getSelectedLGAData(selectedLGA, selectedLGAButtonIndex);
     		
     	}
+    }
+    
+    function mouseoverLga(){
+    	this.bringToFront();
+    	
+    	if(jQuery.inArray( this._path.attributes[6].value, selectedLGAColors ) >= 0){
+    		return;
+    	}
+        this.setStyle({
+            fillColor:selectedLGAColors[selectedLGAButtonIndex-1],
+            fillOpacity: 0.4,
+            weight:2,
+            opacity: 1,
+            dashArray: "mouseover"
+        }); 
+    }
+    
+	function mouseoutLga(){
+		this.bringToFront();
+		$("path[stroke-dasharray='mouseover']").attr("fill","#ffffff").attr("stroke-opacity","0.5").attr("stroke-width","1")
+		.attr("stroke-dasharray"," ");
     }
     
     // lga data set and lga crime count data set
@@ -896,7 +919,7 @@
 				"color":"black"
 			});
 			selectedLGAButtonIndex = 1;
-			$("#map1-legend-tips").html('Tips: <br>1. Click the selection button in right bottom&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i><br>2. Click map to select 1st Local Government Areas');
+			$("#map1-legend-tips").html('Tips: <br>1. Click "1st LGA" button in right &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i><br>2. Click map to select 1st Local Government Areas');
 		}else if($(this).hasClass("second-lga-tip")){
 			$(this).css({
 				"background":"#006872",
@@ -907,7 +930,7 @@
 				"color":"black"
 			});
 			selectedLGAButtonIndex = 2;
-			$("#map1-legend-tips").html('Tips: <br>1. Click the selection button in right bottom&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i><br>2. Click map to select 2nd Local Government Areas');
+			$("#map1-legend-tips").html('Tips: <br>1. Click "2nd LGA" button in right &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i><br>2. Click map to select 2nd Local Government Areas');
 		}
     });
     

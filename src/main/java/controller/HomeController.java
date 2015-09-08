@@ -208,7 +208,7 @@ public class HomeController {
 		}else if(DataSourceEnum.LEVEL1CRIME.getValue().equals(dataSource)){
 			List<Object[]> resultList1 =  crimeByLocSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA1);
 			List<CrimeMajorCategories> majorTypeList1 = crimeMajorSvc.getAll();
-			List<Object> lgaSpiderData1 = new ArrayList<Object>();
+			List<Object> lgaSpiderData1Temp = new ArrayList<Object>();
 			
 			for(int i=0;i<majorTypeList1.size();i++){
 				Object[] matchObj = null;
@@ -219,15 +219,15 @@ public class HomeController {
 					}
 				}
 				if(matchObj != null){
-					lgaSpiderData1.add(matchObj[0]);
+					lgaSpiderData1Temp.add(matchObj[0]);
 				}else{
-					lgaSpiderData1.add(0);
+					lgaSpiderData1Temp.add(0);
 				}
 			}
 			
 			List<Object[]> resultList2 =  crimeByLocSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA2);
 			List<CrimeMajorCategories> majorTypeList2 = crimeMajorSvc.getAll();
-			List<Object> lgaSpiderData2 = new ArrayList<Object>();
+			List<Object> lgaSpiderData2Temp = new ArrayList<Object>();
 			
 			for(int i=0;i<majorTypeList2.size();i++){
 				Object[] matchObj = null;
@@ -238,17 +238,42 @@ public class HomeController {
 					}
 				}
 				if(matchObj != null){
-					lgaSpiderData2.add(matchObj[0]);
+					lgaSpiderData2Temp.add(matchObj[0]);
 				}else{
-					lgaSpiderData2.add(0);
+					lgaSpiderData2Temp.add(0);
 				}
 			}
 			
 			List<List<Object>> list = new ArrayList<List<Object>>();
-			List<Object> avgList = new ArrayList<Object>();
+			List<Object> avgListTemp = new ArrayList<Object>();
 			for(Object[] obj:crimeByLocSvc.searchTotalVicAvgByYear(YEAR)){
-				avgList.add(obj[0]);
+				avgListTemp.add(obj[0]);
 			}
+			
+			List<Object> avgList = new ArrayList<Object>();
+			avgList.add(avgListTemp.get(2));
+			avgList.add(avgListTemp.get(3));
+			avgList.add(avgListTemp.get(4));
+			avgList.add(avgListTemp.get(5));
+			avgList.add(avgListTemp.get(0));
+			avgList.add(avgListTemp.get(1));
+			
+			List<Object> lgaSpiderData1 = new ArrayList<Object>();
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(2));
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(3));
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(4));
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(5));
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(0));
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(1));
+			
+			List<Object> lgaSpiderData2 = new ArrayList<Object>();
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(2));
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(3));
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(4));
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(5));
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(0));
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(1));
+			
 			list.add(avgList);
 			list.add(lgaSpiderData1);
 			list.add(lgaSpiderData2);
@@ -300,37 +325,37 @@ public class HomeController {
 			}
 			
 			List<Object> avgList = new ArrayList<Object>();
-			avgList.add(avgListTemp.get(2));
-			avgList.add(avgListTemp.get(0));
-			avgList.add(avgListTemp.get(6));
 			avgList.add(avgListTemp.get(4));
 			avgList.add(avgListTemp.get(7));
 			avgList.add(avgListTemp.get(5));
 			avgList.add(avgListTemp.get(1));
 			avgList.add(avgListTemp.get(3));
 			avgList.add(avgListTemp.get(8));
+			avgList.add(avgListTemp.get(2));
+			avgList.add(avgListTemp.get(0));
+			avgList.add(avgListTemp.get(6));
 			
 			List<Object> lgaSpiderData1 = new ArrayList<Object>();
-			lgaSpiderData1.add(lgaSpiderData1Temp.get(2));
-			lgaSpiderData1.add(lgaSpiderData1Temp.get(0));
-			lgaSpiderData1.add(lgaSpiderData1Temp.get(6));
 			lgaSpiderData1.add(lgaSpiderData1Temp.get(4));
 			lgaSpiderData1.add(lgaSpiderData1Temp.get(7));
 			lgaSpiderData1.add(lgaSpiderData1Temp.get(5));
 			lgaSpiderData1.add(lgaSpiderData1Temp.get(1));
 			lgaSpiderData1.add(lgaSpiderData1Temp.get(3));
 			lgaSpiderData1.add(lgaSpiderData1Temp.get(8));
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(2));
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(0));
+			lgaSpiderData1.add(lgaSpiderData1Temp.get(6));
 			
 			List<Object> lgaSpiderData2 = new ArrayList<Object>();
-			lgaSpiderData2.add(lgaSpiderData2Temp.get(2));
-			lgaSpiderData2.add(lgaSpiderData2Temp.get(0));
-			lgaSpiderData2.add(lgaSpiderData2Temp.get(6));
 			lgaSpiderData2.add(lgaSpiderData2Temp.get(4));
 			lgaSpiderData2.add(lgaSpiderData2Temp.get(7));
 			lgaSpiderData2.add(lgaSpiderData2Temp.get(5));
 			lgaSpiderData2.add(lgaSpiderData2Temp.get(1));
 			lgaSpiderData2.add(lgaSpiderData2Temp.get(3));
 			lgaSpiderData2.add(lgaSpiderData2Temp.get(8));
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(2));
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(0));
+			lgaSpiderData2.add(lgaSpiderData2Temp.get(6));
 			
 			list.add(avgList);
 			list.add(lgaSpiderData1);
@@ -424,7 +449,7 @@ public class HomeController {
 			List<Object[]> resultList =  crimeByLocSvc.searchCountByPopByYearAndLga(YEAR, selectedLGA);
 			List<CrimeMajorCategories> majorTypeList = crimeMajorSvc.getAll();
 			List<Object> lgaTableData = new ArrayList<Object>();
-			List<Object> lgaSpiderData = new ArrayList<Object>();
+			List<Object> lgaSpiderDataTemp = new ArrayList<Object>();
 			
 			for(int i=0;i<majorTypeList.size();i++){
 				Object[] matchObj = null;
@@ -435,17 +460,28 @@ public class HomeController {
 					}
 				}
 				if(matchObj != null){
-					lgaSpiderData.add(matchObj[0]);
+					lgaSpiderDataTemp.add(matchObj[0]);
 					lgaTableData.add(matchObj[1]);
 				}else{
-					lgaSpiderData.add(0);
+					lgaSpiderDataTemp.add(0);
 					lgaTableData.add(0);
 				}
 			}
 			
 			List<List<Object>> list = new ArrayList<List<Object>>();
+			
+			List<Object> lgaSpiderData = new ArrayList<Object>();
+			lgaSpiderData.add(lgaSpiderDataTemp.get(2));
+			lgaSpiderData.add(lgaSpiderDataTemp.get(3));
+			lgaSpiderData.add(lgaSpiderDataTemp.get(4));
+			lgaSpiderData.add(lgaSpiderDataTemp.get(5));
+			lgaSpiderData.add(lgaSpiderDataTemp.get(0));
+			lgaSpiderData.add(lgaSpiderDataTemp.get(1));
+			
 			list.add(lgaTableData);
 			list.add(lgaSpiderData);
+			
+			
 			
 			return list;
 			
@@ -486,15 +522,15 @@ public class HomeController {
 			lgaTableData.add(lgaTableDataTemp.get(8));
 			
 			List<Object> lgaSpiderData = new ArrayList<Object>();
-			lgaSpiderData.add(lgaSpiderDataTemp.get(2));
-			lgaSpiderData.add(lgaSpiderDataTemp.get(0));
-			lgaSpiderData.add(lgaSpiderDataTemp.get(6));
 			lgaSpiderData.add(lgaSpiderDataTemp.get(4));
 			lgaSpiderData.add(lgaSpiderDataTemp.get(7));
 			lgaSpiderData.add(lgaSpiderDataTemp.get(5));
 			lgaSpiderData.add(lgaSpiderDataTemp.get(1));
 			lgaSpiderData.add(lgaSpiderDataTemp.get(3));
 			lgaSpiderData.add(lgaSpiderDataTemp.get(8));
+			lgaSpiderData.add(lgaSpiderDataTemp.get(2));
+			lgaSpiderData.add(lgaSpiderDataTemp.get(0));
+			lgaSpiderData.add(lgaSpiderDataTemp.get(6));
 			
 			list.add(lgaTableData);
 			list.add(lgaSpiderData);
