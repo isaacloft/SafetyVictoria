@@ -127,17 +127,25 @@
                 <div class="col-md-4 wow fadeIn" data-wow-delay=".2s">
                     <div class="media">
                         <div class="pull-left">
-                            <i class="fa fa-clipboard"></i>
+                            <a class="page-scroll" href="#visualization"><i class="fa fa-clipboard"></i></a>
                         </div>
                         <div class="media-body">
-                            <h3 class="media-heading"><a class="page-scroll" style="color: black;" href="#visualization">Safety Visualization</a></h3>
+                            <h3 class="media-heading"><a class="page-scroll" href="#visualization">Safety Analysis</a></h3>
                             <ul>
                             	<!--  <li>As <strong>Java R&D Engineer</strong></li>-->
-                                <li>Score of areas by major crime categories</li>
-                                <li>Score of areas by sub crime categories</li>
-                                <li>Spider-chart of Index</li>
-                                <li>Area selection function</li>
-                                <li>Tabular display of default area score and average score</li>
+                            	<li>6 factors in year 2015<br>
+                            	&nbsp;&nbsp;&nbsp;&nbsp;<b>Crime</b>, 
+                            	&nbsp;&nbsp;<b>Accident</b>, 
+                            	&nbsp;&nbsp;<b>Ambulance</b>, <br>
+                            	&nbsp;&nbsp;&nbsp;&nbsp;<b>Fire Brigade</b>, 
+                            	&nbsp;&nbsp;<b>Police</b>, 
+                            	&nbsp;&nbsp;<b>Hospital</b></li>
+                            	<li>Actual statistic data</li>
+                            	<li>Analytical ranking score</li>
+                                <li>Crime Analytical drill down</li>
+                                <li>Crime Analytical relative data</li>
+                                <li>Accident Analytical drill down</li>
+                                <li>Accident Analytical relative data</li>
                             </ul>
                         </div>
                     </div>
@@ -184,8 +192,9 @@
                 	<div class="row">
                 		<div id="map1" class="map" style="width: auto;height: 390px;"></div>
                 		<div class="legend-tips" style="display: block;" id="map1-legend-tips">
-                				Tips: <br>1. Click "1st LGA" button in right &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
+                				Tips: <br>1. "1st LGA" button selected by default
                 				<br>2. Click map to select 1st Local Government Areas
+                				<br>3. Click "2nd LGA" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
              			</div>
                 		<div class="first-lga-tip lga-select-tips" style="display: block;">1st LGA</div>
                 		<div class="second-lga-tip lga-select-tips" style="display: block;">2nd LGA</div>
@@ -503,9 +512,7 @@
     		changeSpider(dataSource, rowTitleData, lga1Header, lga2Header);
         	
         }else if(dataSource == "level1Crime"){
-        	var rowTitleData = ['C Drug offences','D Public order and security offences',
-    		                    'E Justice procedures offences','F Other offences',
-    		                    'A Crimes against the person','B Property and deception offences'];
+        	
         	
         	$.getJSON("getLgaTableDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
 	        	var tableHead = [{
@@ -524,6 +531,10 @@
 	        	var lga1TableData = results[0];
 	    		var lga2TableData = results[1];
 	    		
+	    		var rowTitleData = ['A Crimes against the person','B Property and deception offences',
+	    		                    'C Drug offences','D Public order and security offences',
+	    		                    'E Justice procedures offences','F Other offences'];
+	    		
 	    		var tableData = [];
 	    		for(var i=0;i<rowTitleData.length;i++){
 	    			tableData.push({
@@ -535,6 +546,9 @@
 	        	createTable(tableHead, tableData);
         	});
         	
+        	var rowTitleData = ['C Drug offences','D Public order and security offences',
+    		                    'E Justice procedures offences','F Other offences',
+    		                    'A Crimes against the person','B Property and deception offences'];
         	changeSpider(dataSource, rowTitleData, lga1Header, lga2Header);
         	
         }else if(dataSource == "level1Accident"){
@@ -919,7 +933,7 @@
 				"color":"black"
 			});
 			selectedLGAButtonIndex = 1;
-			$("#map1-legend-tips").html('Tips: <br>1. Click "1st LGA" button in right &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i><br>2. Click map to select 1st Local Government Areas');
+			$("#map1-legend-tips").html('Tips: <br>1. "1st LGA" button selected <br>2. Click map to select 1st Local Government Areas<br>3. Click "2nd LGA" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>');
 		}else if($(this).hasClass("second-lga-tip")){
 			$(this).css({
 				"background":"#006872",
@@ -930,7 +944,7 @@
 				"color":"black"
 			});
 			selectedLGAButtonIndex = 2;
-			$("#map1-legend-tips").html('Tips: <br>1. Click "2nd LGA" button in right &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i><br>2. Click map to select 2nd Local Government Areas');
+			$("#map1-legend-tips").html('Tips: <br>1. "2nd LGA" button selected <br>2. Click map to select 2nd Local Government Areas<br>3. Click "1st LGA" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>');
 		}
     });
     
