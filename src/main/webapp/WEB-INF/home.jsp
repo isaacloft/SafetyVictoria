@@ -114,7 +114,7 @@
         </div>
     </header>
 
-	<section id="about" class="services">
+	<section id="about" class="services" style="padding-bottom: 300px;">
         <div class="container">
             <div class="row text-center">
                 <div class="col-lg-12 wow fadeIn">
@@ -133,7 +133,7 @@
                             <h3 class="media-heading"><a class="page-scroll" href="#visualization">Safety Analysis</a></h3>
                             <ul>
                             	<!--  <li>As <strong>Java R&D Engineer</strong></li>-->
-                            	<li>6 factors in year 2015<br>
+                            	<!-- <li>6 factors in year 2015<br>
                             	&nbsp;&nbsp;&nbsp;&nbsp;<b>Crime</b>, 
                             	&nbsp;&nbsp;<b>Accident</b>, 
                             	&nbsp;&nbsp;<b>Ambulance</b>, <br>
@@ -145,7 +145,11 @@
                                 <li>Crime Analytical drill down</li>
                                 <li>Crime Analytical relative data</li>
                                 <li>Accident Analytical drill down</li>
-                                <li>Accident Analytical relative data</li>
+                                <li>Accident Analytical relative data</li> -->
+                                <li>Safety Ranking</li>
+                                <li>Actual Data</li>
+                                <li>Relative Data</li>
+                                <li>Analytical Drill Down</li>
                             </ul>
                         </div>
                     </div>
