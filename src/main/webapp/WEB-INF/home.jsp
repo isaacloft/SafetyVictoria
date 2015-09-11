@@ -164,7 +164,7 @@
                             <ul>
                                 <!-- <li>As <strong>Java R&D Engineer</strong></li> -->
                                 <li>Year by year comparison</li>
-                                <li>slideable splite line</li>
+                                <!-- <li>slideable splite line</li> -->
                             </ul>
                         </div>
                     </div>
@@ -196,12 +196,17 @@
                 	<div class="row">
                 		<div id="map1" class="map" style="width: auto;height: 390px;"></div>
                 		<div class="legend-tips" style="display: block;" id="map1-legend-tips">
-                				Tips: <br>1. "1st LGA" button selected by default
-                				<br>2. Click map to select 1st Local Government Areas
-                				<br>3. Click "2nd LGA" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
+                				Tips: <br>"1st area" button selected now by default
+                				<br>1. Click map to select 1st area
+                				<br>2. Click "2nd area" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
+                				<i id="legend-tips-close" class="fa fa-times" style="position: relative;left: 15px;top: -59px;"></i>
              			</div>
-                		<div class="first-lga-tip lga-select-tips" style="display: block;">1st LGA</div>
-                		<div class="second-lga-tip lga-select-tips" style="display: block;">2nd LGA</div>
+                		<div class="first-lga-tip lga-select-tips" style="display: block;">
+							<button type="button" class="btn btn-primary">1st area</button>
+						</div>
+                		<div class="second-lga-tip lga-select-tips" style="display: block;">
+                			<button type="button" class="btn btn-success">2nd area</button>
+               			</div>
                 	</div>
                 	<div class="row" id="compare-table-div">
                 		<table id="compare-table" data-select-item-name="radioName1" data-cache="false"></table>
@@ -399,14 +404,42 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-zh-CN.min.js"></script>
 <script>
 (function ($) {
-	/* $("#compare-table").find("div:gt(3)").remove();
-	$("#compare-table").append( 
-			"<div class='row'>"+
-	    		"<div class='col-sm-6'>A Crimes against the person</div>"+
-	    		"<div class='col-sm-3' id='lga1CrimeA'><span style='margin-left:25px;'>-</span></div>"+
-	    		"<div class='col-sm-3' id='lga2CrimeA'><span style='margin-left:25px;'>-</span></div>"+
-    		"</div>" ); */
+
+	$("#legend-tips-close").click(function(){
+		legendClose();
+	});
+	
+	function legendClose(){
+		$("#map1-legend-tips").html('<a style="color:white" href="javascript:void(0);" id="clickableTip">Tips</a>');
+		$("#map1-legend-tips").animate({
+            width: '40px',
+            top: '353px'
+        }, 300);
+		
+		$("#clickableTip").click(function(){
+			legendOpen();
+		});
+	}
+	
+	function legendOpen(){
+		$("#map1-legend-tips").animate({
+            width: '260px',
+            top: '302px'
+        }, 300, function() {
+        	if(selectedLGAButtonIndex == 1){
+    			$("#map1-legend-tips").html('Tips: <br>"1st area" button selected now<br>1. Click map to select 1st Area<br>2. Click "2nd area" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i><i id="legend-tips-close" class="fa fa-times" style="position: relative;left: 18px;top: -59px;"></i>');
+    		}else{
+    			$("#map1-legend-tips").html('Tips: <br>"2nd area" button selected now<br>1. Click map to select 2nd Area<br>2. Click "1st area" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i><i id="legend-tips-close" class="fa fa-times" style="position: relative;left: 22px;top: -59px;"></i>');
+    		}
     		
+    		$("#legend-tips-close").click(function(){
+    			legendClose();
+    		});
+        });
+		
+		
+	}
+	
 	$("#level2Dropdown").hide(); 
     	
     // event for dropdown menu select
@@ -696,7 +729,7 @@
 	
 	// init map and add google map as layer
 	var map = L.map('map1', {zoomControl: false}).setView([-37.8131869,144.9629796], 8);
-    map.scrollWheelZoom.disable(); 
+    //map.scrollWheelZoom.disable(); 
     new L.Control.Zoom({position: 'bottomright'}).addTo(map);
     var googleRoadMap = new L.Google('ROADMAP');
     map.addLayer(googleRoadMap);
@@ -715,6 +748,9 @@
         
         $(".leaflet-control-attribution").hide();
         $(".leaflet-control-zoom").css("margin-bottom","40px;");
+        //$("path[stroke-dasharray='mouseover']").attr("fill","#ffffff").attr("stroke-opacity","0.5").attr("stroke-width","1")
+        $( "path[fill='#ffffff']" ).attr("title", function() {return $(this).attr("stroke-dasharray");}); 
+        //$( ".leaflet-zoom-animated path" ).addClass( "masterTooltip" ); 
     }
     
     // handle lga layer event
@@ -724,11 +760,14 @@
             fillOpacity: 0,
             color:'#555',
             weight:1,
-            opacity:.5
+            opacity:.5,
+            className: 'leaflet-clickable masterTooltip',
+            dashArray: layer.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim()
           });
     	layer.on({
     		mouseover : mouseoverLga,
             mouseout: mouseoutLga,
+            mousemove: mousemoveLga,
             click : selectLGA
           });
         /* var selectedCityCouncil = layer.feature.properties.gaz_lga;
@@ -801,6 +840,34 @@
     	}
     }
     
+    /* 
+    // Tooltip only Text
+   	$( ".leaflet-clickable" ).bind('hover', function() {
+   		console.log(4444);
+   	})
+   	$( ".leaflet-clickable" ).hover(function(){
+   		console.log(1111);
+   	        // Hover over code
+   	        var title = $(this).attr('title');
+   	        $(this).data('tipText', title).removeAttr('title');
+   	        $('<p class="tooltip"></p>')
+   	        .text(title)
+   	        .appendTo('body')
+   	        .fadeIn('slow');
+   	}, function() {
+   	        // Hover out code
+   	        console.log(2222);
+   	        $(this).attr('title', $(this).data('tipText'));
+   	        $('.tooltip').remove();
+   	}).mousemove(function(e) {
+   		console.log(3333);
+   	        var mousex = e.pageX + 20; //Get X coordinates
+   	        var mousey = e.pageY + 10; //Get Y coordinates
+   	        $('.tooltip')
+   	        .css({ top: mousey, left: mousex })
+   	}); */
+       
+   	$( this ).tooltip();
     function mouseoverLga(){
     	this.bringToFront();
     	
@@ -814,12 +881,32 @@
             opacity: 1,
             dashArray: "mouseover"
         }); 
+        
+        /* var title = $(this).attr('title');
+        $(this).data('tipText', title).removeAttr('title');
+        $('<p class="tooltip"></p>')
+        .text(title)
+        .appendTo('body')
+        .fadeIn('slow');  */
     }
     
 	function mouseoutLga(){
 		this.bringToFront();
 		$("path[stroke-dasharray='mouseover']").attr("fill","#ffffff").attr("stroke-opacity","0.5").attr("stroke-width","1")
 		.attr("stroke-dasharray"," ");
+		
+	 	/* $(this).attr('title', $(this).data('tipText'));
+        $('.tooltip').remove();  */
+    }
+	
+	function mousemoveLga(e){
+		
+		/* var mousex = e.pageX + 20; //Get X coordinates
+        var mousey = e.pageY + 10; //Get Y coordinates
+        console.log("mousex"+mousex);
+        console.log("mousey"+mousey);
+        $('.tooltip')
+        .css({ top: mousey, left: mousex })  */
     }
     
     // lga data set and lga crime count data set
@@ -878,6 +965,7 @@
     
     // AJAX invoke to get lga crime data from backend 
     function getSelectedLGAData(selectedLGA, selectedLGAButtonIndex){
+    	
     	selectedLGA = selectedLGA.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim();
     	$("#compare-table thead tr:nth-child(1) .th-inner:eq("+selectedLGAButtonIndex+")").css("color",selectedLGAColors[selectedLGAButtonIndex-1]);
     	$("#compare-table thead tr:nth-child(1) .th-inner:eq("+selectedLGAButtonIndex+")").html(selectedLGA);
@@ -925,30 +1013,41 @@
     
     var selectedLGAButtonIndex = 1;
     
+    $( ".lga-select-tips" ).hover(
+   		  function() {
+   			  $(this).children().first().toggleClass( "btn-success", false );
+  			  $(this).children().first().toggleClass( "btn-primary", true );
+   		  }, function() {
+   			  if(selectedLGAButtonIndex == 1){
+   				$(".second-lga-tip button").toggleClass( "btn-primary", false );
+   				$(".second-lga-tip button").toggleClass( "btn-success", true );
+ 			  }else if(selectedLGAButtonIndex == 2){
+ 				$(".first-lga-tip button").toggleClass( "btn-primary", false );
+ 				$(".first-lga-tip button").toggleClass( "btn-success", true );
+ 			  }
+   		  }
+   		);
+    
     // change the tip text when user click LGA1 or LGA2 button
     $(".lga-select-tips").click(function(){
 		if($(this).hasClass("first-lga-tip")){
-			$(this).css({
-				"background":"#006872",
-				"color":"#f1f1f1"
-			});
-			$(".second-lga-tip").css({
-				"background":"#d7e8f9",
-				"color":"black"
-			});
+			$(".first-lga-tip button").toggleClass( "btn-success", false );
+			$(".first-lga-tip button").toggleClass( "btn-primary", false );
+			$(".first-lga-tip button").toggleClass( "btn-primary", true );
+			$(".second-lga-tip button").toggleClass( "btn-success", false );
+			$(".second-lga-tip button").toggleClass( "btn-primary", false );
+			$(".second-lga-tip button").toggleClass( "btn-success", true );
 			selectedLGAButtonIndex = 1;
-			$("#map1-legend-tips").html('Tips: <br>1. "1st LGA" button selected <br>2. Click map to select 1st Local Government Areas<br>3. Click "2nd LGA" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>');
+			$("#map1-legend-tips").html('Tips: <br>"1st area" button selected now<br>1. Click map to select 1st Area<br>2. Click "2nd area" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i><i id="legend-tips-close" class="fa fa-times" style="position: relative;left: 18px;top: -59px;"></i>');
 		}else if($(this).hasClass("second-lga-tip")){
-			$(this).css({
-				"background":"#006872",
-				"color":"#f1f1f1"
-			});
-			$(".first-lga-tip").css({
-				"background":"#d7e8f9",
-				"color":"black"
-			});
+			$(".first-lga-tip button").toggleClass( "btn-success", false );
+			$(".first-lga-tip button").toggleClass( "btn-primary", false );
+			$(".first-lga-tip button").toggleClass( "btn-success", true );
+			$(".second-lga-tip button").toggleClass( "btn-success", false );
+			$(".second-lga-tip button").toggleClass( "btn-primary", false );
+			$(".second-lga-tip button").toggleClass( "btn-primary", true );
 			selectedLGAButtonIndex = 2;
-			$("#map1-legend-tips").html('Tips: <br>1. "2nd LGA" button selected <br>2. Click map to select 2nd Local Government Areas<br>3. Click "1st LGA" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>');
+			$("#map1-legend-tips").html('Tips: <br>"2nd area" button selected now<br>1. Click map to select 2nd Area<br>2. Click "1st area" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i><i id="legend-tips-close" class="fa fa-times" style="position: relative;left: 22px;top: -59px;"></i>');
 		}
     });
     

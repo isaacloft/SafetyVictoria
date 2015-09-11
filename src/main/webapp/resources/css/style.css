@@ -7,11 +7,22 @@ div.section-border {
     border-radius: 4px;
 }
 
+.tooltip {
+	display:none;
+	position:absolute;
+	border:1px solid #333;
+	background-color:#161616;
+	border-radius:5px;
+	padding:10px;
+	color:#fff;
+	font-size:12px Arial;
+}
+
 .legend-tips {
     position: absolute;
-    width: 310px;
-    top: 23.5em;;
-    left: 0.4em;
+    width: 260px;
+    top: 302px;
+    left: 5px;
     z-index: 6;
     background: #006872;
     color: white;
@@ -21,32 +32,39 @@ div.section-border {
     border-radius: 6px;
 }
 .first-lga-tip {
-	border-color: rgb(0, 104, 114);
+	/* border-color: rgb(0, 104, 114);
     border-style: solid;
-    border-width: thin;
+    border-width: thin; */
     position: absolute;
-    top: 26.7em;
-    right: 250px;
+    top: 26.5em;
+    right: 230px;
     z-index: 6;
-    background: #006872;
-    color: white;
-    padding: .5em .75em;
+    /* background: #006872; */
+    /* color: white; */
+    /* padding: .5em .75em; */
     font-size: 0.8em;
     display: none;
     border-radius: 6px;
 }
 .second-lga-tip {
-	border-color: rgb(0, 104, 114);
+	/* border-color: rgb(0, 104, 114);
     border-style: solid;
-    border-width: thin;
+    border-width: thin; */ 
     position: absolute;
-    top: 26.7em;
-    right: 80px;
+    top: 26.5em;
+    right: 75px;
     z-index: 6;
-    background: #d7e8f9;
-    color: black;
-    padding: .5em .75em;
+    /* background: #d7e8f9;
+    color: black; */
+    /* padding: .5em .75em; */
     font-size: 0.8em;
     display: none;
     border-radius: 6px;
+}
+.btn {
+    border-radius: 4px; 
+    padding: 6px 12px;
+    text-transform: none;
+    font-weight: 400;
+    letter-spacing: 0px; 
 }
