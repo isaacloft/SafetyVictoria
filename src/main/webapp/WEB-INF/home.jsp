@@ -730,11 +730,49 @@
     var lgaVicLayerForAfter = new L.TopoJSON();
     $.getJSON('resources/data/lga_victoria.topo.json').done(lgaVicDataForAfter); 
     
+    var dataForBeforeMap = [];
+    var dataForAfterMap = [];
+    var compareMapColorArr = [];
+    
+    function getCompareMapColor(lgaScore){
+    	if(lgaScore==1){
+    		return compareMapColorArr[0];
+    	}else if(lgaScore>1 && lgaScore<=2){
+    		return compareMapColorArr[1];
+    	}else if(lgaScore>2 && lgaScore<=3){
+    		return compareMapColorArr[2];
+    	}else if(lgaScore>3 && lgaScore<=4){
+    		return compareMapColorArr[3];
+    	}else if(lgaScore>4 && lgaScore<=5){
+    		return compareMapColorArr[4];
+    	}else if(lgaScore>5 && lgaScore<=6){
+    		return compareMapColorArr[5];
+    	}else if(lgaScore>6 && lgaScore<=7){
+    		return compareMapColorArr[6];
+    	}else if(lgaScore>7 && lgaScore<=8){
+    		return compareMapColorArr[7];
+    	}else if(lgaScore>8 && lgaScore<=9){
+    		return compareMapColorArr[8];
+    	}else if(lgaScore>9 && lgaScore<=10){
+    		return compareMapColorArr[9];
+    	}
+    }
+    
     function lgaVicDataForBefore(topoData){
     	// add to before and after map
     	lgaVicLayerForBefore.addData(topoData);
     	lgaVicLayerForBefore.addTo(before);
     	lgaVicLayerForBefore.eachLayer(handleLgaVicLayerInBeforeMap);
+    	
+    	$.getJSON("getLGAScoreForCompareMapByYear", { year: 2014 }, function(results) {
+    		dataForBeforeMap = results;
+    		console.log(results);
+    		for(var i=0;i<results.length;i++){
+    			//results[i].lgaAvgScore
+    			$("path[stroke-dasharray='beforeMap "+results[i].lgaName+"']").attr("fill","#ffffff");   			
+    		}
+	    	//lgaVicLayerForBefore.eachLayer(renderDataOnBeforeMap);
+		});
     }
     
     function lgaVicDataForAfter(topoData){
@@ -742,8 +780,17 @@
         lgaVicLayerForAfter.addData(topoData);
         lgaVicLayerForAfter.addTo(after);
         lgaVicLayerForAfter.eachLayer(handleLgaVicLayerInAfterMap); 
+        
+        $.getJSON("getLGAScoreForCompareMapByYear", { year: 2015 }, function(results) {
+        	dataForAfterMap = results;
+        	console.log(results);
+			for(var i=0;i<results.length;i++){
+				//results[i].lgaAvgScore
+    			$("path[stroke-dasharray='beforeMap "+results[i].lgaName+"']").attr("fill","#ffffff"); 
+    		}
+			//lgaVicLayerForAfter.eachLayer(renderDataOnAfterMap); 
+		});
     }
-    
     
     // handle lga layer event on before map
     function handleLgaVicLayerInBeforeMap(layer){
@@ -753,7 +800,7 @@
             color:'#555',
             weight:1,
             opacity:.5,
-            dashArray: layer.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim()
+            dashArray: "beforeMap "+layer.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim()
           });
     }
     
@@ -765,10 +812,10 @@
             color:'#555',
             weight:1,
             opacity:.5,
-            dashArray: layer.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim()
+            dashArray: "afterMap "+layer.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim()
           });
     }
-    
+ 	
     // handle lga layer event
     function handleLgaVicLayer(layer){
     	layer.setStyle({
@@ -786,32 +833,6 @@
             mousemove: mousemoveLga,
             click : selectLGA
           });
-        /* var selectedCityCouncil = layer.feature.properties.gaz_lga;
-        var selectedCityCouncilIndex = cityCouncilArr.indexOf(selectedCityCouncil);
-        if(selectedCityCouncilIndex >= 0){
-            var totalScore = cityCouncilDataSet[cityCouncilIndex[selectedCityCouncilIndex]].totalScore;
-            layer.setStyle({
-              fillColor : getCityCouncilColor(totalScore),
-              fillOpacity: 1,
-              color:'#555',
-              weight:1,
-              opacity:.5,
-              className:"lgaVicCityCouncils",
-              dashArray:cityCouncilIndex[selectedCityCouncilIndex]
-            });
-
-            layer.on({
-              click : selectCityCouncil
-            });
-        }else{
-            layer.setStyle({
-              fillColor : '#ffffff',
-              fillOpacity: 1,
-              color:'#555',
-              weight:1,
-              opacity:.5
-            });
-        } */
     }
     
     // selected LGA colors, lga1 and lga2 color

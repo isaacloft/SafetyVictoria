@@ -37,6 +37,20 @@ public class CrashService {
 	}
 	
 	/**
+	 * get Crash by lga and year
+	 * @param LGA
+	 * @param year
+	 * @return
+	 */
+	@Transactional
+	public List<Crash> searchByYearGroupByLGA(int year){
+		List<Crash> result= em.createQuery("SELECT c FROM Crash c where c.year = " + year +" and c.lgaId > 0 group by c.lgaId order by c.lgaId",
+				Crash.class)
+				.getResultList();
+		return result;
+	}
+	
+	/**
 	 * get search total vic average crime count by year
 	 * @param year
 	 * @return

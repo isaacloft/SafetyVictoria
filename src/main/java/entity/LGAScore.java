@@ -14,10 +14,11 @@ public class LGAScore {
 	private int lgaCrimeCountByPop;
 	private int lgaCrashScore;
 	private int lgaCrashCountByPop;
+	private int lgaPop;
 	public LGAScore(){}
 	public LGAScore(int lgaId, String lgaName, int year, double lgaAvgScore,
 			int lgaCrimeScore, int lgaCrimeCountByPop, int lgaCrashScore,
-			int lgaCrashCountByPop) {
+			int lgaCrashCountByPop, int lgaPop) {
 		super();
 		this.lgaId = lgaId;
 		this.lgaName = lgaName;
@@ -27,6 +28,7 @@ public class LGAScore {
 		this.lgaCrimeCountByPop = lgaCrimeCountByPop;
 		this.lgaCrashScore = lgaCrashScore;
 		this.lgaCrashCountByPop = lgaCrashCountByPop;
+		this.lgaPop = lgaPop;
 	}
 	public int getLgaId() {
 		return lgaId;
@@ -75,6 +77,12 @@ public class LGAScore {
 	}
 	public void setLgaCrashCountByPop(int lgaCrashCountByPop) {
 		this.lgaCrashCountByPop = lgaCrashCountByPop;
+	}
+	public int getLgaPop() {
+		return lgaPop;
+	}
+	public void setLgaPop(int lgaPop) {
+		this.lgaPop = lgaPop;
 	}
 	
 	

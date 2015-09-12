@@ -49,6 +49,20 @@ public class CrimeByLocationService {
 	 * @return
 	 */
 	@Transactional
+	public List<CrimeByLocation> searchByYearGroupByLGA(int year){
+		List<CrimeByLocation> result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.year = ' "+year+"' "
+				+ " and cbl.lgaId > 0 group by cbl.lgaId order by cbl.lgaId", 
+				CrimeByLocation.class)
+				.getResultList();
+		return result;
+	}
+	
+	/**
+	 * get CrimeByLocation by year
+	 * @param year
+	 * @return
+	 */
+	@Transactional
 	public int searchTotalVicPopulationByYear(int year){
 		CrimeByLocation result= em.createQuery("SELECT cbl FROM CrimeByLocation cbl where cbl.year = ' "+year+"'", 
 				CrimeByLocation.class)
