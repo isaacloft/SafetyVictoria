@@ -250,61 +250,17 @@
 	
 	<section id="projects" >
         <div class="container text-center wow fadeIn">
-            <h2>My Projects</h2>
+            <h2>Yearly compare map</h2>
             <hr class="colored">
-            <p>Here are some projects that I've worked on in the past, click <strong>left/right</strong> arrow to see more (more projects on my <strong><a target="_blank" href="https://www.linkedin.com/in/xianghuihongbryan">LinkedIn Page</a></strong>).</p>
+            <p>Here is Yearly compare map</p>
+			<div id="map-container">
+				<div id="beforeMap" style="height:680px;width:100%;"></div>
+				<div id="afterMap" style="height:680px;width:100%;"></div>
+			</div>
         </div>
     </section>
 
-    <section class="portfolio-carousel wow fadeIn">
-        <div class="item" style="background-image: url('<c:url value="/resources/img/creative/portfolio/flinders-street-station.jpg" />')">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-4 col-md-push-8">
-                        <div class="project-details">
-                            <img src="<c:url value="/resources/img/client-logos/monash-university-logo.png" />" class="img-responsive client-logo" alt="">
-                            <span class="project-name">Melbourne Ethnicity Map</span>
-                            <span class="project-description">Data visualization, map</span>
-                            <hr class="colored">
-                            <a target="_blank" href="http://monash.edu/research/city-science/MelbourneEthnicityMap/#map" class="btn btn-outline-light">View Details <i class="fa fa-long-arrow-right fa-fw"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="item" style="background-image: url('<c:url value="/resources/img/creative/portfolio/tele-communication.jpg" />')">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-4 col-md-push-8">
-                        <div class="project-details">
-                            <img src="<c:url value="/resources/img/client-logos/nokia-logo.png" />" class="img-responsive client-logo" alt="">
-                            <span class="project-name">Nokia BTS Site Manager</span>
-                            <span class="project-description">Telecommunication, Nokia networks</span>
-                            <hr class="colored">
-                            <a target="_blank" href="http://networks.nokia.com/" class="btn btn-outline-light">View Details <i class="fa fa-long-arrow-right fa-fw"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="item" style="background-image: url('<c:url value="/resources/img/creative/portfolio/online-shopping.jpg" />')">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-4 col-md-push-8">
-                        <div class="project-details">
-                            <img src="<c:url value="/resources/img/client-logos/hundsun-logo.jpg" />" class="img-responsive client-logo" alt="">
-                            <span class="project-name">Jiangsu Post E-Mall</span>
-                            <span class="project-description">online shopping, post, bank credit</span>
-                            <hr class="colored">
-                            <a target="_blank" href="http://www.11185.com.cn/" class="btn btn-outline-light">View Details <i class="fa fa-long-arrow-right fa-fw"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
+    <section id="contact" class="bg-gray">
         <div class="container wow fadeIn">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -388,6 +344,10 @@
 <script src="<c:url value="/resources/js/plugins/jqBootstrapValidation.js" />"></script>
 <script src="<c:url value="/resources/js/template.js" />"></script>
 <script src="<c:url value="/resources/js/style.switcher.js" />"></script>
+
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-ui-1.10.3.custom.min.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery.ui.touch-punch.min.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery.beforeafter-map-0.11.js" />"></script>
 
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/highcharts-more.js"></script>
@@ -750,7 +710,63 @@
         $(".leaflet-control-zoom").css("margin-bottom","40px;");
         //$("path[stroke-dasharray='mouseover']").attr("fill","#ffffff").attr("stroke-opacity","0.5").attr("stroke-width","1")
         $( "path[fill='#ffffff']" ).attr("title", function() {return $(this).attr("stroke-dasharray");}); 
-        //$( ".leaflet-zoom-animated path" ).addClass( "masterTooltip" ); 
+    }
+    
+  	//compare map js code
+    var before = L.map('beforeMap', {attributionControl: false, inertia: false}).setView([-37.8131869,144.9629796], 8);
+    var googleRoadMap = new L.Google('ROADMAP');
+    before.addLayer(googleRoadMap);
+
+    var after = L.map('afterMap', {inertia: false}).setView([-37.8131869,144.9629796], 8);
+    var googleRoadMap = new L.Google('ROADMAP');
+    after.addLayer(googleRoadMap);
+
+    $('#map-container').beforeAfter(before, after, {showFullLinks: false, introPosition: 0.5, animateIntro: true, introDuration: 1000, permArrows: true, arrowHeight: 0.20, labelLeft: -20, labelRight: -12, arrowTop: 0.25, arrowLeftOffset: -60, arrowRightOffset: -19});
+    
+ 	// init the lga layer and add to layer
+    var lgaVicLayerForBefore = new L.TopoJSON();
+    $.getJSON('resources/data/lga_victoria.topo.json').done(lgaVicDataForBefore); 
+ 	// init the lga layer and add to layer
+    var lgaVicLayerForAfter = new L.TopoJSON();
+    $.getJSON('resources/data/lga_victoria.topo.json').done(lgaVicDataForAfter); 
+    
+    function lgaVicDataForBefore(topoData){
+    	// add to before and after map
+    	lgaVicLayerForBefore.addData(topoData);
+    	lgaVicLayerForBefore.addTo(before);
+    	lgaVicLayerForBefore.eachLayer(handleLgaVicLayerInBeforeMap);
+    }
+    
+    function lgaVicDataForAfter(topoData){
+     	// add to before and after map
+        lgaVicLayerForAfter.addData(topoData);
+        lgaVicLayerForAfter.addTo(after);
+        lgaVicLayerForAfter.eachLayer(handleLgaVicLayerInAfterMap); 
+    }
+    
+    
+    // handle lga layer event on before map
+    function handleLgaVicLayerInBeforeMap(layer){
+    	layer.setStyle({
+            fillColor : '#ffffff',
+            fillOpacity: 0,
+            color:'#555',
+            weight:1,
+            opacity:.5,
+            dashArray: layer.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim()
+          });
+    }
+    
+ 	// handle lga layer event on after map
+	function handleLgaVicLayerInAfterMap(layer){
+		layer.setStyle({
+            fillColor : '#ffffff',
+            fillOpacity: 0,
+            color:'#555',
+            weight:1,
+            opacity:.5,
+            dashArray: layer.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim()
+          });
     }
     
     // handle lga layer event
@@ -1038,7 +1054,12 @@
 			$(".second-lga-tip button").toggleClass( "btn-primary", false );
 			$(".second-lga-tip button").toggleClass( "btn-success", true );
 			selectedLGAButtonIndex = 1;
-			$("#map1-legend-tips").html('Tips: <br>"1st area" button selected now<br>1. Click map to select 1st Area<br>2. Click "2nd area" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i><i id="legend-tips-close" class="fa fa-times" style="position: relative;left: 18px;top: -59px;"></i>');
+			if($("#clickableTip").length == 0){
+				$("#map1-legend-tips").html('Tips: <br>"1st area" button selected now<br>1. Click map to select 1st Area<br>2. Click "2nd area" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i><i id="legend-tips-close" class="fa fa-times" style="position: relative;left: 18px;top: -59px;"></i>');
+				$("#legend-tips-close").click(function(){
+					legendClose();
+				});
+			}
 		}else if($(this).hasClass("second-lga-tip")){
 			$(".first-lga-tip button").toggleClass( "btn-success", false );
 			$(".first-lga-tip button").toggleClass( "btn-primary", false );
@@ -1047,7 +1068,12 @@
 			$(".second-lga-tip button").toggleClass( "btn-primary", false );
 			$(".second-lga-tip button").toggleClass( "btn-primary", true );
 			selectedLGAButtonIndex = 2;
-			$("#map1-legend-tips").html('Tips: <br>"2nd area" button selected now<br>1. Click map to select 2nd Area<br>2. Click "1st area" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i><i id="legend-tips-close" class="fa fa-times" style="position: relative;left: 22px;top: -59px;"></i>');
+			if($("#clickableTip").length == 0){
+				$("#map1-legend-tips").html('Tips: <br>"2nd area" button selected now<br>1. Click map to select 2nd Area<br>2. Click "1st area" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i><i id="legend-tips-close" class="fa fa-times" style="position: relative;left: 22px;top: -59px;"></i>');
+				$("#legend-tips-close").click(function(){
+					legendClose();
+				});
+			}
 		}
     });
     
@@ -1132,6 +1158,8 @@
 		};
 		$('#spiderChart').highcharts(spiderOptions);
 
+		
+		
 		/* $.getJSON("getVicAvgCrimeData", function(results) {
 			var vicAvgSet = [];
 			for (var i = 0; i < results.length; i++) {
