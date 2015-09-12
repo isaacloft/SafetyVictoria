@@ -732,7 +732,10 @@
     
     var dataForBeforeMap = [];
     var dataForAfterMap = [];
-    var compareMapColorArr = [];
+    var compareMapColorArr = ['#FF9900','#FFCC00','#FFCC66',
+                              '#FFFF99','#66FFCC','#33FF99',
+                              '#33FF66','#33CC66','#33CC33',
+                              '#339900'];
     
     function getCompareMapColor(lgaScore){
     	if(lgaScore==1){
@@ -769,7 +772,8 @@
     		console.log(results);
     		for(var i=0;i<results.length;i++){
     			//results[i].lgaAvgScore
-    			$("path[stroke-dasharray='beforeMap "+results[i].lgaName+"']").attr("fill","#ffffff");   			
+    			$("path[stroke-dasharray='beforeMap "+results[i].lgaName+"']")
+    				.attr("fill",getCompareMapColor(results[i].lgaAvgScore)).attr("fill-opacity","0.5");   			
     		}
 	    	//lgaVicLayerForBefore.eachLayer(renderDataOnBeforeMap);
 		});
@@ -786,7 +790,8 @@
         	console.log(results);
 			for(var i=0;i<results.length;i++){
 				//results[i].lgaAvgScore
-    			$("path[stroke-dasharray='beforeMap "+results[i].lgaName+"']").attr("fill","#ffffff"); 
+    			$("path[stroke-dasharray='afterMap "+results[i].lgaName+"']")
+    				.attr("fill",getCompareMapColor(results[i].lgaAvgScore)).attr("fill-opacity","0.5"); 
     		}
 			//lgaVicLayerForAfter.eachLayer(renderDataOnAfterMap); 
 		});
