@@ -472,7 +472,7 @@
         $("#compare-table-div").html('<table id="compare-table" data-select-item-name="radioName1" data-cache="false"></table>');
       	//level1All level1Crime level1Accident level2All level2A level2B level2C level2D level2E level2F
         if(dataSource == "level1All"){
-        	var rowTitleData = ['Population','Crime number','Accident number',
+        	var rowTitleData = ['Population','Offence count','Accident count',
     		                    'Ambulance response time','Fire brigade number',
     		                    'Police station number','Hospital number'];
         	
@@ -948,7 +948,7 @@
 		
 		var lga1TableData = ['-','-','-','-','-','-','-'];
 		var lga2TableData = ['-','-','-','-','-','-','-'];
-		var rowTitleData = ['Population','Crime number','Accident number',
+		var rowTitleData = ['Population','Offence count','Accident count',
 		                    'Ambulance response time','Fire brigade number',
 		                    'Police station number','Hospital number'];
 		var tableData = [];
