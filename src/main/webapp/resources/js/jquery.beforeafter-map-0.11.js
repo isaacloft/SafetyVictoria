@@ -80,7 +80,12 @@
 			$(_after_._container).css({'position':'absolute','top':'0px','right':'0px'});
 			$('#handle'+randID).css({'z-index':'100','position':'relative','cursor':o.cursor,'top':(mapHeight/2)-($('#handle'+randID).height()/2)+'px','left':'-3px'})
 
-			$(obj).append('<img src="'+o.imagePath+'lt-small.png" id="lt-arrow'+randID+'"><img src="'+o.imagePath+'rt-small.png" id="rt-arrow'+randID+'">');
+			//$(obj).append('<img src="'+o.imagePath+'lt-small.png" id="lt-arrow'+randID+'"><img src="'+o.imagePath+'rt-small.png" id="rt-arrow'+randID+'">');
+			$(obj).append('<div id="lt-arrow'+randID+'">'+
+					'<button type="button" style="left:-95px" class="btn btn-default btn-arrow-left">2013</button>'+
+					'<button type="button" style="left:-90px" class="btn btn-default btn-arrow-left">2014</button>'+
+					'</div>'+
+					'<div  id="rt-arrow'+randID+'"><button type="button" class="btn btn-default btn-arrow-right">2015</button></div>');
 
 			if(o.showFullLinks)
 			{	

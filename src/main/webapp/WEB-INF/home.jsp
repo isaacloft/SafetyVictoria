@@ -90,7 +90,7 @@
                         <a class="page-scroll" href="#visualization">Safety Visualization</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#projects">Projects</a>
+                        <a class="page-scroll" href="#yearlyCompare">Yearly Compare</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#contact">Contact</a>
@@ -250,7 +250,7 @@
         </div>
     </section>
 	
-	<section id="projects" >
+	<section id="yearlyCompare" >
         <div class="container text-center wow fadeIn">
             <h2>Yearly compare map</h2>
             <hr class="colored">
@@ -262,13 +262,13 @@
 				</div>
 				<div id="compare-map-tooltip" class="compare-map-tooltip" style="margin-top: -680px;z-index: 1000;">
 				</div>
-				<div id="compareDropdown" class="dropdown col-xs-3" style="z-index: 999;position:absolute;margin-top: -680px;">
+				<div id="compareDropdown" class="dropdown" style="z-index: 999;position:absolute;margin-top: -600px;margin-left: 60px;">
 				  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;border-color: red;" 
 				  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuCompareMap" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				    <span id="compareDropdownSelectedItem" title="compareAll">Offence+Accident</span>
 				    <span class="caret"></span>
 				  </button>
-				  <ul class="dropdown-menu dropdown-menu-compare" style="margin-left: 82px;" aria-labelledby="dropdownMenuCompareMap">
+				  <ul class="dropdown-menu dropdown-menu-compare" aria-labelledby="dropdownMenuCompareMap">
 				    <li><a name="compareAll">Offence+Accident</a></li>
 				    <li><a name="compareCrime">Offence</a></li>
 				    <li><a name="compareAccident">Accident</a></li>
@@ -790,15 +790,7 @@
     	lgaVicLayerForBefore.addTo(before);
     	lgaVicLayerForBefore.eachLayer(handleLgaVicLayerInBeforeMap);
     	
-    	$.getJSON("getLGAScoreForCompareMapByYear", { year: beforeMapYear }, function(results) {
-    		dataForBeforeMap = results;
-    		for(var i=0;i<results.length;i++){
-    			//results[i].lgaAvgScore
-    			$("path[stroke-dasharray='beforeMap "+results[i].lgaName+"']")
-    				.attr("fill",getCompareMapColor(results[i].lgaAvgScore)).attr("fill-opacity","0.5");   			
-    		}
-	    	//lgaVicLayerForBefore.eachLayer(renderDataOnBeforeMap);
-		});
+    	doColorCompareMapsAndAddLegend("beforeMap", beforeMapYear);
     }
     
     function lgaVicDataForAfter(topoData){
@@ -807,17 +799,37 @@
         lgaVicLayerForAfter.addTo(after);
         lgaVicLayerForAfter.eachLayer(handleLgaVicLayerInAfterMap); 
         
-        $.getJSON("getLGAScoreForCompareMapByYear", { year: afterMapYear }, function(results) {
-        	dataForAfterMap = results;
-			for(var i=0;i<results.length;i++){
-				//results[i].lgaAvgScore
-    			$("path[stroke-dasharray='afterMap "+results[i].lgaName+"']")
-    				.attr("fill",getCompareMapColor(results[i].lgaAvgScore)).attr("fill-opacity","0.5"); 
-    		}
-			
-			addLegendToCompareMap("Offence+Accident Overall Security Score");
-			//lgaVicLayerForAfter.eachLayer(renderDataOnAfterMap); 
-		});
+        doColorCompareMapsAndAddLegend("afterMap", afterMapYear);
+    }
+    
+    function doColorCompareMapsAndAddLegend(mapType, year){
+    	if(mapType == "beforeMap"){
+    		$.getJSON("getLGAScoreForCompareMapByYear", { year: year }, function(results) {
+        		dataForBeforeMap = results;
+        		for(var i=0;i<results.length;i++){
+        			//results[i].lgaAvgScore
+        			$("path[stroke-dasharray='beforeMap "+results[i].lgaName+"']")
+        				.attr("fill",getCompareMapColor(results[i].lgaAvgScore)).attr("fill-opacity","0.5");   			
+        		}
+    		});
+    	}else if(mapType == "afterMap"){
+    		$.getJSON("getLGAScoreForCompareMapByYear", { year: year }, function(results) {
+            	dataForAfterMap = results;
+    			for(var i=0;i<results.length;i++){
+    				//results[i].lgaAvgScore
+        			$("path[stroke-dasharray='afterMap "+results[i].lgaName+"']")
+        				.attr("fill",getCompareMapColor(results[i].lgaAvgScore)).attr("fill-opacity","0.5"); 
+        		}
+    			
+    			if(compareCategory == "compareAll"){
+    				addLegendToCompareMap("Offence+Accident <br> Security Score");
+    			}else if(compareCategory == "compareCrime"){
+    				addLegendToCompareMap("Accident <br> Security Score");
+    			}else if(compareCategory == "compareAccident"){
+    				addLegendToCompareMap("Offence <br> Security Score");
+    			}
+    		});
+    	}
     }
     
     //add legend to compare map
@@ -885,6 +897,7 @@
 	$("#compare-map-tooltip").hide();
  	function mouseoverCompareMap(e){
  		this.bringToFront();
+ 		$(".ui-draggable").css({'opacity':1});
     	if(this._path.attributes[10].value.startsWith('beforeMap')){
     		var lgaName = this._path.attributes[10].value.replace('beforeMap','').trim();
     		var lgaData;
@@ -962,6 +975,7 @@
  	}
  	function mouseoutCompareMap(e){
  		this.bringToFront();
+ 		//$(".ui-draggable").css({'opacity':.25});
  		$("#compare-map-tooltip").hide();
  	}
  	function mousemoveCompareMap(e){
@@ -988,6 +1002,7 @@
 			compareCategory = $(this)[0].name;
 			
 			if(compareCategory == "compareAll"){
+				$('.info.legend.leaflet-control strong').html("Offence+Accident <br> Security Score");
 				for(var i=0;i<dataForBeforeMap.length;i++){
 	    			$("path[stroke-dasharray='beforeMap "+dataForBeforeMap[i].lgaName+"']")
 	    				.attr("fill",getCompareMapColor(dataForBeforeMap[i].lgaAvgScore)).attr("fill-opacity","0.5"); 
@@ -997,6 +1012,7 @@
 	    				.attr("fill",getCompareMapColor(dataForAfterMap[i].lgaAvgScore)).attr("fill-opacity","0.5"); 
 	    		}
 			}else if(compareCategory == "compareCrime"){
+				$('.info.legend.leaflet-control strong').html("Offence <br> Security Score");
 				for(var i=0;i<dataForBeforeMap.length;i++){
 	    			$("path[stroke-dasharray='beforeMap "+dataForBeforeMap[i].lgaName+"']")
 	    				.attr("fill",getCompareMapColor(dataForBeforeMap[i].lgaCrimeScore)).attr("fill-opacity","0.5"); 
@@ -1006,6 +1022,7 @@
 	    				.attr("fill",getCompareMapColor(dataForAfterMap[i].lgaCrimeScore)).attr("fill-opacity","0.5"); 
 	    		}
 			}else if(compareCategory == "compareAccident"){
+				$('.info.legend.leaflet-control strong').html("Accident <br> Security Score");
 				for(var i=0;i<dataForBeforeMap.length;i++){
 	    			$("path[stroke-dasharray='beforeMap "+dataForBeforeMap[i].lgaName+"']")
 	    				.attr("fill",getCompareMapColor(dataForBeforeMap[i].lgaCrashScore)).attr("fill-opacity","0.5"); 
@@ -1081,6 +1098,15 @@
     function mouseoverLga(e){
     	this.bringToFront();
     	
+    	var x = e.layerPoint.x;
+		var y = e.layerPoint.y-390;
+		$("#lga-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;");
+        
+        var lgaName = this.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim();;
+        $("#lga-map-tooltip").show();
+        $("#lga-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaName+"</strong><br>"+
+				"<span style='font-size:0.8em;'>click to show details</span>");
+        
     	if(jQuery.inArray( this._path.attributes[6].value, selectedLGAColors ) >= 0){
     		return;
     	}
@@ -1091,16 +1117,6 @@
             opacity: 1,
             dashArray: "mouseover"
         }); 
-        
-        var x = e.layerPoint.x;
-		var y = e.layerPoint.y-390;
-		$("#lga-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;");
-        
-        var lgaName = this.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim();;
-        console.log(lgaName);
-        $("#lga-map-tooltip").show();
-        $("#lga-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaName+"</strong><br>"+
-				"<span style='font-size:0.8em;'>click to show details</span>");
     }
     
 	function mouseoutLga(){
@@ -1113,10 +1129,6 @@
 	
 	function mousemoveLga(e){
 		
-		/* var mousex = e.pageX + 20; //Get X coordinates
-        var mousey = e.pageY + 10; //Get Y coordinates
-        $('.tooltip')
-        .css({ top: mousey, left: mousex })  */
     }
     
     // lga data set and lga crime count data set
