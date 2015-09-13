@@ -195,6 +195,7 @@
                 <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".2s" style="margin-left:0px;min-height:640px;width:700px;">
                 	<div class="row">
                 		<div id="map1" class="map" style="width: auto;height: 390px;"></div>
+                		<div id="lga-map-tooltip" class="lga-map-tooltip" style="margin-top: -390px;z-index: 1000;"></div>
                 		<div class="legend-tips" style="display: block;" id="map1-legend-tips">
                 				Tips: <br>"1st area" button selected now by default
                 				<br>1. Click map to select 1st area
@@ -215,17 +216,18 @@
                 <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".4s" style="min-height:640px;width:530px;">
 	                <div class="row">
 	                	<div id="level1Dropdown" class="dropdown col-xs-3" style="z-index: 999;">
-						  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" 
+						  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						    <span id="level1SelectedItem" title="level1All">Select a category</span>
 						    <span class="caret"></span>
 						  </button>
 						  <ul class="dropdown-menu dropdown-menu1" style="margin-left: 15px;" aria-labelledby="dropdownMenu1">
 						    <li><a name="level1All">All Category</a></li>
-						    <li><a name="level1Crime">Crime</a></li>
+						    <li><a name="level1Crime">Offence</a></li>
 						    <li><a name="level1Accident">Accident</a></li>
 						  </ul>
 						</div>
-						<div id="level2Dropdown" class="dropdown col-xs-3" style="z-index: 998;">
+						<!-- <div id="level2Dropdown" class="dropdown col-xs-3" style="z-index: 998;">
 						  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						    <span id="level2SelectedItem" title="level2All">Please select a level 2 category</span>
 						    <span class="caret"></span>
@@ -239,7 +241,7 @@
 						    <li><a name="level2E">E Justice procedures offences</a></li>
 						    <li><a name="level2F">F Other offences</a></li>
 						  </ul>
-						</div>
+						</div> -->
 	                    <div id="spiderChart" style="margin-top: -70px;">
 	                    </div>
 	                </div>
@@ -255,11 +257,23 @@
             <p>Here is Yearly compare map</p>
             <div>
 				<div id="map-container">
-					<div id="beforeMap" style="height:680px;width:100%;"></div>
-					<div id="afterMap" style="height:680px;width:100%;"></div>
+					<div id="beforeMap" style="height:600px;width:100%;"></div>
+					<div id="afterMap" style="height:600px;width:100%;"></div>
 				</div>
 				<div id="compare-map-tooltip" class="compare-map-tooltip" style="margin-top: -680px;z-index: 1000;">
 				</div>
+				<div id="compareDropdown" class="dropdown col-xs-3" style="z-index: 999;position:absolute;margin-top: -680px;">
+				  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;border-color: red;" 
+				  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuCompareMap" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    <span id="compareDropdownSelectedItem" title="compareAll">Offence+Accident</span>
+				    <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu dropdown-menu-compare" style="margin-left: 82px;" aria-labelledby="dropdownMenuCompareMap">
+				    <li><a name="compareAll">Offence+Accident</a></li>
+				    <li><a name="compareCrime">Offence</a></li>
+				    <li><a name="compareAccident">Accident</a></li>
+				  </ul> 
+				</div> 
 			</div>
         </div>
     </section>
@@ -716,6 +730,8 @@
         $( "path[fill='#ffffff']" ).attr("title", function() {return $(this).attr("stroke-dasharray");}); 
     }
     
+    $("#lga-map-tooltip").hide();
+    
   	//compare map js code
     var before = L.map('beforeMap', {attributionControl: false, inertia: false}).setView([-37.8131869,144.9629796], 8);
     var googleRoadMap = new L.Google('ROADMAP');
@@ -765,13 +781,16 @@
     	}
     }
     
+    var beforeMapYear = 2014;
+    var afterMapYear = 2015;
+    
     function lgaVicDataForBefore(topoData){
     	// add to before and after map
     	lgaVicLayerForBefore.addData(topoData);
     	lgaVicLayerForBefore.addTo(before);
     	lgaVicLayerForBefore.eachLayer(handleLgaVicLayerInBeforeMap);
     	
-    	$.getJSON("getLGAScoreForCompareMapByYear", { year: 2014 }, function(results) {
+    	$.getJSON("getLGAScoreForCompareMapByYear", { year: beforeMapYear }, function(results) {
     		dataForBeforeMap = results;
     		for(var i=0;i<results.length;i++){
     			//results[i].lgaAvgScore
@@ -788,7 +807,7 @@
         lgaVicLayerForAfter.addTo(after);
         lgaVicLayerForAfter.eachLayer(handleLgaVicLayerInAfterMap); 
         
-        $.getJSON("getLGAScoreForCompareMapByYear", { year: 2015 }, function(results) {
+        $.getJSON("getLGAScoreForCompareMapByYear", { year: afterMapYear }, function(results) {
         	dataForAfterMap = results;
 			for(var i=0;i<results.length;i++){
 				//results[i].lgaAvgScore
@@ -796,7 +815,7 @@
     				.attr("fill",getCompareMapColor(results[i].lgaAvgScore)).attr("fill-opacity","0.5"); 
     		}
 			
-			addLegendToCompareMap("Offence+Accident Overall Score");
+			addLegendToCompareMap("Offence+Accident Overall Security Score");
 			//lgaVicLayerForAfter.eachLayer(renderDataOnAfterMap); 
 		});
     }
@@ -880,11 +899,24 @@
     		var x = e.layerPoint.x;
     		var y = e.layerPoint.y-680;
     		$("#compare-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;");
-    		$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
-   										"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
-   										"Overall Score: "+lgaData.lgaAvgScore+"<br>"+
-   										"Offence count: "+numberWithCommas(lgaData.lgaCrimeCountByPop)+"/100,000 population<br>"+
-   										"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
+    		
+    		if(compareCategory == "compareAll"){
+    			$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
+							"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
+							"Overall Security Score: "+lgaData.lgaAvgScore+"<br>"+
+							"Offence count: "+numberWithCommas(lgaData.lgaCrimeCountByPop)+"/100,000 population<br>"+
+							"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
+			}else if(compareCategory == "compareCrime"){
+				$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
+							"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
+							"Offence Security Score: "+lgaData.lgaCrimeScore+"<br>"+
+							"Offence count: "+numberWithCommas(lgaData.lgaCrimeCountByPop)+"/100,000 population");
+			}else if(compareCategory == "compareAccident"){
+				$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
+							"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
+							"Accident Security Score: "+lgaData.lgaCrashScore+"<br>"+
+							"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
+			}
     		/* lgaAvgScore: 7
     		lgaCrashCountByPop: 151
     		lgaCrashScore: 10
@@ -908,11 +940,24 @@
     		var x = e.layerPoint.x;
     		var y = e.layerPoint.y-680;
     		$("#compare-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;");
-    		$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
-   										"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
-   										"Overall Score: "+lgaData.lgaAvgScore+"<br>"+
-   										"Offence count: "+numberWithCommas(lgaData.lgaCrimeCountByPop)+"/100,000 population<br>"+
-   										"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
+    		if(compareCategory == "compareAll"){
+    			$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
+							"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
+							"Overall Security Score: "+lgaData.lgaAvgScore+"<br>"+
+							"Offence count: "+numberWithCommas(lgaData.lgaCrimeCountByPop)+"/100,000 population<br>"+
+							"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
+			}else if(compareCategory == "compareCrime"){
+				$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
+							"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
+							"Offence Security Score: "+lgaData.lgaCrimeScore+"<br>"+
+							"Offence count: "+numberWithCommas(lgaData.lgaCrimeCountByPop)+"/100,000 population");
+			}else if(compareCategory == "compareAccident"){
+				$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
+							"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
+							"Accident Security Score: "+lgaData.lgaCrashScore+"<br>"+
+							"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
+			}
+    		
     	}
  	}
  	function mouseoutCompareMap(e){
@@ -928,6 +973,50 @@
  	function numberWithCommas(x) {
  	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
  	}
+ 	
+ 	var compareCategory = $("#compareDropdownSelectedItem").attr('title');
+    // event for dropdown menu select
+	$(".dropdown-menu-compare li a").click(function(){
+		
+			if($("#compareDropdownSelectedItem").attr('title') == $(this)[0].name){
+				return;
+			}
+			
+			$(this).parent().parent().parent().children().first().children().first().html($(this).text());
+			$(this).parent().parent().parent().children().first().children().first().attr('title', $(this)[0].name);
+			
+			compareCategory = $(this)[0].name;
+			
+			if(compareCategory == "compareAll"){
+				for(var i=0;i<dataForBeforeMap.length;i++){
+	    			$("path[stroke-dasharray='beforeMap "+dataForBeforeMap[i].lgaName+"']")
+	    				.attr("fill",getCompareMapColor(dataForBeforeMap[i].lgaAvgScore)).attr("fill-opacity","0.5"); 
+	    		}
+				for(var i=0;i<dataForAfterMap.length;i++){
+	    			$("path[stroke-dasharray='afterMap "+dataForAfterMap[i].lgaName+"']")
+	    				.attr("fill",getCompareMapColor(dataForAfterMap[i].lgaAvgScore)).attr("fill-opacity","0.5"); 
+	    		}
+			}else if(compareCategory == "compareCrime"){
+				for(var i=0;i<dataForBeforeMap.length;i++){
+	    			$("path[stroke-dasharray='beforeMap "+dataForBeforeMap[i].lgaName+"']")
+	    				.attr("fill",getCompareMapColor(dataForBeforeMap[i].lgaCrimeScore)).attr("fill-opacity","0.5"); 
+	    		}
+				for(var i=0;i<dataForAfterMap.length;i++){
+	    			$("path[stroke-dasharray='afterMap "+dataForAfterMap[i].lgaName+"']")
+	    				.attr("fill",getCompareMapColor(dataForAfterMap[i].lgaCrimeScore)).attr("fill-opacity","0.5"); 
+	    		}
+			}else if(compareCategory == "compareAccident"){
+				for(var i=0;i<dataForBeforeMap.length;i++){
+	    			$("path[stroke-dasharray='beforeMap "+dataForBeforeMap[i].lgaName+"']")
+	    				.attr("fill",getCompareMapColor(dataForBeforeMap[i].lgaCrashScore)).attr("fill-opacity","0.5"); 
+	    		}
+				for(var i=0;i<dataForAfterMap.length;i++){
+	    			$("path[stroke-dasharray='afterMap "+dataForAfterMap[i].lgaName+"']")
+	    				.attr("fill",getCompareMapColor(dataForAfterMap[i].lgaCrashScore)).attr("fill-opacity","0.5"); 
+	    		}
+			}
+	   });
+ 	
     // handle lga layer event
     function handleLgaVicLayer(layer){
     	layer.setStyle({
@@ -942,7 +1031,7 @@
     	layer.on({
     		mouseover : mouseoverLga,
             mouseout: mouseoutLga,
-            mousemove: mousemoveLga,
+            //mousemove: mousemoveLga,
             click : selectLGA
           });
     }
@@ -989,30 +1078,7 @@
     	}
     }
     
-    /* 
-    // Tooltip only Text
-   	$( ".leaflet-clickable" ).bind('hover', function() {
-   	})
-   	$( ".leaflet-clickable" ).hover(function(){
-   	        // Hover over code
-   	        var title = $(this).attr('title');
-   	        $(this).data('tipText', title).removeAttr('title');
-   	        $('<p class="tooltip"></p>')
-   	        .text(title)
-   	        .appendTo('body')
-   	        .fadeIn('slow');
-   	}, function() {
-   	        // Hover out code
-   	        $(this).attr('title', $(this).data('tipText'));
-   	        $('.tooltip').remove();
-   	}).mousemove(function(e) {
-   	        var mousex = e.pageX + 20; //Get X coordinates
-   	        var mousey = e.pageY + 10; //Get Y coordinates
-   	        $('.tooltip')
-   	        .css({ top: mousey, left: mousex })
-   	}); */
-       
-    function mouseoverLga(){
+    function mouseoverLga(e){
     	this.bringToFront();
     	
     	if(jQuery.inArray( this._path.attributes[6].value, selectedLGAColors ) >= 0){
@@ -1026,12 +1092,15 @@
             dashArray: "mouseover"
         }); 
         
-        /* var title = $(this).attr('title');
-        $(this).data('tipText', title).removeAttr('title');
-        $('<p class="tooltip"></p>')
-        .text(title)
-        .appendTo('body')
-        .fadeIn('slow');  */
+        var x = e.layerPoint.x;
+		var y = e.layerPoint.y-390;
+		$("#lga-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;");
+        
+        var lgaName = this.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim();;
+        console.log(lgaName);
+        $("#lga-map-tooltip").show();
+        $("#lga-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaName+"</strong><br>"+
+				"<span style='font-size:0.8em;'>click to show details</span>");
     }
     
 	function mouseoutLga(){
@@ -1039,8 +1108,7 @@
 		$("path[stroke-dasharray='mouseover']").attr("fill","#ffffff").attr("stroke-opacity","0.5").attr("stroke-width","1")
 		.attr("stroke-dasharray"," ");
 		
-	 	/* $(this).attr('title', $(this).data('tipText'));
-        $('.tooltip').remove();  */
+		$("#lga-map-tooltip").hide();
     }
 	
 	function mousemoveLga(e){
