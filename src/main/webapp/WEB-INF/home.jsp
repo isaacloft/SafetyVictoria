@@ -11,8 +11,8 @@
 <title>Safety Victoria</title>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/chroma-js/0.5.9/chroma.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
@@ -253,9 +253,13 @@
             <h2>Yearly compare map</h2>
             <hr class="colored">
             <p>Here is Yearly compare map</p>
-			<div id="map-container">
-				<div id="beforeMap" style="height:680px;width:100%;"></div>
-				<div id="afterMap" style="height:680px;width:100%;"></div>
+            <div>
+				<div id="map-container">
+					<div id="beforeMap" style="height:680px;width:100%;"></div>
+					<div id="afterMap" style="height:680px;width:100%;"></div>
+				</div>
+				<div id="compare-map-tooltip" class="compare-map-tooltip" style="margin-top: -680px;z-index: 1000;">
+				</div>
 			</div>
         </div>
     </section>
@@ -769,7 +773,6 @@
     	
     	$.getJSON("getLGAScoreForCompareMapByYear", { year: 2014 }, function(results) {
     		dataForBeforeMap = results;
-    		console.log(results);
     		for(var i=0;i<results.length;i++){
     			//results[i].lgaAvgScore
     			$("path[stroke-dasharray='beforeMap "+results[i].lgaName+"']")
@@ -787,14 +790,44 @@
         
         $.getJSON("getLGAScoreForCompareMapByYear", { year: 2015 }, function(results) {
         	dataForAfterMap = results;
-        	console.log(results);
 			for(var i=0;i<results.length;i++){
 				//results[i].lgaAvgScore
     			$("path[stroke-dasharray='afterMap "+results[i].lgaName+"']")
     				.attr("fill",getCompareMapColor(results[i].lgaAvgScore)).attr("fill-opacity","0.5"); 
     		}
+			
+			addLegendToCompareMap("Offence+Accident Overall Score");
 			//lgaVicLayerForAfter.eachLayer(renderDataOnAfterMap); 
 		});
+    }
+    
+    //add legend to compare map
+    function addLegendToCompareMap(legendTitle){
+    	legend = L.control({position: 'topright'});
+    	legend.onAdd = function (map) {
+
+            var div = L.DomUtil.create('div', 'info legend'),
+                grades = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                labels = [],
+                from, to;
+
+            for (var i = grades.length-1; i >=0 ; i--) {
+				if(i == 0){
+					break;
+				}
+                from = grades[i-1];
+                to = grades[i];
+                labels.push(
+                    '<i style="background:' + compareMapColorArr[i-1] + '"></i> ' +
+                    from + (to ? '&ndash;' + to : '+'));
+            }
+
+            div.innerHTML = "<strong>"+legendTitle+"</strong><br>"+labels.join('<br>');
+            return div;
+        };
+        
+        legend.addTo(after);
+        $('.info.legend.leaflet-control').attr("style","margin-top: 45px;");
     }
     
     // handle lga layer event on before map
@@ -806,6 +839,11 @@
             weight:1,
             opacity:.5,
             dashArray: "beforeMap "+layer.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim()
+          });
+    	layer.on({
+    		mouseover: mouseoverCompareMap,
+            mouseout: mouseoutCompareMap,
+            mousemove: mousemoveCompareMap
           });
     }
     
@@ -819,8 +857,77 @@
             opacity:.5,
             dashArray: "afterMap "+layer.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim()
           });
+		layer.on({
+    		mouseover: mouseoverCompareMap,
+            mouseout: mouseoutCompareMap,
+            mousemove: mousemoveCompareMap
+          });
     }
- 	
+	$("#compare-map-tooltip").hide();
+ 	function mouseoverCompareMap(e){
+ 		this.bringToFront();
+    	if(this._path.attributes[10].value.startsWith('beforeMap')){
+    		var lgaName = this._path.attributes[10].value.replace('beforeMap','').trim();
+    		var lgaData;
+    		for(var i=0;i<dataForBeforeMap.length;i++){
+    			if(dataForBeforeMap[i].lgaName == lgaName){
+    				lgaData = dataForBeforeMap[i];
+    				break;
+    			}
+    		}
+    		
+    		$("#compare-map-tooltip").show();
+    		var x = e.layerPoint.x;
+    		var y = e.layerPoint.y-680;
+    		$("#compare-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;");
+    		$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
+   										"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
+   										"Overall Score: "+lgaData.lgaAvgScore+"<br>"+
+   										"Offence count: "+numberWithCommas(lgaData.lgaCrimeCountByPop)+"/100,000 population<br>"+
+   										"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
+    		/* lgaAvgScore: 7
+    		lgaCrashCountByPop: 151
+    		lgaCrashScore: 10
+    		lgaCrimeCountByPop: 7743
+    		lgaCrimeScore: 4
+    		lgaId: 1
+    		lgaName: "BANYULE"
+    		lgaPop: 125503
+    		year: 2013 */
+    	}else if(this._path.attributes[10].value.startsWith('afterMap')){
+    		var lgaName = this._path.attributes[10].value.replace('afterMap','').trim();
+    		var lgaData;
+    		for(var i=0;i<dataForAfterMap.length;i++){
+    			if(dataForAfterMap[i].lgaName == lgaName){
+    				lgaData = dataForAfterMap[i];
+    				break;
+    			}
+    		}
+    		
+    		$("#compare-map-tooltip").show();
+    		var x = e.layerPoint.x;
+    		var y = e.layerPoint.y-680;
+    		$("#compare-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;");
+    		$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
+   										"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
+   										"Overall Score: "+lgaData.lgaAvgScore+"<br>"+
+   										"Offence count: "+numberWithCommas(lgaData.lgaCrimeCountByPop)+"/100,000 population<br>"+
+   										"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
+    	}
+ 	}
+ 	function mouseoutCompareMap(e){
+ 		this.bringToFront();
+ 		$("#compare-map-tooltip").hide();
+ 	}
+ 	function mousemoveCompareMap(e){
+ 		/* this.bringToFront();
+ 		var x = e.layerPoint.x;
+		var y = e.layerPoint.y-680;
+		$("#compare-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;"); */
+ 	}
+ 	function numberWithCommas(x) {
+ 	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+ 	}
     // handle lga layer event
     function handleLgaVicLayer(layer){
     	layer.setStyle({
@@ -885,10 +992,8 @@
     /* 
     // Tooltip only Text
    	$( ".leaflet-clickable" ).bind('hover', function() {
-   		console.log(4444);
    	})
    	$( ".leaflet-clickable" ).hover(function(){
-   		console.log(1111);
    	        // Hover over code
    	        var title = $(this).attr('title');
    	        $(this).data('tipText', title).removeAttr('title');
@@ -898,18 +1003,15 @@
    	        .fadeIn('slow');
    	}, function() {
    	        // Hover out code
-   	        console.log(2222);
    	        $(this).attr('title', $(this).data('tipText'));
    	        $('.tooltip').remove();
    	}).mousemove(function(e) {
-   		console.log(3333);
    	        var mousex = e.pageX + 20; //Get X coordinates
    	        var mousey = e.pageY + 10; //Get Y coordinates
    	        $('.tooltip')
    	        .css({ top: mousey, left: mousex })
    	}); */
        
-   	$( this ).tooltip();
     function mouseoverLga(){
     	this.bringToFront();
     	
@@ -945,8 +1047,6 @@
 		
 		/* var mousex = e.pageX + 20; //Get X coordinates
         var mousey = e.pageY + 10; //Get Y coordinates
-        console.log("mousex"+mousex);
-        console.log("mousey"+mousey);
         $('.tooltip')
         .css({ top: mousey, left: mousex })  */
     }
