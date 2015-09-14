@@ -707,7 +707,7 @@
 	
 	// init map and add google map as layer
 	var map = L.map('map1', {zoomControl: false}).setView([-37.8131869,144.9629796], 8);
-    //map.scrollWheelZoom.disable(); 
+    map.scrollWheelZoom.disable(); 
     new L.Control.Zoom({position: 'bottomright'}).addTo(map);
     var googleRoadMap = new L.Google('ROADMAP');
     map.addLayer(googleRoadMap);
@@ -734,10 +734,12 @@
     
   	//compare map js code
     var before = L.map('beforeMap', {attributionControl: false, inertia: false}).setView([-37.8131869,144.9629796], 8);
+    before.scrollWheelZoom.disable(); 
     var googleRoadMap = new L.Google('ROADMAP');
     before.addLayer(googleRoadMap);
 
     var after = L.map('afterMap', {inertia: false}).setView([-37.8131869,144.9629796], 8);
+    after.scrollWheelZoom.disable(); 
     var googleRoadMap = new L.Google('ROADMAP');
     after.addLayer(googleRoadMap);
 
