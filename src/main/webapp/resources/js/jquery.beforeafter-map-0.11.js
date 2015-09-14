@@ -70,7 +70,7 @@
 			_after_.options.inertia = false;
 						
 			// Create an inner div wrapper (dragwrapper) to hold the images.
-			$(obj).prepend('<div id="dragwrapper'+randID+'"><div id="drag'+randID+'"><img width="8" height="56" alt="handle" src="'+o.imagePath+'handle.gif" id="handle'+randID+'" /></div></div>'); // Create drag handle
+			$(obj).prepend('<div id="dragwrapper'+randID+'"><div id="drag'+randID+'"><img width="12" height="60" alt="handle" src="'+o.imagePath+'handle.gif" id="handle'+randID+'" /></div></div>'); // Create drag handle
 			$('#dragwrapper'+randID).css({'opacity':.25,'position':'absolute','padding':'0','left':(mapWidth*o.introPosition)-($('#handle'+randID).width()/2)+'px','z-index':'20'}).width($('#handle'+randID).width()).height(mapHeight);
 
 			$(_before_._container).height(mapHeight).width(mapWidth*o.introPosition).css({'position':'absolute','overflow':'hidden','left':'0px','z-index':'10'}); // Set CSS properties of the before map div
@@ -78,15 +78,25 @@
 			$('#drag'+randID).width(2).height(mapHeight).css({'background':o.dividerColor,'position':'absolute','left':'3px'});	// Set drag handle CSS properties
 			$(_before_._container).css({'position':'absolute','top':'0px','left':'0px'});
 			$(_after_._container).css({'position':'absolute','top':'0px','right':'0px'});
-			$('#handle'+randID).css({'z-index':'100','position':'relative','cursor':o.cursor,'top':(mapHeight/2)-($('#handle'+randID).height()/2)+'px','left':'-3px'})
+			$('#handle'+randID).css({'z-index':'100','position':'relative','cursor':o.cursor,'top':(mapHeight/2)-($('#handle'+randID).height()/2)+'px','left':'-5px'})
 
 			//$(obj).append('<img src="'+o.imagePath+'lt-small.png" id="lt-arrow'+randID+'"><img src="'+o.imagePath+'rt-small.png" id="rt-arrow'+randID+'">');
 			$(obj).append('<div id="lt-arrow'+randID+'">'+
-					//'<button type="button" style="left:-95px" class="btn btn-default btn-arrow-left">2013</button>'+
-					//'<button type="button" style="left:-90px" class="btn btn-default btn-arrow-left">2014</button>'+
-					'<button type="button" style="" class="btn btn-default btn-arrow-left">2014</button>'+
+					//'<button type="button" style="" class="btn btn-default btn-arrow-left">2015</button>'+
+					'<button type="button" id="before2011" style="left:-353px" class="btn btn-default btn-arrow-left">2011</button>'+
+					'<button type="button" id="before2012" style="left:-353px" class="btn btn-default btn-arrow-left">2012</button>'+
+					'<button type="button" id="before2013" style="left:-353px" class="btn btn-default btn-arrow-left">2013</button>'+
+					'<button type="button" id="before2014" style="left:-353px" class="btn btn-default btn-arrow-left">2014</button>'+
+					'<button type="button" id="before2015" style="left:-353px" class="btn btn-default btn-arrow-left">2015</button>'+
 					'</div>'+
-					'<div  id="rt-arrow'+randID+'"><button type="button" class="btn btn-default btn-arrow-right">2015</button></div>');
+					'<div  id="rt-arrow'+randID+'">'+
+					//'<button type="button" class="btn btn-default btn-arrow-right">2015</button>'+
+					'<button type="button" id="after2015" class="btn btn-default btn-arrow-right">2015</button>'+
+					'<button type="button" id="after2014" class="btn btn-default btn-arrow-right">2014</button>'+
+					'<button type="button" id="after2013" class="btn btn-default btn-arrow-right">2013</button>'+
+					'<button type="button" id="after2012" class="btn btn-default btn-arrow-right">2012</button>'+
+					'<button type="button" id="after2011" class="btn btn-default btn-arrow-right">2011</button>'+
+					'</div>');
 
 			if(o.showFullLinks)
 			{	

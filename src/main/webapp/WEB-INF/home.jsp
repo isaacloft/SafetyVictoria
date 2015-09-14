@@ -195,6 +195,20 @@
                 <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".2s" style="margin-left:0px;min-height:640px;width:700px;">
                 	<div class="row">
                 		<div id="map1" class="map" style="width: auto;height: 390px;"></div>
+                		
+                		<div id="level1Dropdown" class="dropdown" style="z-index: 999;position: absolute;top: 0px;left: 545px;">
+						  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" 
+						  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    <span id="level1SelectedItem" title="level1All">Select a category</span>
+						    <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu dropdown-menu1" aria-labelledby="dropdownMenu1">
+						    <li><a name="level1All">All Category</a></li>
+						    <li><a name="level1Crime">Offence</a></li>
+						    <li><a name="level1Accident">Accident</a></li>
+						  </ul>
+						</div>
+						
                 		<div id="lga-map-tooltip" class="lga-map-tooltip" style="margin-top: -390px;z-index: 1000;"></div>
                 		<div class="legend-tips" style="display: block;" id="map1-legend-tips">
                 				Tips: <br>"1st area" button selected now by default
@@ -214,19 +228,6 @@
                 	</div>
                 </div>
                 <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".4s" style="min-height:640px;width:530px;">
-	                <div class="row">
-	                	<div id="level1Dropdown" class="dropdown col-xs-3" style="z-index: 999;">
-						  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" 
-						  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    <span id="level1SelectedItem" title="level1All">Select a category</span>
-						    <span class="caret"></span>
-						  </button>
-						  <ul class="dropdown-menu dropdown-menu1" style="margin-left: 15px;" aria-labelledby="dropdownMenu1">
-						    <li><a name="level1All">All Category</a></li>
-						    <li><a name="level1Crime">Offence</a></li>
-						    <li><a name="level1Accident">Accident</a></li>
-						  </ul>
-						</div>
 						<!-- <div id="level2Dropdown" class="dropdown col-xs-3" style="z-index: 998;">
 						  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						    <span id="level2SelectedItem" title="level2All">Please select a level 2 category</span>
@@ -242,9 +243,8 @@
 						    <li><a name="level2F">F Other offences</a></li>
 						  </ul>
 						</div> -->
-	                    <div id="spiderChart" style="margin-top: -70px;">
+	                    <div id="spiderChart" >
 	                    </div>
-	                </div>
                 </div>
             </div>
         </div>
@@ -893,7 +893,8 @@
 		layer.on({
     		mouseover: mouseoverCompareMap,
             mouseout: mouseoutCompareMap,
-            mousemove: mousemoveCompareMap
+            mousemove: mousemoveCompareMap,
+            drag: mouseDragCompareMap
           });
     }
 	$("#compare-map-tooltip").hide();
@@ -911,8 +912,8 @@
     		}
     		
     		$("#compare-map-tooltip").show();
-    		var x = e.layerPoint.x;
-    		var y = e.layerPoint.y-680;
+    		var x = e.originalEvent.layerX + 30;
+    		var y = e.originalEvent.layerY - 600;
     		$("#compare-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;");
     		
     		if(compareCategory == "compareAll"){
@@ -952,8 +953,8 @@
     		}
     		
     		$("#compare-map-tooltip").show();
-    		var x = e.layerPoint.x;
-    		var y = e.layerPoint.y-680;
+    		var x = e.originalEvent.layerX + 30;
+    		var y = e.originalEvent.layerY - 600;
     		$("#compare-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;");
     		if(compareCategory == "compareAll"){
     			$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
@@ -977,14 +978,17 @@
  	}
  	function mouseoutCompareMap(e){
  		this.bringToFront();
- 		//$(".ui-draggable").css({'opacity':.25});
  		$("#compare-map-tooltip").hide();
  	}
  	function mousemoveCompareMap(e){
- 		/* this.bringToFront();
- 		var x = e.layerPoint.x;
-		var y = e.layerPoint.y-680;
-		$("#compare-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;"); */
+ 		this.bringToFront();
+ 		var x = e.originalEvent.layerX + 30;
+		var y = e.originalEvent.layerY - 600;
+		$("#compare-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;"); 
+ 	}
+ 	function mouseDragCompareMap(e){
+ 		this.bringToFront();
+ 		$("#compare-map-tooltip").hide();
  	}
  	function numberWithCommas(x) {
  	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -1050,7 +1054,7 @@
     	layer.on({
     		mouseover : mouseoverLga,
             mouseout: mouseoutLga,
-            //mousemove: mousemoveLga,
+            mousemove: mousemoveLga,
             click : selectLGA
           });
     }
@@ -1099,9 +1103,8 @@
     
     function mouseoverLga(e){
     	this.bringToFront();
-    	
-    	var x = e.layerPoint.x;
-		var y = e.layerPoint.y-390;
+    	var x = e.originalEvent.layerX + 30;
+		var y = e.originalEvent.layerY - 390;
 		$("#lga-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;");
         
         var lgaName = this.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim();;
@@ -1130,7 +1133,10 @@
     }
 	
 	function mousemoveLga(e){
-		
+		this.bringToFront();
+		var x = e.originalEvent.layerX + 30;
+		var y = e.originalEvent.layerY - 390;
+		$("#lga-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;");
     }
     
     // lga data set and lga crime count data set
@@ -1289,7 +1295,7 @@
     var spiderOptions = {
             chart: {
                 height: 600,
-                marginTop: -10,
+                marginTop: 0,
                 polar: true,
                 type: 'line'
             },
