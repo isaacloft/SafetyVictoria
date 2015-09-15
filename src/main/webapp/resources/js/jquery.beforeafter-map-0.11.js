@@ -81,21 +81,21 @@
 			$('#handle'+randID).css({'z-index':'100','position':'relative','cursor':o.cursor,'top':(mapHeight/2)-($('#handle'+randID).height()/2)+'px','left':'-5px'})
 
 			//$(obj).append('<img src="'+o.imagePath+'lt-small.png" id="lt-arrow'+randID+'"><img src="'+o.imagePath+'rt-small.png" id="rt-arrow'+randID+'">');
-			$(obj).append('<div id="lt-arrow'+randID+'">'+
-					//'<button type="button" style="" class="btn btn-default btn-arrow-left">2015</button>'+
-					'<button type="button" id="before2011" style="left:-353px" class="btn btn-default btn-arrow-left">2011</button>'+
-					'<button type="button" id="before2012" style="left:-353px" class="btn btn-default btn-arrow-left">2012</button>'+
-					'<button type="button" id="before2013" style="left:-353px" class="btn btn-default btn-arrow-left">2013</button>'+
-					'<button type="button" id="before2014" style="left:-353px" class="btn btn-default btn-arrow-left">2014</button>'+
-					'<button type="button" id="before2015" style="left:-353px" class="btn btn-default btn-arrow-left">2015</button>'+
+			$(obj).append('<div id="lt-arrow'+randID+'" class="beforeButtons">'+
+					'<button type="button" id="beforeYearSelected" class="btn btn-default btn-arrow-left">2014</button>'+
+//					'<button type="button" id="before2011" style="left:-353px" class="btn btn-default btn-arrow-left year-selection">2011</button>'+
+//					'<button type="button" id="before2012" style="left:-353px" class="btn btn-default btn-arrow-left year-selection">2012</button>'+
+//					'<button type="button" id="before2013" style="left:-353px" class="btn btn-default btn-arrow-left year-selection">2013</button>'+
+//					'<button type="button" id="before2014" style="left:-353px" class="btn btn-default btn-arrow-left year-selection">2014</button>'+
+//					'<button type="button" id="before2015" style="left:-353px" class="btn btn-default btn-arrow-left year-selection">2015</button>'+
 					'</div>'+
-					'<div  id="rt-arrow'+randID+'">'+
-					//'<button type="button" class="btn btn-default btn-arrow-right">2015</button>'+
-					'<button type="button" id="after2015" class="btn btn-default btn-arrow-right">2015</button>'+
-					'<button type="button" id="after2014" class="btn btn-default btn-arrow-right">2014</button>'+
-					'<button type="button" id="after2013" class="btn btn-default btn-arrow-right">2013</button>'+
-					'<button type="button" id="after2012" class="btn btn-default btn-arrow-right">2012</button>'+
-					'<button type="button" id="after2011" class="btn btn-default btn-arrow-right">2011</button>'+
+					'<div  id="rt-arrow'+randID+'" class="afterButtons">'+
+					'<button type="button" id="afterYearSelected" class="btn btn-default btn-arrow-right">2015</button>'+
+//					'<button type="button" id="after2015" class="btn btn-default btn-arrow-right year-selection">2015</button>'+
+//					'<button type="button" id="after2014" class="btn btn-default btn-arrow-right year-selection">2014</button>'+
+//					'<button type="button" id="after2013" class="btn btn-default btn-arrow-right year-selection">2013</button>'+
+//					'<button type="button" id="after2012" class="btn btn-default btn-arrow-right year-selection">2012</button>'+
+//					'<button type="button" id="after2011" class="btn btn-default btn-arrow-right year-selection">2011</button>'+
 					'</div>');
 
 			if(o.showFullLinks)

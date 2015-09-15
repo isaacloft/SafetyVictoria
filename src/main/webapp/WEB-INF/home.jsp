@@ -808,27 +808,53 @@
     	if(mapType == "beforeMap"){
     		$.getJSON("getLGAScoreForCompareMapByYear", { year: year }, function(results) {
         		dataForBeforeMap = results;
-        		for(var i=0;i<results.length;i++){
-        			//results[i].lgaAvgScore
-        			$("path[stroke-dasharray='beforeMap "+results[i].lgaName+"']")
-        				.attr("fill",getCompareMapColor(results[i].lgaAvgScore)).attr("fill-opacity","0.5");   			
-        		}
+        		
+        		if(compareCategory == "compareAll"){
+    				for(var i=0;i<results.length;i++){
+            			$("path[stroke-dasharray='beforeMap "+results[i].lgaName+"']")
+            				.attr("fill",getCompareMapColor(results[i].lgaAvgScore)).attr("fill-opacity","0.5");   			
+            		}
+    			}else if(compareCategory == "compareCrime"){
+    				for(var i=0;i<results.length;i++){
+            			$("path[stroke-dasharray='beforeMap "+results[i].lgaName+"']")
+            				.attr("fill",getCompareMapColor(results[i].lgaCrimeScore)).attr("fill-opacity","0.5");   			
+            		}
+    			}else if(compareCategory == "compareAccident"){
+    				for(var i=0;i<results.length;i++){
+            			$("path[stroke-dasharray='beforeMap "+results[i].lgaName+"']")
+            				.attr("fill",getCompareMapColor(results[i].lgaCrashScore)).attr("fill-opacity","0.5");   			
+            		}
+    			}
     		});
     	}else if(mapType == "afterMap"){
     		$.getJSON("getLGAScoreForCompareMapByYear", { year: year }, function(results) {
             	dataForAfterMap = results;
-    			for(var i=0;i<results.length;i++){
-    				//results[i].lgaAvgScore
-        			$("path[stroke-dasharray='afterMap "+results[i].lgaName+"']")
-        				.attr("fill",getCompareMapColor(results[i].lgaAvgScore)).attr("fill-opacity","0.5"); 
-        		}
     			
     			if(compareCategory == "compareAll"){
-    				addLegendToCompareMap("Offence+Accident <br> Security Score");
+    				for(var i=0;i<results.length;i++){
+            			$("path[stroke-dasharray='afterMap "+results[i].lgaName+"']")
+            				.attr("fill",getCompareMapColor(results[i].lgaAvgScore)).attr("fill-opacity","0.5"); 
+            		}
     			}else if(compareCategory == "compareCrime"){
-    				addLegendToCompareMap("Accident <br> Security Score");
+    				for(var i=0;i<results.length;i++){
+            			$("path[stroke-dasharray='afterMap "+results[i].lgaName+"']")
+            				.attr("fill",getCompareMapColor(results[i].lgaCrimeScore)).attr("fill-opacity","0.5"); 
+            		}
     			}else if(compareCategory == "compareAccident"){
-    				addLegendToCompareMap("Offence <br> Security Score");
+    				for(var i=0;i<results.length;i++){
+            			$("path[stroke-dasharray='afterMap "+results[i].lgaName+"']")
+            				.attr("fill",getCompareMapColor(results[i].lgaCrashScore)).attr("fill-opacity","0.5"); 
+            		}
+    			}
+    			
+    			if(!$(".info.legend.leaflet-control").is(":visible")){
+	    			if(compareCategory == "compareAll"){
+	    				addLegendToCompareMap("Offence+Accident <br> Security Score");
+	    			}else if(compareCategory == "compareCrime"){
+	    				addLegendToCompareMap("Accident <br> Security Score");
+	    			}else if(compareCategory == "compareAccident"){
+	    				addLegendToCompareMap("Offence <br> Security Score");
+	    			}
     			}
     		});
     	}
@@ -901,6 +927,7 @@
  	function mouseoverCompareMap(e){
  		this.bringToFront();
  		$(".ui-draggable").css({'opacity':1});
+ 		var noDataStr = "No Data";
     	if(this._path.attributes[10].value.startsWith('beforeMap')){
     		var lgaName = this._path.attributes[10].value.replace('beforeMap','').trim();
     		var lgaData;
@@ -917,21 +944,43 @@
     		$("#compare-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;");
     		
     		if(compareCategory == "compareAll"){
-    			$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
-							"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
-							"Overall Security Score: "+lgaData.lgaAvgScore+"<br>"+
-							"Offence count: "+numberWithCommas(lgaData.lgaCrimeCountByPop)+"/100,000 population<br>"+
-							"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
+    			if(typeof lgaData === "undefined"){
+    				$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaName+"</strong><br>"+
+							"Population: "+noDataStr+"<br>"+
+							"Overall Security Score: "+noDataStr+"<br>"+
+							"Offence count: "+noDataStr+"<br>"+
+							"Accident count: "+noDataStr);
+    			}else{
+	    			$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
+								"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
+								"Overall Security Score: "+lgaData.lgaAvgScore+"<br>"+
+								"Offence count: "+numberWithCommas(lgaData.lgaCrimeCountByPop)+"/100,000 population<br>"+
+								"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
+    			}
 			}else if(compareCategory == "compareCrime"){
-				$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
-							"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
-							"Offence Security Score: "+lgaData.lgaCrimeScore+"<br>"+
-							"Offence count: "+numberWithCommas(lgaData.lgaCrimeCountByPop)+"/100,000 population");
+				if(typeof lgaData === "undefined"){
+					$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaName+"</strong><br>"+
+							"Population: "+noDataStr+"<br>"+
+							"Offence Security Score: "+noDataStr+"<br>"+
+							"Offence count: "+noDataStr);
+    			}else{
+					$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
+								"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
+								"Offence Security Score: "+lgaData.lgaCrimeScore+"<br>"+
+								"Offence count: "+numberWithCommas(lgaData.lgaCrimeCountByPop)+"/100,000 population");
+    			}
 			}else if(compareCategory == "compareAccident"){
-				$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
-							"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
-							"Accident Security Score: "+lgaData.lgaCrashScore+"<br>"+
-							"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
+				if(typeof lgaData === "undefined"){
+					$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaName+"</strong><br>"+
+							"Population: "+noDataStr+"<br>"+
+							"Accident Security Score: "+noDataStr+"<br>"+
+							"Accident count: "+noDataStr);
+    			}else{
+					$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
+								"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
+								"Accident Security Score: "+lgaData.lgaCrashScore+"<br>"+
+								"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
+    			}
 			}
     		/* lgaAvgScore: 7
     		lgaCrashCountByPop: 151
@@ -957,21 +1006,43 @@
     		var y = e.originalEvent.layerY - 600;
     		$("#compare-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;");
     		if(compareCategory == "compareAll"){
-    			$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
-							"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
-							"Overall Security Score: "+lgaData.lgaAvgScore+"<br>"+
-							"Offence count: "+numberWithCommas(lgaData.lgaCrimeCountByPop)+"/100,000 population<br>"+
-							"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
+				if(typeof lgaData === "undefined"){
+					$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaName+"</strong><br>"+
+							"Population: "+noDataStr+"<br>"+
+							"Overall Security Score: "+noDataStr+"<br>"+
+							"Offence count: "+noDataStr+"<br>"+
+							"Accident count: "+noDataStr);
+    			}else{
+	    			$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
+								"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
+								"Overall Security Score: "+lgaData.lgaAvgScore+"<br>"+
+								"Offence count: "+numberWithCommas(lgaData.lgaCrimeCountByPop)+"/100,000 population<br>"+
+								"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
+    			}
 			}else if(compareCategory == "compareCrime"){
-				$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
-							"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
-							"Offence Security Score: "+lgaData.lgaCrimeScore+"<br>"+
-							"Offence count: "+numberWithCommas(lgaData.lgaCrimeCountByPop)+"/100,000 population");
+				if(typeof lgaData === "undefined"){
+					$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaName+"</strong><br>"+
+							"Population: "+noDataStr+"<br>"+
+							"Offence Security Score: "+noDataStr+"<br>"+
+							"Offence count: "+noDataStr);
+    			}else{
+					$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
+								"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
+								"Offence Security Score: "+lgaData.lgaCrimeScore+"<br>"+
+								"Offence count: "+numberWithCommas(lgaData.lgaCrimeCountByPop)+"/100,000 population");
+    			}
 			}else if(compareCategory == "compareAccident"){
-				$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
-							"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
-							"Accident Security Score: "+lgaData.lgaCrashScore+"<br>"+
-							"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
+				if(typeof lgaData === "undefined"){
+					$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaName+"</strong><br>"+
+							"Population: "+noDataStr+"<br>"+
+							"Accident Security Score: "+noDataStr+"<br>"+
+							"Accident count: "+noDataStr);
+    			}else{
+					$("#compare-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaData.lgaName+"</strong><br>"+
+								"Population: "+numberWithCommas(lgaData.lgaPop)+"<br>"+
+								"Accident Security Score: "+lgaData.lgaCrashScore+"<br>"+
+								"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
+    			}
 			}
     		
     	}
@@ -995,6 +1066,64 @@
  	}
  	
  	var compareCategory = $("#compareDropdownSelectedItem").attr('title');
+ 	
+ 	$("#beforeYearSelected").click(function(){
+ 		showYearsInCompareMap($(this));
+ 	});
+ 	$("#afterYearSelected").click(function(){
+ 		showYearsInCompareMap($(this));
+ 	});
+ 	/* $(".year-selection").click(function(){
+ 		changeYearInCompareMap("after");
+ 	}); */
+ 	
+ 	function showYearsInCompareMap(button){
+ 		
+ 		if(button[0].id.startsWith("before")){
+ 			$(".beforeButtons").empty();
+ 			$(".beforeButtons").html(
+ 					'<button type="button" id="before2011" style="left:-353px" class="btn '+((button[0].innerHTML=="2011")?'btn-primary':'btn-default')+' btn-arrow-left year-selection">2011</button>'+
+					'<button type="button" id="before2012" style="left:-353px" class="btn '+((button[0].innerHTML=="2012")?'btn-primary':'btn-default')+' btn-arrow-left year-selection">2012</button>'+
+					'<button type="button" id="before2013" style="left:-353px" class="btn '+((button[0].innerHTML=="2013")?'btn-primary':'btn-default')+' btn-arrow-left year-selection">2013</button>'+
+					'<button type="button" id="before2014" style="left:-353px" class="btn '+((button[0].innerHTML=="2014")?'btn-primary':'btn-default')+' btn-arrow-left year-selection">2014</button>'+
+					'<button type="button" id="before2015" style="left:-353px" class="btn '+((button[0].innerHTML=="2015")?'btn-primary':'btn-default')+' btn-arrow-left year-selection">2015</button>');
+ 		}else if(button[0].id.startsWith("after")){
+ 			$(".afterButtons").empty();
+ 			$(".afterButtons").html(
+ 					'<button type="button" id="after2015" class="btn '+((button[0].innerHTML=="2015")?'btn-primary':'btn-default')+' btn-arrow-right year-selection">2015</button>'+
+					'<button type="button" id="after2014" class="btn '+((button[0].innerHTML=="2014")?'btn-primary':'btn-default')+' btn-arrow-right year-selection">2014</button>'+
+					'<button type="button" id="after2013" class="btn '+((button[0].innerHTML=="2013")?'btn-primary':'btn-default')+' btn-arrow-right year-selection">2013</button>'+
+					'<button type="button" id="after2012" class="btn '+((button[0].innerHTML=="2012")?'btn-primary':'btn-default')+' btn-arrow-right year-selection">2012</button>'+
+					'<button type="button" id="after2011" class="btn '+((button[0].innerHTML=="2011")?'btn-primary':'btn-default')+' btn-arrow-right year-selection">2011</button>');
+ 		}
+ 		$(".year-selection").click(function(){
+ 	 		changeYearInCompareMap($(this));
+ 	 		if(button[0].id.startsWith("before")){
+ 	 			beforeMapYear = $(this)[0].innerHTML;
+	 	    	doColorCompareMapsAndAddLegend("beforeMap", beforeMapYear);
+ 	 		}else if(button[0].id.startsWith("after")){
+ 	 			afterMapYear = $(this)[0].innerHTML;
+	 	    	doColorCompareMapsAndAddLegend("afterMap", afterMapYear);
+ 	 		}
+ 	 		
+ 	 	});
+ 	}
+ 	
+ 	function changeYearInCompareMap(button){
+		if(button[0].id.startsWith("before")){
+			$(".beforeButtons").empty();
+			$(".beforeButtons").html('<button type="button" id="beforeYearSelected" class="btn btn-default btn-arrow-left">'+button[0].innerHTML+'</button>');
+ 		}else if(button[0].id.startsWith("after")){
+			$(".afterButtons").empty();
+			$(".afterButtons").html('<button type="button" id="afterYearSelected" class="btn btn-default btn-arrow-right">'+button[0].innerHTML+'</button>');
+ 		}
+		$("#beforeYearSelected").click(function(){
+	 		showYearsInCompareMap($(this));
+	 	});
+	 	$("#afterYearSelected").click(function(){
+	 		showYearsInCompareMap($(this));
+	 	});
+ 	}
     // event for dropdown menu select
 	$(".dropdown-menu-compare li a").click(function(){
 		
