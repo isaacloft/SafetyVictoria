@@ -132,20 +132,6 @@
                         <div class="media-body">
                             <h3 class="media-heading"><a class="page-scroll" href="#visualization">Safety Analysis</a></h3>
                             <ul>
-                            	<!--  <li>As <strong>Java R&D Engineer</strong></li>-->
-                            	<!-- <li>6 factors in year 2015<br>
-                            	&nbsp;&nbsp;&nbsp;&nbsp;<b>Crime</b>, 
-                            	&nbsp;&nbsp;<b>Accident</b>, 
-                            	&nbsp;&nbsp;<b>Ambulance</b>, <br>
-                            	&nbsp;&nbsp;&nbsp;&nbsp;<b>Fire Brigade</b>, 
-                            	&nbsp;&nbsp;<b>Police</b>, 
-                            	&nbsp;&nbsp;<b>Hospital</b></li>
-                            	<li>Actual statistic data</li>
-                            	<li>Analytical ranking score</li>
-                                <li>Crime Analytical drill down</li>
-                                <li>Crime Analytical relative data</li>
-                                <li>Accident Analytical drill down</li>
-                                <li>Accident Analytical relative data</li> -->
                                 <li>Safety Ranking</li>
                                 <li>Actual Data</li>
                                 <li>Relative Data</li>
@@ -157,12 +143,11 @@
                 <div class="col-md-4 wow fadeIn" data-wow-delay=".4s">
                     <div class="media">
                         <div class="pull-left">
-                            <i class="fa fa-rocket"></i>
+                           <a class="page-scroll" href="#yearlyCompare"><i class="fa fa-rocket"></i></a>
                         </div>
                         <div class="media-body">
-                            <h3 class="media-heading">Safety Comparison By Year</h3>
+                            <h3 class="media-heading"><a class="page-scroll" href="#yearlyCompare">Safety Yearly Comparison</a></h3>
                             <ul>
-                                <!-- <li>As <strong>Java R&D Engineer</strong></li> -->
                                 <li>Year by year comparison</li>
                                 <!-- <li>slideable splite line</li> -->
                             </ul>
@@ -227,7 +212,7 @@
                 		<table id="compare-table" data-select-item-name="radioName1" data-cache="false"></table>
                 	</div>
                 </div>
-                <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".4s" style="min-height:640px;width:530px;">
+                <div class="col-xs-6 section-border wow fadeIn" id="spiderDiv" data-wow-delay=".4s" style="min-height:707px;width:530px;">
 						<!-- <div id="level2Dropdown" class="dropdown col-xs-3" style="z-index: 998;">
 						  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						    <span id="level2SelectedItem" title="level2All">Please select a level 2 category</span>
@@ -449,17 +434,12 @@
 			
 			if(($("#compare-table thead tr:nth-child(1) .th-inner:eq(1)").html() == "First LGA" ) 
 			  && ($("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").html() == "Second LGA" )){
-				
 				changeTableAndSpider($(this)[0].name);
-				
 				return;
 			}else{
-				
 				changeTableAndSpider($(this)[0].name);
-				
+				return;
 			}
-	      
-	      
 	   });
 	
  	// create table by tablehead and tabledata
@@ -490,6 +470,8 @@
         $("#compare-table-div").html('<table id="compare-table" data-select-item-name="radioName1" data-cache="false"></table>');
       	//level1All level1Crime level1Accident level2All level2A level2B level2C level2D level2E level2F
         if(dataSource == "level1All"){
+        	$("#spiderDiv").css("min-height","707px");
+        	
         	var rowTitleData = ['Population','Offence count','Accident count',
     		                    'Ambulance response time','Fire brigade number',
     		                    'Police station number','Hospital number'];
@@ -527,7 +509,7 @@
     		changeSpider(dataSource, rowTitleData, lga1Header, lga2Header);
         	
         }else if(dataSource == "level1Crime"){
-        	
+        	$("#spiderDiv").css("min-height","668px");
         	
         	$.getJSON("getLgaTableDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
 	        	var tableHead = [{
@@ -567,6 +549,8 @@
         	changeSpider(dataSource, rowTitleData, lga1Header, lga2Header);
         	
         }else if(dataSource == "level1Accident"){
+        	$("#spiderDiv").css('min-height','785px');
+        	
         	var rowTitleData = ['No collision and no object struck',
         	                    'Vehicle overturned (no collision)','Struck animal',
         	                    'Collision with some other object','Fall from or in moving vehicle',
@@ -610,8 +594,8 @@
 		if(dataSource == "level1All"){
 			$.getJSON("getLgaSpiderDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) { 
 				spiderOptions.title.text = 'Overall Ranking Scores (2015)';
-				spiderOptions.xAxis.categories = ['Crime Safety index', 'Accident Safety index', 'Ambulance response time index', 
-				                                  'Fire brigade index', 'Police station index', 'Hospital index'];
+				spiderOptions.xAxis.categories = ['Crime safety ranking score', 'Accident safety ranking score', 'Ambulance response time ranking score', 
+				                                  'Fire brigade ranking score', 'Police station ranking score', 'Hospital ranking score'];
 	            spiderOptions.tooltip.pointFormat = '<span style="color:{series.color}">{series.name} Ranking Score: <b>{point.y}</b> <br/>';
 	            spiderOptions.series = [{
 					type : 'line',
@@ -1449,8 +1433,8 @@
                 labels: {
                     align: 'center'
                 },
-                categories: ['Crime Safety index', 'Accident Safety index', 'Ambulance response time index', 
-                             'Fire brigade index', 'Police station index', 'Hospital index'],             
+                categories: ['Offence safety ranking Score', 'Accident safety ranking Score', 'Ambulance response time ranking Score', 
+                             'Fire brigade ranking Score', 'Police station ranking Score', 'Hospital ranking Score'],             
                 tickmarkPlacement: 'on',
                 lineWidth: 0
             },
