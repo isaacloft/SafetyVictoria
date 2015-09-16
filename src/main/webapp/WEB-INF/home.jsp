@@ -213,23 +213,12 @@
                 	</div>
                 </div>
                 <div class="col-xs-6 section-border wow fadeIn" id="spiderDiv" data-wow-delay=".4s" style="min-height:707px;width:530px;">
-						<!-- <div id="level2Dropdown" class="dropdown col-xs-3" style="z-index: 998;">
-						  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    <span id="level2SelectedItem" title="level2All">Please select a level 2 category</span>
-						    <span class="caret"></span>
-						  </button>
-						  <ul class="dropdown-menu dropdown-menu2"  style="margin-left: 15px;" aria-labelledby="dropdownMenu2">
-						    <li><a name="level2All" id="level2All">All Category</a></li>
-						    <li><a name="level2A">A Crimes against the person</a></li>
-						    <li><a name="level2B">B Property and deception offences</a></li>
-						    <li><a name="level2C">C Drug offences</a></li>
-						    <li><a name="level2D">D Public order and security offences</a></li>
-						    <li><a name="level2E">E Justice procedures offences</a></li>
-						    <li><a name="level2F">F Other offences</a></li>
-						  </ul>
-						</div> -->
-	                    <div id="spiderChart" >
-	                    </div>
+					<div id="spiderChart" ></div>
+					<div id="explainText"  style="position: absolute;margin-top: -40px;">
+						<ul id="explainTextUl" style="list-style-type:circle">
+						  <li>Area is <strong>Safer</strong> with <strong>Higher Score</strong>, Ranking Score for <strong>6</strong> factors</li>
+						</ul>
+					</div>
                 </div>
             </div>
         </div>
@@ -514,7 +503,7 @@
         	$.getJSON("getLgaTableDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
 	        	var tableHead = [{
 		            field: 'rowTitle',
-		            title: 'Crime Statistic Data (2015)'
+		            title: 'Offence Statistic Data (2015)'
 		        }, {
 		        	field: 'lga1Name',
 		            title: lga1Header,
@@ -589,12 +578,34 @@
 		
 	}
 	
+ 	function changeExplainText(dataSource, lga1Header, lga2Header){
+ 		if(dataSource == "level1All"){
+ 			$("#explainTextUl").html(
+ 					'<li>Area is <strong>Safer</strong> with <strong>Higher Score</strong>, Ranking Score for <strong>6</strong> factors</li>'+
+ 					(("First LGA"==lga1Header)?'':'<li><span style="color:blue">6 factors Ranking Score for <strong>'+lga1Header+'</strong> in 2015</span></li>')+
+ 					(("Second LGA"==lga2Header)?'':'<li><span style="color:gray">6 factors Ranking Score for <strong>'+lga2Header+'</strong> in 2015</span></li>')	
+ 			);
+ 		}else if(dataSource == "level1Crime"){
+ 			$("#explainTextUl").html(
+ 					'<li><span style="color:red">Average offence count for whole Victoria in 2015, per 100,000 population</span></li>'+
+ 					(("First LGA"==lga1Header)?'':'<li><span style="color:blue">Offence count for <strong>'+lga1Header+'</strong>, per 100,000 population</span></li>')+
+					(("Second LGA"==lga2Header)?'':'<li><span style="color:gray">Offence count for <strong>'+lga2Header+'</strong>, per 100,000 population</span></li>')
+ 			);
+ 		}else if(dataSource == "level1Accident"){
+ 			$("#explainTextUl").html(
+ 					'<li><span style="color:red">Average accident count for whole Victoria in 2015, per 100,000 population</span></li>'+
+ 					(("First LGA"==lga1Header)?'':'<li><span style="color:blue">Accident count for <strong>'+lga1Header+'</strong>, per 100,000 population</span></li>')+
+					(("Second LGA"==lga2Header)?'':'<li><span style="color:gray">Accident count for <strong>'+lga2Header+'</strong>, per 100,000 population</span></li>')
+ 			);
+ 		}
+ 	}
+ 	
  	// change spider chart dimensions and inner data by datasource
 	function changeSpider(dataSource, categories, lga1Header, lga2Header){
 		if(dataSource == "level1All"){
 			$.getJSON("getLgaSpiderDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) { 
 				spiderOptions.title.text = 'Overall Ranking Scores (2015)';
-				spiderOptions.xAxis.categories = ['Crime safety ranking score', 'Accident safety ranking score', 'Ambulance response time ranking score', 
+				spiderOptions.xAxis.categories = ['Offence safety ranking score', 'Accident safety ranking score', 'Ambulance response time ranking score', 
 				                                  'Fire brigade ranking score', 'Police station ranking score', 'Hospital ranking score'];
 	            spiderOptions.tooltip.pointFormat = '<span style="color:{series.color}">{series.name} Ranking Score: <b>{point.y}</b> <br/>';
 	            spiderOptions.series = [{
@@ -611,11 +622,13 @@
 					data : results[1]
 				}];
 				$('#spiderChart').highcharts(spiderOptions);
+				
+				changeExplainText(dataSource, lga1Header, lga2Header);
 			});
         }else if(dataSource == "level1Crime"){
         	$.getJSON("getLgaSpiderDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
         		
-				spiderOptions.title.text = 'Crime Relative Data (2015)';
+				spiderOptions.title.text = 'Offence Relative Data (2015)';
 	        	spiderOptions.xAxis.categories = categories;
 	            spiderOptions.tooltip.pointFormat = '<span style="color:{series.color}">{series.name}: <b>{point.y}</b> offences/100,000 population<br/>';
 	            spiderOptions.series = [{
@@ -638,6 +651,8 @@
 					data : results[2]
 				}];
 	    		$('#spiderChart').highcharts(spiderOptions);
+	    		
+	    		changeExplainText(dataSource, lga1Header, lga2Header);
 			}); 
         	
         }else if(dataSource == "level1Accident"){
@@ -670,6 +685,8 @@
 					data : results[2]
 				}];
 	    		$('#spiderChart').highcharts(spiderOptions);
+	    		
+	    		changeExplainText(dataSource, lga1Header, lga2Header);
         	}); 
         }
 	}
@@ -1344,6 +1361,10 @@
    			spider.series[selectedLGAButtonIndex].setData(dataset);
    	    	spider.series[selectedLGAButtonIndex].name = selectedLGA;
    		}
+   		
+   		var lga1Header = $("#compare-table thead tr:nth-child(1) .th-inner:eq(1)").html();
+		var lga2Header = $("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").html();
+   		changeExplainText(dataSource, lga1Header, lga2Header);
 	}
     
     // set lga table with crime data
@@ -1407,7 +1428,7 @@
     // spider chart options
     var spiderOptions = {
             chart: {
-                height: 600,
+                height: 550,
                 marginTop: 0,
                 polar: true,
                 type: 'line'
