@@ -579,23 +579,24 @@
 	}
 	
  	function changeExplainText(dataSource, lga1Header, lga2Header){
+ 		$("#explainTextUl").empty();
  		if(dataSource == "level1All"){
  			$("#explainTextUl").html(
  					'<li>Area is <strong>Safer</strong> with <strong>Higher Score</strong>, Ranking Score for <strong>6</strong> factors</li>'+
- 					(("First LGA"==lga1Header)?'':'<li><span style="color:blue">6 factors Ranking Score for <strong>'+lga1Header+'</strong> in 2015</span></li>')+
- 					(("Second LGA"==lga2Header)?'':'<li><span style="color:gray">6 factors Ranking Score for <strong>'+lga2Header+'</strong> in 2015</span></li>')	
+ 					(("First LGA"==lga1Header)?'':'<li><span style="color:'+selectedLGAColors[0]+'">6 factors Ranking Score for <strong>'+lga1Header+'</strong> in 2015</span></li>')+
+ 					(("Second LGA"==lga2Header)?'':'<li><span style="color:'+selectedLGAColors[1]+'">6 factors Ranking Score for <strong>'+lga2Header+'</strong> in 2015</span></li>')	
  			);
  		}else if(dataSource == "level1Crime"){
  			$("#explainTextUl").html(
- 					'<li><span style="color:red">Average offence count for whole Victoria in 2015, per 100,000 population</span></li>'+
- 					(("First LGA"==lga1Header)?'':'<li><span style="color:blue">Offence count for <strong>'+lga1Header+'</strong>, per 100,000 population</span></li>')+
-					(("Second LGA"==lga2Header)?'':'<li><span style="color:gray">Offence count for <strong>'+lga2Header+'</strong>, per 100,000 population</span></li>')
+ 					'<li><span style="color:'+selectedLGAColors[2]+'">Average offence count for whole Victoria in 2015, per 100,000 population</span></li>'+
+ 					(("First LGA"==lga1Header)?'':'<li><span style="color:'+selectedLGAColors[0]+'">Offence count for <strong>'+lga1Header+'</strong>, per 100,000 population</span></li>')+
+					(("Second LGA"==lga2Header)?'':'<li><span style="color:'+selectedLGAColors[1]+'">Offence count for <strong>'+lga2Header+'</strong>, per 100,000 population</span></li>')
  			);
  		}else if(dataSource == "level1Accident"){
  			$("#explainTextUl").html(
- 					'<li><span style="color:red">Average accident count for whole Victoria in 2015, per 100,000 population</span></li>'+
- 					(("First LGA"==lga1Header)?'':'<li><span style="color:blue">Accident count for <strong>'+lga1Header+'</strong>, per 100,000 population</span></li>')+
-					(("Second LGA"==lga2Header)?'':'<li><span style="color:gray">Accident count for <strong>'+lga2Header+'</strong>, per 100,000 population</span></li>')
+ 					'<li><span style="color:'+selectedLGAColors[2]+'">Average accident count for whole Victoria in 2015, per 100,000 population</span></li>'+
+ 					(("First LGA"==lga1Header)?'':'<li><span style="color:'+selectedLGAColors[0]+'">Accident count for <strong>'+lga1Header+'</strong>, per 100,000 population</span></li>')+
+					(("Second LGA"==lga2Header)?'':'<li><span style="color:'+selectedLGAColors[1]+'">Accident count for <strong>'+lga2Header+'</strong>, per 100,000 population</span></li>')
  			);
  		}
  	}
@@ -634,7 +635,7 @@
 	            spiderOptions.series = [{
 					type : 'line',
 					fillOpacity : 1,
-					color : '#ff0000',
+					color : selectedLGAColors[2],
 					name : 'VIC Average',
 					data : results[0]
 				},{
@@ -659,16 +660,11 @@
         	$.getJSON("getLgaSpiderDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
 	        	spiderOptions.title.text = 'Accident Relative Data (2015)';
 	        	spiderOptions.xAxis.categories = categories;
-	        	/* spiderOptions.yAxis.breaks = [{
-	                from: 50,
-	                to: 100,
-	                breakSize: 0
-	            }];  */
 	            spiderOptions.tooltip.pointFormat = '<span style="color:{series.color}">{series.name}: <b>{point.y}</b> accidents/100,000 population<br/>';
 	            spiderOptions.series = [{
 					type : 'line',
 					fillOpacity : 1,
-					color : '#ff0000',
+					color : selectedLGAColors[2],
 					name : 'VIC Average',
 					data : results[0]
 				},{
@@ -1190,7 +1186,7 @@
     }
     
     // selected LGA colors, lga1 and lga2 color
-    var selectedLGAColors = ["#7cb5ec","#868686"];
+    var selectedLGAColors = ["#7cb5ec","#868686","#ff0000"];
     
     // When click lga area on topojson area, color the area
     // and get the crime data from backend
