@@ -107,7 +107,7 @@ public class HomeController {
 		for(int i=0;i<crimeResults.size();i++){
 			CrimeByLocation crime = crimeResults.get(i);
 			Crash crash = crashResults.get(i);
-			double lgaAvgScore = (crime.getScore() + crash.getScore()) / 2;
+			double lgaAvgScore = ((double)crime.getScore() + (double)crash.getScore()) / 2;
 			lgaScoreList.add(new LGAScore(crime.getLgaId(), crime.getLgaName(), crime.getYear(),
 					lgaAvgScore, crime.getScore(), crime.getOffenceCountByPopulation(),
 					crash.getScore(), crash.getCrashCountByPopulation(), Integer.parseInt(crime.getLGAERP())));

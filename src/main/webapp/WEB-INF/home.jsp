@@ -711,6 +711,7 @@
 	// init map and add google map as layer
 	var map = L.map('map1', {zoomControl: false}).setView([-37.8131869,144.9629796], 8);
     map.scrollWheelZoom.disable(); 
+    map.doubleClickZoom.enable();
     new L.Control.Zoom({position: 'bottomright'}).addTo(map);
     var googleRoadMap = new L.Google('ROADMAP');
     map.addLayer(googleRoadMap);
@@ -738,11 +739,13 @@
   	//compare map js code
     var before = L.map('beforeMap', {attributionControl: false, inertia: false}).setView([-37.8131869,144.9629796], 8);
     before.scrollWheelZoom.disable(); 
+    before.doubleClickZoom.enable();
     var googleRoadMap = new L.Google('ROADMAP');
     before.addLayer(googleRoadMap);
 
     var after = L.map('afterMap', {inertia: false}).setView([-37.8131869,144.9629796], 8);
     after.scrollWheelZoom.disable(); 
+    after.doubleClickZoom.enable();
     var googleRoadMap = new L.Google('ROADMAP');
     after.addLayer(googleRoadMap);
 
@@ -922,8 +925,7 @@
 		layer.on({
     		mouseover: mouseoverCompareMap,
             mouseout: mouseoutCompareMap,
-            mousemove: mousemoveCompareMap,
-            drag: mouseDragCompareMap
+            mousemove: mousemoveCompareMap
           });
     }
 	$("#compare-map-tooltip").hide();
@@ -1059,10 +1061,6 @@
  		var x = e.originalEvent.layerX + 30;
 		var y = e.originalEvent.layerY - 600;
 		$("#compare-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;"); 
- 	}
- 	function mouseDragCompareMap(e){
- 		this.bringToFront();
- 		$("#compare-map-tooltip").hide();
  	}
  	function numberWithCommas(x) {
  	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
