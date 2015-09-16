@@ -71,7 +71,7 @@
 						
 			// Create an inner div wrapper (dragwrapper) to hold the images.
 			$(obj).prepend('<div id="dragwrapper'+randID+'"><div id="drag'+randID+'"><img width="12" height="60" alt="handle" src="'+o.imagePath+'handle.gif" id="handle'+randID+'" /></div></div>'); // Create drag handle
-			$('#dragwrapper'+randID).css({'opacity':.25,'position':'absolute','padding':'0','left':(mapWidth*o.introPosition)-($('#handle'+randID).width()/2)+'px','z-index':'20'}).width($('#handle'+randID).width()).height(mapHeight);
+			$('#dragwrapper'+randID).css({'opacity':1,'position':'absolute','padding':'0','left':(mapWidth*o.introPosition)-($('#handle'+randID).width()/2)+'px','z-index':'20'}).width($('#handle'+randID).width()).height(mapHeight);
 
 			$(_before_._container).height(mapHeight).width(mapWidth*o.introPosition).css({'position':'absolute','overflow':'hidden','left':'0px','z-index':'10'}); // Set CSS properties of the before map div
 			$(_after_._container).height(mapHeight).width(mapWidth).css({'position':'absolute','overflow':'hidden','right':'0px'});	// Set CSS properties of the after map div
@@ -182,7 +182,7 @@
 				$('div:eq(2)', obj).width(mapWidth);
 				$('#dragwrapper'+randID).css('left',mapWidth-($('#dragwrapper'+randID).width()/2)+'px');
 				setTimeout(function(){
-					$('#dragwrapper'+randID).css({'opacity':1}).animate({'left':(mapWidth*o.introPosition)-($('#dragwrapper'+randID).width()/2)+'px'},o.introDuration,function(){$('#dragwrapper'+randID).animate({'opacity':.25},1000)});
+					$('#dragwrapper'+randID).css({'opacity':1}).animate({'left':(mapWidth*o.introPosition)-($('#dragwrapper'+randID).width()/2)+'px'},o.introDuration,function(){$('#dragwrapper'+randID).animate({'opacity':1},1000)});
 					$('div:eq(2)', obj).width(mapWidth).animate({'width':mapWidth*o.introPosition+'px'},o.introDuration,function(){clickit();o.onReady.call(this);});
 				},o.introDelay);
 			}
@@ -209,7 +209,7 @@
 							$('#lt-arrow'+randID).animate({opacity:0,left:parseInt($('#lt-arrow'+randID).css('left'))+o.arrowLeftOffset-6+'px'},350);
 							$('#rt-arrow'+randID).animate({opacity:0,left:parseInt($('#rt-arrow'+randID).css('left'))+o.arrowRightOffset+6+'px'},350);
 						}
-						$('#dragwrapper'+randID).animate({'opacity':.25},350);
+						$('#dragwrapper'+randID).animate({'opacity':1},350);
 					}
 				);
 

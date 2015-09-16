@@ -135,6 +135,7 @@
                                 <li>Safety Ranking</li>
                                 <li>Actual Data</li>
                                 <li>Relative Data</li>
+                                <li>Area comparison</li>
                                 <li>Analytical Drill Down</li>
                             </ul>
                         </div>
@@ -148,8 +149,9 @@
                         <div class="media-body">
                             <h3 class="media-heading"><a class="page-scroll" href="#yearlyCompare">Safety Yearly Comparison</a></h3>
                             <ul>
-                                <li>Year by year comparison</li>
-                                <!-- <li>slideable splite line</li> -->
+                                <li>Colored map</li>
+                                <li>Yearly comparison</li>
+                                <li>Analytical Drill Down</li>
                             </ul>
                         </div>
                     </div>
@@ -174,7 +176,7 @@
         </div>
     </section>
 
-    <section id="visualization" class="bg-gray" style="padding-top: 13px;">
+    <section id="visualization" class="bg-gray" style="padding-top: 8px;">
         <div class="container" style="width:1240px;">
             <div class="row content-row">
                 <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".2s" style="margin-left:0px;min-height:640px;width:700px;">
@@ -224,11 +226,13 @@
         </div>
     </section>
 	
-	<section id="yearlyCompare" >
+	<section id="yearlyCompare" style="padding-top:20px;">
         <div class="container text-center wow fadeIn">
             <h2>Yearly compare map</h2>
             <hr class="colored">
-            <p>Here is Yearly compare map</p>
+            <p>
+            	Two years compare for offence and/or accident, area is Safer with Higher Score
+            </p>
             <div>
 				<div id="map-container">
 					<div id="beforeMap" style="height:600px;width:100%;"></div>
@@ -588,15 +592,17 @@
  			);
  		}else if(dataSource == "level1Crime"){
  			$("#explainTextUl").html(
- 					'<li><span style="color:'+selectedLGAColors[2]+'">Average offence count for whole Victoria in 2015, per 100,000 population</span></li>'+
- 					(("First LGA"==lga1Header)?'':'<li><span style="color:'+selectedLGAColors[0]+'">Offence count for <strong>'+lga1Header+'</strong>, per 100,000 population</span></li>')+
-					(("Second LGA"==lga2Header)?'':'<li><span style="color:'+selectedLGAColors[1]+'">Offence count for <strong>'+lga2Header+'</strong>, per 100,000 population</span></li>')
+ 					'<li>Area is <strong>Safer</strong> with <strong>Less Offence</strong>, count by per 100,000 population</li>'+
+ 					'<li><span style="color:'+selectedLGAColors[2]+'">Red: Average offence count for whole Victoria in 2015</span></li>'+
+ 					(("First LGA"==lga1Header)?'':'<li><span style="color:'+selectedLGAColors[0]+'">Blue: Offence count for <strong>'+lga1Header+'</strong> in 2015</span></li>')+
+					(("Second LGA"==lga2Header)?'':'<li><span style="color:'+selectedLGAColors[1]+'">Gray: Offence count for <strong>'+lga2Header+'</strong> in 2015</span></li>')
  			);
  		}else if(dataSource == "level1Accident"){
  			$("#explainTextUl").html(
- 					'<li><span style="color:'+selectedLGAColors[2]+'">Average accident count for whole Victoria in 2015, per 100,000 population</span></li>'+
- 					(("First LGA"==lga1Header)?'':'<li><span style="color:'+selectedLGAColors[0]+'">Accident count for <strong>'+lga1Header+'</strong>, per 100,000 population</span></li>')+
-					(("Second LGA"==lga2Header)?'':'<li><span style="color:'+selectedLGAColors[1]+'">Accident count for <strong>'+lga2Header+'</strong>, per 100,000 population</span></li>')
+ 					'<li>Area is <strong>Safer</strong> with <strong>Less Accident</strong>, count by per 100,000 population</li>'+
+ 					'<li><span style="color:'+selectedLGAColors[2]+'">Red: Average accident count for whole Victoria in 2015</span></li>'+
+ 					(("First LGA"==lga1Header)?'':'<li><span style="color:'+selectedLGAColors[0]+'">Blue: Accident count for <strong>'+lga1Header+'</strong> in 2015</span></li>')+
+					(("Second LGA"==lga2Header)?'':'<li><span style="color:'+selectedLGAColors[1]+'">Gray: Accident count for <strong>'+lga2Header+'</strong> in 2015</span></li>')
  			);
  		}
  	}
