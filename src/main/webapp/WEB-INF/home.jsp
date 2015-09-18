@@ -582,13 +582,19 @@
 		
 	}
 	
- 	function changeExplainText(dataSource, lga1Header, lga2Header){
+ 	function calculateTotalScore(lgaData){
+ 		return Math.round((lgaData[0]*0.3+lgaData[1]*0.17+lgaData[2]*0.17+lgaData[3]*0.07+lgaData[4]*0.17+lgaData[5]*0.12)*100)/100;
+ 	} 
+ 	
+ 	function changeExplainText(dataSource, lga1Header, lga2Header, lga1Data, lga2Data){
  		$("#explainTextUl").empty();
  		if(dataSource == "level1All"){
+ 			var lga1TotolScore = calculateTotalScore(lga1Data);
+ 			var lga2TotolScore = calculateTotalScore(lga2Data);
  			$("#explainTextUl").html(
  					'<li>Area is <strong>Safer</strong> with <strong>Higher Score</strong>, Ranking Score for <strong>6</strong> factors</li>'+
- 					(("First LGA"==lga1Header)?'':'<li><span style="color:'+selectedLGAColors[0]+'">6 factors Ranking Score for <strong>'+lga1Header+'</strong> in 2015</span></li>')+
- 					(("Second LGA"==lga2Header)?'':'<li><span style="color:'+selectedLGAColors[1]+'">6 factors Ranking Score for <strong>'+lga2Header+'</strong> in 2015</span></li>')	
+ 					(("First LGA"==lga1Header)?'':'<li><span style="color:'+selectedLGAColors[0]+'">Overall Security Score is <strong>'+lga1TotolScore+'</strong> for <strong>'+lga1Header+'</strong> in 2015</span></li>')+
+ 					(("Second LGA"==lga2Header)?'':'<li><span style="color:'+selectedLGAColors[1]+'">Overall Security Score is <strong>'+lga2TotolScore+'</strong> for <strong>'+lga2Header+'</strong> in 2015</span></li>')	
  			);
  		}else if(dataSource == "level1Crime"){
  			$("#explainTextUl").html(
@@ -630,7 +636,7 @@
 				}];
 				$('#spiderChart').highcharts(spiderOptions);
 				
-				changeExplainText(dataSource, lga1Header, lga2Header);
+				changeExplainText(dataSource, lga1Header, lga2Header, results[0], results[1]);
 			});
         }else if(dataSource == "level1Crime"){
         	$.getJSON("getLgaSpiderDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
@@ -659,7 +665,7 @@
 				}];
 	    		$('#spiderChart').highcharts(spiderOptions);
 	    		
-	    		changeExplainText(dataSource, lga1Header, lga2Header);
+	    		changeExplainText(dataSource, lga1Header, lga2Header, [], []);
 			}); 
         	
         }else if(dataSource == "level1Accident"){
@@ -688,7 +694,7 @@
 				}];
 	    		$('#spiderChart').highcharts(spiderOptions);
 	    		
-	    		changeExplainText(dataSource, lga1Header, lga2Header);
+	    		changeExplainText(dataSource, lga1Header, lga2Header, [], []);
         	}); 
         }
 	}
@@ -1364,7 +1370,13 @@
    		
    		var lga1Header = $("#compare-table thead tr:nth-child(1) .th-inner:eq(1)").html();
 		var lga2Header = $("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").html();
-   		changeExplainText(dataSource, lga1Header, lga2Header);
+		if(dataSource == "level1All"){
+			if(selectedLGAButtonIndex == 1){
+		   		changeExplainText(dataSource, lga1Header, lga2Header, dataset, spider.series[1].yData);
+			}else if(selectedLGAButtonIndex == 2){
+		   		changeExplainText(dataSource, lga1Header, lga2Header, spider.series[0].yData, dataset);
+			}
+		}
 	}
     
     // set lga table with crime data

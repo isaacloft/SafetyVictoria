@@ -405,7 +405,7 @@ public class HomeController {
 				}else{
 					lgaTableData2.add(policeStaResults.get(0).getPoliceStationNo());
 				}
-				List<Hospital> hospitalResults = hospitalSvc.searchByLga(selectedLGA1);
+				List<Hospital> hospitalResults = hospitalSvc.searchByLga(selectedLGA2);
 				if(hospitalResults.size() == 0){
 					lgaTableData2.add(EMPTYDASH);
 				}else{
@@ -649,7 +649,7 @@ public class HomeController {
 				}else{
 					lgaSpiderData2.add(policeStaResults.get(0).getScore());
 				}
-				List<Hospital> hospitalResults = hospitalSvc.searchByLga(selectedLGA1);
+				List<Hospital> hospitalResults = hospitalSvc.searchByLga(selectedLGA2);
 				if(hospitalResults.size() == 0){
 					lgaSpiderData2.add(0);
 				}else{

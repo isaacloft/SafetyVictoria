@@ -39,7 +39,7 @@ public class HospitalService {
 	
 	/**
 	 * get Hospital by LgaName
-	 * @param lga
+	 * @param lganame
 	 * @return
 	 */
 	@Transactional
