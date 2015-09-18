@@ -224,6 +224,34 @@
                 </div>
             </div>
         </div>
+        
+		  <!-- Modal -->
+		  <div class="modal fade" id="trendModal" role="dialog">
+		    <div class="modal-dialog" style="min-width: 1000px;">
+		    
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title" style="font-family: inherit;text-transform: none;font-weight: 700;text-align: center;">2011-2015 Offence + Accident Trend</h4>
+		        </div>
+		        <div class="modal-body">
+		        	<div class="row">
+			          <div id="crimeTrend1" class="col-md-6" style="min-width: 300px; height: 250px; margin: 0 auto"></div>
+			          <div id="crashTrend1" class="col-md-6" style="min-width: 300px; height: 250px; margin: 0 auto"></div>
+		          	</div>
+		        	<div class="row">
+			          <div id="crimeTrend2" class="col-md-6" style="min-width: 300px; height: 250px; margin: 0 auto"></div>
+			          <div id="crashTrend2" class="col-md-6" style="min-width: 300px; height: 250px; margin: 0 auto"></div>
+		          	</div>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		  </div>
     </section>
 	
 	<section id="yearlyCompare" style="padding-top:20px;">
@@ -449,16 +477,6 @@
 	function changeTableAndSpider(dataSource){
 		var lga1Header = $("#compare-table thead tr:nth-child(1) .th-inner:eq(1)").html();
 		var lga2Header = $("#compare-table thead tr:nth-child(1) .th-inner:eq(2)").html();
-		/* var selectedLGA = "";
-		if(lga1Header == "First LGA" && lga2Header == "Second LGA"){
-			selectedLGA = "00";
-		}else if(lga1Header != "First LGA" && lga2Header == "Second LGA"){
-			selectedLGA = "10";
-		}else if(lga1Header == "First LGA" && lga2Header != "Second LGA"){
-			selectedLGA = "01";
-		}else if(lga1Header != "First LGA" && lga2Header != "Second LGA"){
-			selectedLGA = "11";
-		} */
 		$("#compare-table-div").empty();
         $("#compare-table-div").html('<table id="compare-table" data-select-item-name="radioName1" data-cache="false"></table>');
       	//level1All level1Crime level1Accident level2All level2A level2B level2C level2D level2E level2F
@@ -594,8 +612,12 @@
  			$("#explainTextUl").html(
  					'<li>Area is <strong>Safer</strong> with <strong>Higher Score</strong>, Ranking Score for <strong>6</strong> factors</li>'+
  					(("First LGA"==lga1Header)?'':'<li><span style="color:'+selectedLGAColors[0]+'">Overall Security Score is <strong>'+lga1TotolScore+'</strong> for <strong>'+lga1Header+'</strong> in 2015</span></li>')+
- 					(("Second LGA"==lga2Header)?'':'<li><span style="color:'+selectedLGAColors[1]+'">Overall Security Score is <strong>'+lga2TotolScore+'</strong> for <strong>'+lga2Header+'</strong> in 2015</span></li>')	
+ 					(("Second LGA"==lga2Header)?'':'<li><span style="color:'+selectedLGAColors[1]+'">Overall Security Score is <strong>'+lga2TotolScore+'</strong> for <strong>'+lga2Header+'</strong> in 2015</span></li>')+
+ 					(("First LGA"==lga1Header)&&("Second LGA"==lga2Header)?'':'<li><a id="generateTrendLink" href="javascript:void(0);">Click to generate 2011-2015 offence+accident trend</a></li>')
  			);
+ 			$("#generateTrendLink").click( function() { 
+ 				generateTrendModal();
+			});
  		}else if(dataSource == "level1Crime"){
  			$("#explainTextUl").html(
  					'<li>Area is <strong>Safer</strong> with <strong>Less Offence</strong>, count by per 100,000 population</li>'+
@@ -611,6 +633,77 @@
 					(("Second LGA"==lga2Header)?'':'<li><span style="color:'+selectedLGAColors[1]+'">Gray: Accident count for <strong>'+lga2Header+'</strong> in 2015</span></li>')
  			);
  		}
+ 	}
+ 	
+ 	function generateTrendModal(){
+ 		$('#trendModal').modal('show');
+ 		
+ 		var arr = ["crimeTrend1","crashTrend1","crimeTrend2","crashTrend2"];
+ 		for(var i =0;i< arr.length;i++){
+ 			
+ 			$('#'+arr[i]+'').highcharts({
+ 				chart:{
+ 					type: 'spline',
+ 					width: 480,
+ 					height: 260
+ 				},
+ 	 	        title: {
+ 	 	            text: 'Monthly Average Temperature',
+ 	 	            x: -20 //center
+ 	 	        },
+ 	 	      	exporting: {
+                  	enabled: false
+	         	},
+	         	credits: {
+	             	enabled: false
+	         	},
+	         	plotOptions: {
+	         		series: {
+	         			marker: {
+	                        enabled: false
+	                    }
+	         		}
+	         	},
+ 	 	        xAxis: {
+ 	 	            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+ 	 	                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+ 	 	        },
+ 	 	        yAxis: {
+ 	 	            title: {
+ 	 	                text: 'Temperature (°C)'
+ 	 	            },
+ 	 	            plotLines: [{
+ 	 	                value: 0,
+ 	 	                width: 1,
+ 	 	                color: '#808080'
+ 	 	            }]
+ 	 	        },
+ 	 	        tooltip: {
+ 	 	        	shared: true,
+ 	 	            valueSuffix: '°C'
+ 	 	        },
+ 	 	        legend: {
+ 	 	            layout: 'vertical',
+ 	 	            align: 'right',
+ 	 	            verticalAlign: 'middle',
+ 	 	            borderWidth: 0
+ 	 	        },
+ 	 	        series: [{
+ 	 	            name: 'Tokyo',
+ 	 	            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+ 	 	        }, {
+ 	 	            name: 'New York',
+ 	 	            data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+ 	 	        }, {
+ 	 	            name: 'Berlin',
+ 	 	            data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+ 	 	        }, {
+ 	 	            name: 'London',
+ 	 	            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+ 	 	        }]
+ 	 	    });
+ 		}
+ 		
  	}
  	
  	// change spider chart dimensions and inner data by datasource
