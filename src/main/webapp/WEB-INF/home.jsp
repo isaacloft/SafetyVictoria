@@ -407,9 +407,11 @@
 
 <!-- Latest compiled and minified Locales -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-zh-CN.min.js"></script>
-
 <%-- <script type="text/javascript" src="<c:url value="/resources/js/histogram.js" />"></script>
  --%>
+<script type="text/javascript" src="<c:url value="/resources/js/plugins.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/t4.js" />"></script>
+ 
 <script>
 (function ($) {
 
@@ -922,26 +924,40 @@
         //  });
     }
     
+ 	var histogramChart;
  	function initHistogram(){
  		$.getJSON("getLgaHistogramData", function(results) {
  			console.log(results);
  			
  			var histogramOptionsOnRankingMap = histogramOptions({ onHover: selectHistogramAndLga });
  	        for(var i=0;i<results.length;i++){
- 	        	histogramOptionsOnRankingMap.series[0].data.push({"name": results[i].lgaName, "id": results[i].lgaId, "y":results[i].lgaTotalScore});
+ 	        	histogramOptionsOnRankingMap.series[0].data.push({"name": results[i].lgaName, "id": results[i].lgaName, "y":results[i].lgaTotalScore});
  	        }
  	       	histogramOptionsOnRankingMap.plotOptions.series.cursor = 'pointer';
  	      	histogramOptionsOnRankingMap.plotOptions.series.pointPadding = 0.1;
  	     	histogramOptionsOnRankingMap.chart.renderTo = 'latest-ranking-histogram';
  	   		histogramOptionsOnRankingMap.exporting = false;
 
- 	        new Highcharts.Chart( histogramOptionsOnRankingMap );
+ 	   		histogramChart = new Highcharts.Chart( histogramOptionsOnRankingMap );
  	        
- 	       	function selectHistogramAndLga(){
- 	   			console.log("selectHistogramAndLga");
-	 	   	}
+ 	   		console.log(histogramChart);
+ 	   		
+ 	   		// select top 1 SOUTHERN GRAMPIANS, id=71 as default
+ 	   		selectHistogramAndLga("SOUTHERN GRAMPIANS");
+ 	   		
+	 	   	
     	}); 
  	}
+ 	
+ 	function selectHistogramAndLga(lgaId){
+		console.log("selectHistogramAndLga");
+		console.log(histogramChart);
+		if (!histogramChart.get(lgaId).selected) {
+			histogramChart.get(lgaId).select();
+        }
+		
+		
+   	}
  	
     
   	//compare map js code
@@ -1774,7 +1790,7 @@
 		    },
 		    series: [{
 		      data: seriesData
-		    }],
+		    }]
 		  };
 		  
 		  if (onHover !== null) {
