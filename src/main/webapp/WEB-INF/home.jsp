@@ -952,7 +952,7 @@
         }
 		
 		$("path[stroke-dasharray='latest-rank-"+lgaName+"']").attr("fill","red").attr("fill-opacity","0.6");   
-   	}
+   	}  
  	
     
   	//compare map js code
