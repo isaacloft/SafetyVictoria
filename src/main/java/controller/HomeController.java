@@ -848,4 +848,179 @@ public class HomeController {
 		return null;
 	}
 	
+	/**
+	 * Get lga1 and lga2 trend data
+	 * @param selectedLGA
+	 * @return
+	 */
+	@RequestMapping(value="getLgaTrendData", method=RequestMethod.GET)
+	public @ResponseBody List<List<Object>> getLgaTrendData(
+			@RequestParam String selectedLGA1, @RequestParam String selectedLGA2) {
+		
+		List<Object> lga1OffenceScoreData = new ArrayList<Object>();
+		List<Object> lga1OffenceNumData = new ArrayList<Object>();
+		List<Object> lga2OffenceScoreData = new ArrayList<Object>();
+		List<Object> lga2OffenceNumData = new ArrayList<Object>();
+		List<Object> lga1AccidentScoreData = new ArrayList<Object>();
+		List<Object> lga1AccidentNumData = new ArrayList<Object>();
+		List<Object> lga2AccidentScoreData = new ArrayList<Object>();
+		List<Object> lga2AccidentNumData = new ArrayList<Object>();
+		if(!"First LGA".equals(selectedLGA1)){
+			List<CrimeByLocation> crimeResults = crimeByLocSvc.searchLgaTrend(selectedLGA1);
+			if(crimeResults.size() != 0){
+				lga1OffenceScoreData.add(crimeResults.get(0).getScore());
+				lga1OffenceScoreData.add(crimeResults.get(1).getScore());
+				lga1OffenceScoreData.add(crimeResults.get(2).getScore());
+				lga1OffenceScoreData.add(crimeResults.get(3).getScore());
+				lga1OffenceScoreData.add(crimeResults.get(4).getScore());
+				lga1OffenceNumData.add(crimeResults.get(0).getOffenceCountByPopulation());
+				lga1OffenceNumData.add(crimeResults.get(1).getOffenceCountByPopulation());
+				lga1OffenceNumData.add(crimeResults.get(2).getOffenceCountByPopulation());
+				lga1OffenceNumData.add(crimeResults.get(3).getOffenceCountByPopulation());
+				lga1OffenceNumData.add(crimeResults.get(4).getOffenceCountByPopulation());
+			}else{
+				lga1OffenceScoreData.add(0);
+				lga1OffenceScoreData.add(0);
+				lga1OffenceScoreData.add(0);
+				lga1OffenceScoreData.add(0);
+				lga1OffenceScoreData.add(0);
+				lga1OffenceNumData.add(0);
+				lga1OffenceNumData.add(0);
+				lga1OffenceNumData.add(0);
+				lga1OffenceNumData.add(0);
+				lga1OffenceNumData.add(0);
+			}
+			
+			List<Crash> crashResults = crashSvc.searchLgaTrend(selectedLGA1);
+			if(crashResults.size() != 0){
+				lga1AccidentScoreData.add(crashResults.get(0).getScore());
+				lga1AccidentScoreData.add(crashResults.get(1).getScore());
+				lga1AccidentScoreData.add(crashResults.get(2).getScore());
+				lga1AccidentScoreData.add(crashResults.get(3).getScore());
+				lga1AccidentScoreData.add(crashResults.get(4).getScore());
+				lga1AccidentNumData.add(crashResults.get(0).getCrashCountByPopulation());
+				lga1AccidentNumData.add(crashResults.get(1).getCrashCountByPopulation());
+				lga1AccidentNumData.add(crashResults.get(2).getCrashCountByPopulation());
+				lga1AccidentNumData.add(crashResults.get(3).getCrashCountByPopulation());
+				lga1AccidentNumData.add(crashResults.get(4).getCrashCountByPopulation());
+			}else{
+				lga1AccidentScoreData.add(0);
+				lga1AccidentScoreData.add(0);
+				lga1AccidentScoreData.add(0);
+				lga1AccidentScoreData.add(0);
+				lga1AccidentScoreData.add(0);
+				lga1AccidentNumData.add(0);
+				lga1AccidentNumData.add(0);
+				lga1AccidentNumData.add(0);
+				lga1AccidentNumData.add(0);
+				lga1AccidentNumData.add(0);
+			}
+		}else{
+			lga1OffenceScoreData.add(0);
+			lga1OffenceScoreData.add(0);
+			lga1OffenceScoreData.add(0);
+			lga1OffenceScoreData.add(0);
+			lga1OffenceScoreData.add(0);
+			lga1OffenceNumData.add(0);
+			lga1OffenceNumData.add(0);
+			lga1OffenceNumData.add(0);
+			lga1OffenceNumData.add(0);
+			lga1OffenceNumData.add(0);
+			lga1AccidentScoreData.add(0);
+			lga1AccidentScoreData.add(0);
+			lga1AccidentScoreData.add(0);
+			lga1AccidentScoreData.add(0);
+			lga1AccidentScoreData.add(0);
+			lga1AccidentNumData.add(0);
+			lga1AccidentNumData.add(0);
+			lga1AccidentNumData.add(0);
+			lga1AccidentNumData.add(0);
+			lga1AccidentNumData.add(0);
+		}
+		
+		if(!"Second LGA".equals(selectedLGA2)){
+			List<CrimeByLocation> crimeResults = crimeByLocSvc.searchLgaTrend(selectedLGA2);
+			if(crimeResults.size() != 0){
+				lga2OffenceScoreData.add(crimeResults.get(0).getScore());
+				lga2OffenceScoreData.add(crimeResults.get(1).getScore());
+				lga2OffenceScoreData.add(crimeResults.get(2).getScore());
+				lga2OffenceScoreData.add(crimeResults.get(3).getScore());
+				lga2OffenceScoreData.add(crimeResults.get(4).getScore());
+				lga2OffenceNumData.add(crimeResults.get(0).getOffenceCountByPopulation());
+				lga2OffenceNumData.add(crimeResults.get(1).getOffenceCountByPopulation());
+				lga2OffenceNumData.add(crimeResults.get(2).getOffenceCountByPopulation());
+				lga2OffenceNumData.add(crimeResults.get(3).getOffenceCountByPopulation());
+				lga2OffenceNumData.add(crimeResults.get(4).getOffenceCountByPopulation());
+			}else{
+				lga2OffenceScoreData.add(0);
+				lga2OffenceScoreData.add(0);
+				lga2OffenceScoreData.add(0);
+				lga2OffenceScoreData.add(0);
+				lga2OffenceScoreData.add(0);
+				lga2OffenceNumData.add(0);
+				lga2OffenceNumData.add(0);
+				lga2OffenceNumData.add(0);
+				lga2OffenceNumData.add(0);
+				lga2OffenceNumData.add(0);
+			}
+			
+			List<Crash> crashResults = crashSvc.searchLgaTrend(selectedLGA2);
+			if(crashResults.size() != 0){
+				lga2AccidentScoreData.add(crashResults.get(0).getScore());
+				lga2AccidentScoreData.add(crashResults.get(1).getScore());
+				lga2AccidentScoreData.add(crashResults.get(2).getScore());
+				lga2AccidentScoreData.add(crashResults.get(3).getScore());
+				lga2AccidentScoreData.add(crashResults.get(4).getScore());
+				lga2AccidentNumData.add(crashResults.get(0).getCrashCountByPopulation());
+				lga2AccidentNumData.add(crashResults.get(1).getCrashCountByPopulation());
+				lga2AccidentNumData.add(crashResults.get(2).getCrashCountByPopulation());
+				lga2AccidentNumData.add(crashResults.get(3).getCrashCountByPopulation());
+				lga2AccidentNumData.add(crashResults.get(4).getCrashCountByPopulation());
+			}else{
+				lga2AccidentScoreData.add(0);
+				lga2AccidentScoreData.add(0);
+				lga2AccidentScoreData.add(0);
+				lga2AccidentScoreData.add(0);
+				lga2AccidentScoreData.add(0);
+				lga2AccidentNumData.add(0);
+				lga2AccidentNumData.add(0);
+				lga2AccidentNumData.add(0);
+				lga2AccidentNumData.add(0);
+				lga2AccidentNumData.add(0);
+			}
+		}else{
+			lga2OffenceScoreData.add(0);
+			lga2OffenceScoreData.add(0);
+			lga2OffenceScoreData.add(0);
+			lga2OffenceScoreData.add(0);
+			lga2OffenceScoreData.add(0);
+			lga2OffenceNumData.add(0);
+			lga2OffenceNumData.add(0);
+			lga2OffenceNumData.add(0);
+			lga2OffenceNumData.add(0);
+			lga2OffenceNumData.add(0);
+			lga2AccidentScoreData.add(0);
+			lga2AccidentScoreData.add(0);
+			lga2AccidentScoreData.add(0);
+			lga2AccidentScoreData.add(0);
+			lga2AccidentScoreData.add(0);
+			lga2AccidentNumData.add(0);
+			lga2AccidentNumData.add(0);
+			lga2AccidentNumData.add(0);
+			lga2AccidentNumData.add(0);
+			lga2AccidentNumData.add(0);
+		}
+		
+		List<List<Object>> list = new ArrayList<List<Object>>();
+		list.add(lga1OffenceScoreData);
+		list.add(lga2OffenceScoreData);
+		list.add(lga1AccidentScoreData);
+		list.add(lga2AccidentScoreData);
+		list.add(lga1OffenceNumData);
+		list.add(lga2OffenceNumData);
+		list.add(lga1AccidentNumData);
+		list.add(lga2AccidentNumData);
+			
+		return list;
+	}
 }

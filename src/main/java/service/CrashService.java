@@ -51,6 +51,20 @@ public class CrashService {
 	}
 	
 	/**
+	 * get Crash trend by lga name
+	 * @param year
+	 * @return
+	 */
+	@Transactional
+	public List<Crash> searchLgaTrend(String lgaName){
+		List<Crash> result= em.createQuery("SELECT cbl FROM Crash cbl where cbl.lgaName = '"+lgaName+"' "
+				+ " group by cbl.year, cbl.lgaId order by cbl.year, cbl.lgaId", 
+				Crash.class)
+				.getResultList();
+		return result;
+	}
+	
+	/**
 	 * get search total vic average crime count by year
 	 * @param year
 	 * @return
