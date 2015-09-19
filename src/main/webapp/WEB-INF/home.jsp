@@ -87,10 +87,10 @@
                         <a class="page-scroll" href="#about">About</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#visualization">Safety Visualization</a>
+                        <a class="page-scroll" href="#visualization">2015 Safety Visualization</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#latestLgaRanking">2015 Ranking</a>
+                        <a class="page-scroll" href="#latestLgaRanking">2015 Safety Ranking</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#yearlyCompare">Yearly Compare</a>
@@ -150,7 +150,7 @@
                             <a class="page-scroll" href="#latestLgaRanking"><i class="fa fa-pencil"></i></a>
                         </div>
                         <div class="media-body">
-                            <h3 class="media-heading"><a class="page-scroll" href="#latestLgaRanking">2015 Ranking</a></h3>
+                            <h3 class="media-heading"><a class="page-scroll" href="#latestLgaRanking">2015 Safety Ranking</a></h3>
                             <ul>
                                 <li>2015 Ranking</li>
                                 <li>2015 Ranking</li>
@@ -258,7 +258,7 @@
 	
 	<section id="latestLgaRanking" style="padding-top:20px;">
         <div class="container text-center wow fadeIn">
-            <h2>2015 Ranking</h2>
+            <h2>2015 Safety Ranking</h2>
             <hr class="colored">
             <p>
             	Area is Safer with Higher Score, 2015 Security ranking score calculated from 6 factors <br>
@@ -266,7 +266,11 @@
             	
             </p>
             <div>
-				
+				<div id="latest-ranking-map-container">
+					<div id="latestRanking" style="height:450px;width:100%;"></div>
+				</div>
+				<div id="latest-ranking-histogram" class="latest-ranking-histogram">
+				</div>
 			</div>
         </div>
     </section>
@@ -859,6 +863,67 @@
     
     $("#lga-map-tooltip").hide();
     
+ 	// handle lga layer event
+    function handleLgaVicLayer(layer){
+    	layer.setStyle({
+            fillColor : '#ffffff',
+            fillOpacity: 0,
+            color:'#555',
+            weight:1,
+            opacity:.5,
+            className: 'leaflet-clickable masterTooltip',
+            dashArray: layer.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim()
+          });
+    	layer.on({
+    		mouseover : mouseoverLga,
+            mouseout: mouseoutLga,
+            mousemove: mousemoveLga,
+            click : selectLGA
+          });
+    }
+ 	
+ 	
+ 	// init latest ranking map and add google map as layer
+	var latestRankingMap = L.map('latestRanking').setView([-37.2131869,144.9629796], 7);
+	latestRankingMap.scrollWheelZoom.disable(); 
+	latestRankingMap.doubleClickZoom.enable();
+    var googleRoadMap = new L.Google('ROADMAP');
+    latestRankingMap.addLayer(googleRoadMap);
+    
+    // init the lga layer and add to layer
+    var latestRankingLgaLayer = new L.TopoJSON();
+    $.getJSON('resources/data/lga_victoria.topo.json').done(latestRankingLgaVicData); 
+    
+    // method to add topojson data 
+    // and add to map 
+    // and add handle layer event
+    function latestRankingLgaVicData(topoData){
+    	latestRankingLgaLayer.addData(topoData);
+    	latestRankingLgaLayer.addTo(latestRankingMap);
+    	latestRankingLgaLayer.eachLayer(handleLatestRankingLgaVicLayer);
+        
+        //$(".leaflet-control-attribution").hide();
+        //$(".leaflet-control-zoom").css("margin-bottom","40px;");
+        //$("path[stroke-dasharray='mouseover']").attr("fill","#ffffff").attr("stroke-opacity","0.5").attr("stroke-width","1")
+        //$( "path[fill='#ffffff']" ).attr("title", function() {return $(this).attr("stroke-dasharray");}); 
+    }
+    
+    
+ 	// handle lga layer event
+    function handleLatestRankingLgaVicLayer(layer){
+    	layer.setStyle({
+            fillColor : '#ffffff',
+            fillOpacity: 0,
+            color:'#555',
+            weight:1,
+            opacity:.5,
+            dashArray: layer.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim()
+          });
+    	//layer.on({
+        //  });
+    }
+ 	
+    
   	//compare map js code
     var before = L.map('beforeMap', {attributionControl: false, inertia: false}).setView([-37.8131869,144.9629796], 8);
     before.scrollWheelZoom.disable(); 
@@ -1293,24 +1358,7 @@
 			}
 	   });
  	
-    // handle lga layer event
-    function handleLgaVicLayer(layer){
-    	layer.setStyle({
-            fillColor : '#ffffff',
-            fillOpacity: 0,
-            color:'#555',
-            weight:1,
-            opacity:.5,
-            className: 'leaflet-clickable masterTooltip',
-            dashArray: layer.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim()
-          });
-    	layer.on({
-    		mouseover : mouseoverLga,
-            mouseout: mouseoutLga,
-            mousemove: mousemoveLga,
-            click : selectLGA
-          });
-    }
+    
     
     // selected LGA colors, lga1 and lga2 color
     var selectedLGAColors = ["#7cb5ec","#868686","#ff0000"];

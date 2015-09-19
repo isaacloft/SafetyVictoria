@@ -59,6 +59,24 @@ div.section-border {
 	color: black;
     min-width: 135px;
 }
+.latest-ranking-histogram {
+	height: 100px;
+    width: 1135px;
+    margin-top: -102px;
+    z-index: 1000;
+    margin-left: 2px;
+    position: absolute;
+	padding: 6px 8px;
+	font: 14px/16px Arial, Helvetica, sans-serif;
+	background: white;
+	background: rgba(255,255,255,0.8);
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	border-radius: 5px;
+	text-align: left;
+	line-height: 18px;
+	color: black;
+    min-width: 135px;
+}
 .lga-map-tooltip {
     position: absolute;
 	padding: 6px 8px;
