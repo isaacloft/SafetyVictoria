@@ -59,9 +59,9 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase; */
   font-weight: 900;
-  text-transform: uppercase;
 }
 @media (min-width: 481px) {
   h1 {

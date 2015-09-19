@@ -90,6 +90,9 @@
                         <a class="page-scroll" href="#visualization">Safety Visualization</a>
                     </li>
                     <li>
+                        <a class="page-scroll" href="#latestLgaRanking">2015 Ranking</a>
+                    </li>
+                    <li>
                         <a class="page-scroll" href="#yearlyCompare">Yearly Compare</a>
                     </li>
                     <li>
@@ -144,6 +147,21 @@
                 <div class="col-md-4 wow fadeIn" data-wow-delay=".4s">
                     <div class="media">
                         <div class="pull-left">
+                            <a class="page-scroll" href="#latestLgaRanking"><i class="fa fa-pencil"></i></a>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="media-heading"><a class="page-scroll" href="#latestLgaRanking">2015 Ranking</a></h3>
+                            <ul>
+                                <li>2015 Ranking</li>
+                                <li>2015 Ranking</li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 wow fadeIn" data-wow-delay=".6s">
+                    <div class="media">
+                        <div class="pull-left">
                            <a class="page-scroll" href="#yearlyCompare"><i class="fa fa-rocket"></i></a>
                         </div>
                         <div class="media-body">
@@ -152,22 +170,6 @@
                                 <li>Colored map</li>
                                 <li>Yearly comparison</li>
                                 <li>Analytical Drill Down</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 wow fadeIn" data-wow-delay=".6s">
-                    <div class="media">
-                        <div class="pull-left">
-                            <i class="fa fa-pencil"></i>
-                        </div>
-                        <div class="media-body">
-                            <h3 class="media-heading">Safety Comparison By LGA</h3>
-                            <ul>
-                               <!-- <li>As <strong>Java Software Engineer</strong></li> --> 
-                                <li>LGA vs LGA comparison</li>
-                                <li>Location search function by postcode</li>
-
                             </ul>
                         </div>
                     </div>
@@ -254,7 +256,22 @@
 		  </div>
     </section>
 	
-	<section id="yearlyCompare" style="padding-top:20px;">
+	<section id="latestLgaRanking" style="padding-top:20px;">
+        <div class="container text-center wow fadeIn">
+            <h2>2015 Ranking</h2>
+            <hr class="colored">
+            <p>
+            	Area is Safer with Higher Score, 2015 Security ranking score calculated from 6 factors <br>
+            	(Offence, accident, ambulance response time, police station number, hospital number, fire brigade number). 
+            	
+            </p>
+            <div>
+				
+			</div>
+        </div>
+    </section>
+    
+    <section id="yearlyCompare" class="bg-gray" style="padding-top:20px;">
         <div class="container text-center wow fadeIn">
             <h2>Yearly compare map</h2>
             <hr class="colored">
@@ -284,7 +301,7 @@
         </div>
     </section>
 
-    <section id="contact" class="bg-gray">
+    <section id="contact">
         <div class="container wow fadeIn">
             <div class="row">
                 <div class="col-lg-12 text-center">
