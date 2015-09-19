@@ -920,14 +920,21 @@
             opacity:.5,
             dashArray: "latest-rank-"+layer.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim()
           });
-    	//layer.on({
-        //  });
+    	layer.on({
+    		mouseover : mouseoverLatestRankingMap
+          });
     }
     
+ 	function mouseoverLatestRankingMap(){
+ 		selectHistogramAndLga(this.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim());
+ 	}
+ 	
  	var histogramChart;
+ 	var latestRankingData;
+ 	
  	function initHistogram(){
  		$.getJSON("getLgaHistogramData", function(results) {
- 			console.log(results);
+ 			latestRankingData = results;
  			
  			var histogramOptionsOnRankingMap = histogramOptions({ onHover: selectHistogramAndLga });
  	        for(var i=0;i<results.length;i++){
@@ -939,24 +946,59 @@
  	   		histogramOptionsOnRankingMap.exporting = false;
 
  	   		histogramChart = new Highcharts.Chart( histogramOptionsOnRankingMap );
- 	        
  	   		
- 	   		// select top 1 SOUTHERN GRAMPIANS, id=71 as default
- 	   		selectHistogramAndLga("SOUTHERN GRAMPIANS");
- 	   		
+ 	   		addLegendToLatestRankingMap();
+ 	   		// select top 1 as default
+ 	   		selectHistogramAndLga(latestRankingData[0].lgaName);
 	 	   	
     	}); 
  	}
  	
  	function selectHistogramAndLga(lgaName){
  		$("path[stroke-dasharray^='latest-rank-']").attr("fill","#ffffff").attr("fill-opacity","0");   
-		if (!histogramChart.get(lgaName).selected) {
-			histogramChart.get(lgaName).select();
-        }
-		
-		
-		$("path[stroke-dasharray='latest-rank-"+lgaName+"']").attr("fill","red").attr("fill-opacity","0.6");   
+ 		if(histogramChart.get(lgaName) != null){
+			if (!histogramChart.get(lgaName).selected) {
+				histogramChart.get(lgaName).select();
+	        }
+			
+			$("path[stroke-dasharray='latest-rank-"+lgaName+"']").attr("fill","red").attr("fill-opacity","0.6"); 
+			
+			var currentLgaData;
+			var rankingNo;
+			for(var i=0;i<latestRankingData.length;i++){
+				if(latestRankingData[i].lgaName == lgaName){
+					currentLgaData = latestRankingData[i];
+					rankingNo = i+1;
+					break;
+				}
+			}
+			$(".latest-ranking-legend.leaflet-control").empty();
+			$(".latest-ranking-legend.leaflet-control").html(
+					"<strong>Security Ranking score</strong><br>"+
+    				"<div style='text-align: center;font-size: 25px;font-weight: 800;margin-top: 10px;'>No."+rankingNo+"</div><br>"+
+    				"<div style='margin-top: -10px;'><strong>"+currentLgaData.lgaName+"</strong>"+
+    				"<br>Population: "+currentLgaData.lgaPop+"<br>Total Score: "+currentLgaData.lgaTotalScore+
+    				"<br>Offence Security Score: "+currentLgaData.lgaCrimeScore+"<br>Accident Security Score: "+currentLgaData.lgaCrashScore+
+    				"<br>Police Station Score: "+currentLgaData.lgaPoliceScore+"<br>Ambulance response Score: "+currentLgaData.lgaAmbulanceScore+
+    				"<br>Hospital Score: "+currentLgaData.lgaHospitalScore+"<br>Fire Brigade Score: "+currentLgaData.lgaFireBriScore+
+    				"</div>");
+ 		}
    	}  
+ 	
+ 	//add legend to latest ranking map
+    function addLegendToLatestRankingMap(){
+    	legend = L.control({position: 'topright'});
+    	legend.onAdd = function (map) {
+
+            var div = L.DomUtil.create('div', 'latest-ranking-legend');
+
+            div.innerHTML = "";
+            return div;
+        };
+        
+        legend.addTo(latestRankingMap);
+        $('.latest-ranking-legend.leaflet-control').attr("style","margin-top: 45px;");
+    }
  	
     
   	//compare map js code
@@ -1443,7 +1485,7 @@
 		var y = e.originalEvent.layerY - 390;
 		$("#lga-map-tooltip").attr("style","margin-top:"+y+"px;margin-left:"+x+"px;z-index:1000;");
         
-        var lgaName = this.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim();;
+        var lgaName = this.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim();
         $("#lga-map-tooltip").show();
         $("#lga-map-tooltip").html("<strong style='font-size:1.2em;'>"+lgaName+"</strong><br>"+
 				"<span style='font-size:0.8em;'>click to show details</span>");
@@ -1796,7 +1838,7 @@
 		    histOptions.plotOptions.series.point = {
 		      events: {
 		        mouseOver: function() {
-		          jQuery.doTimeout( 'hover', 200, onHover, this.name);
+		          jQuery.doTimeout( 'hover', 100, onHover, this.name);
 		        },
 		        mouseOut: function() {
 		          jQuery.doTimeout( 'hover');
