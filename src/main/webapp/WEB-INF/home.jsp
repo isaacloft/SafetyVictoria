@@ -940,8 +940,11 @@
 
  	   		histogramChart = new Highcharts.Chart( histogramOptionsOnRankingMap );
  	        
- 	   		// select top 1 lga SOUTHERN GRAMPIANS as default
+ 	   		
+ 	   		// select top 1 SOUTHERN GRAMPIANS, id=71 as default
  	   		selectHistogramAndLga("SOUTHERN GRAMPIANS");
+ 	   		
+	 	   	
     	}); 
  	}
  	
