@@ -407,6 +407,9 @@
 
 <!-- Latest compiled and minified Locales -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-zh-CN.min.js"></script>
+
+<%-- <script type="text/javascript" src="<c:url value="/resources/js/histogram.js" />"></script>
+ --%>
 <script>
 (function ($) {
 
@@ -902,12 +905,8 @@
     	latestRankingLgaLayer.addTo(latestRankingMap);
     	latestRankingLgaLayer.eachLayer(handleLatestRankingLgaVicLayer);
         
-        //$(".leaflet-control-attribution").hide();
-        //$(".leaflet-control-zoom").css("margin-bottom","40px;");
-        //$("path[stroke-dasharray='mouseover']").attr("fill","#ffffff").attr("stroke-opacity","0.5").attr("stroke-width","1")
-        //$( "path[fill='#ffffff']" ).attr("title", function() {return $(this).attr("stroke-dasharray");}); 
+    	initHistogram();
     }
-    
     
  	// handle lga layer event
     function handleLatestRankingLgaVicLayer(layer){
@@ -917,11 +916,32 @@
             color:'#555',
             weight:1,
             opacity:.5,
-            dashArray: layer.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim()
+            dashArray: "latest-rank-"+layer.feature.properties.gaz_lga.replace("SHIRE", "").replace("CITY", "").replace("RURAL", "").trim()
           });
     	//layer.on({
         //  });
     }
+    
+ 	function initHistogram(){
+ 		$.getJSON("getLgaHistogramData", function(results) {
+ 			console.log(results);
+ 			
+ 			var histogramOptionsOnRankingMap = histogramOptions({ onHover: selectHistogramAndLga });
+ 	        for(var i=0;i<results.length;i++){
+ 	        	histogramOptionsOnRankingMap.series[0].data.push({"name": results[i].lgaName, "id": results[i].lgaId, "y":results[i].lgaTotalScore});
+ 	        }
+ 	       	histogramOptionsOnRankingMap.plotOptions.series.cursor = 'pointer';
+ 	      	histogramOptionsOnRankingMap.plotOptions.series.pointPadding = 0.1;
+ 	     	histogramOptionsOnRankingMap.chart.renderTo = 'latest-ranking-histogram';
+ 	   		histogramOptionsOnRankingMap.exporting = false;
+
+ 	        new Highcharts.Chart( histogramOptionsOnRankingMap );
+ 	        
+ 	       	function selectHistogramAndLga(){
+ 	   			console.log("selectHistogramAndLga");
+	 	   	}
+    	}); 
+ 	}
  	
     
   	//compare map js code
@@ -1684,6 +1704,93 @@
 		$('#spiderChart').highcharts(spiderOptions);
 
 		
+		/*
+		 * Histogram
+		 */
+		function histogramOptions(options) {
+		  onHover = (options && options.onHover) || null;
+		  seriesData = (options && options.data) || [{}];
+		  
+		  var histOptions = {
+		    title: {
+		      text: ''
+		    },
+		    chart: {
+		      type: 'column',
+		      backgroundColor:'rgba(255, 255, 255, 0)'
+		    },
+		    plotOptions: {
+		      series: {
+		        color: '#45d8e1',
+		        states: {
+		            select: {
+		              color: '#ff9600',
+		              borderColor: '#ffffff'
+		            },
+		            hover: {
+		              enabled: false
+		            }
+		        },
+		        pointPadding: 0,
+		        groupPadding: 0,
+		        borderWidth: 0.5
+		      }
+		    },
+		    xAxis: {
+		      categories: [],
+		      lineWidth: 0,
+		      tickWidth: 0,
+		      title: {
+		        text: ''
+		      },
+		      labels: {
+		        enabled: false
+		      },
+		      gridLineWidth: 0
+		      
+		    },
+		    yAxis: {
+		      lineWidth: 0,
+		      tickWidth: 0,
+		      title: {
+		        text: ''
+		      },
+		      labels: {
+		        enabled: false
+		      },
+		      gridLineWidth: 0
+		    },
+		    legend: {
+		      enabled: false
+		    },
+		    tooltip: {
+		      enabled: false
+		      //formatter: function() {
+		      //    return this.x + ': '+ (this.y);
+		      //}
+		    },
+		    credits: {
+		      enabled: false
+		    },
+		    series: [{
+		      data: seriesData
+		    }],
+		  };
+		  
+		  if (onHover !== null) {
+		    histOptions.plotOptions.series.point = {
+		      events: {
+		        mouseOver: function() {
+		          jQuery.doTimeout( 'hover', 200, onHover, this.name);
+		        },
+		        mouseOut: function() {
+		          jQuery.doTimeout( 'hover');
+		        },
+		      }
+		    };
+		  }
+		  return histOptions;
+		}
 		
 		/* $.getJSON("getVicAvgCrimeData", function(results) {
 			var vicAvgSet = [];

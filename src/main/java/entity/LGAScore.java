@@ -1,11 +1,13 @@
 package entity;
 
+
+
 /**
  * lga data used to display in compared map
  * @author bryan
  *
  */
-public class LGAScore {
+public class LGAScore implements Comparable<LGAScore>{
 	private int lgaId;
 	private String lgaName;
 	private int year;
@@ -207,5 +209,8 @@ public class LGAScore {
 		this.lgaPoliceNumByPop = lgaPoliceNumByPop;
 	}
 	
-	
+	@Override
+	public int compareTo(LGAScore o) {
+		return ((Double)o.getLgaTotalScore()).compareTo((Double)this.getLgaTotalScore());
+	}
 }

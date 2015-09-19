@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1022,5 +1023,90 @@ public class HomeController {
 		list.add(lga2AccidentNumData);
 			
 		return list;
+	}
+	
+	/**
+	 * Get lga1 and lga2 trend data
+	 * @param selectedLGA
+	 * @return
+	 */
+	@RequestMapping(value="getLgaHistogramData", method=RequestMethod.GET)
+	public @ResponseBody List<LGAScore> getLgaHistogramData() {
+		List<LGAScore> lgaScoreList = new ArrayList<LGAScore>();
+		
+		List<LGA> lgaList = lgaSvc.getAll();
+		for(LGA lga: lgaList){
+					
+			LGAScore lgaScore = new LGAScore();
+			lgaScore.setLgaId(lga.getLgaId());
+			lgaScore.setLgaName(lga.getLgaName());
+			lgaScore.setYear(YEAR);
+			List<CrimeByLocation> crimeResults = crimeByLocSvc.searchByLGAAndYear(lga.getLgaName(), YEAR);
+			if(crimeResults.size()==0){
+				lgaScore.setLgaCrimeScore(0);
+				lgaScore.setLgaCrimeCountByPop(0);
+				lgaScore.setLgaPop(0);
+			}else{
+				lgaScore.setLgaCrimeScore(crimeResults.get(0).getScore());
+				lgaScore.setLgaCrimeCountByPop(crimeResults.get(0).getOffenceCountByPopulation());
+				lgaScore.setLgaPop(Integer.parseInt(crimeResults.get(0).getLGAERP()));
+			}
+			List<Crash> crashResults = crashSvc.searchByLGAAndYear(lga.getLgaName(), YEAR);
+			if(crashResults.size()==0){
+				lgaScore.setLgaCrashScore(0);
+				lgaScore.setLgaCrashCountByPop(0);
+			}else{
+				lgaScore.setLgaCrashScore(crashResults.get(0).getScore());
+				lgaScore.setLgaCrashCountByPop(crashResults.get(0).getCrashCountByPopulation());
+			}
+			AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(lga.getLgaName(), YEAR-1);
+			if(amResp != null){
+				lgaScore.setLgaAmbulanceScore(amResp.getScore());
+				lgaScore.setLgaAmbulanceTime(amResp.getAvgResponseTime());
+			}else{
+				lgaScore.setLgaAmbulanceScore(0);
+				lgaScore.setLgaAmbulanceTime("");
+			}
+			List<FireBrigade> fireBriResults = fireBriSvc.searchByLgaNameAndYear(lga.getLgaName());
+			if(fireBriResults.size()==0){
+				lgaScore.setLgaFireBriScore(0);
+				lgaScore.setLgaFireBriNum(0);
+				lgaScore.setLgaFireBriNumByPop(0);
+			}else{
+				lgaScore.setLgaFireBriScore(fireBriResults.get(0).getScore());
+				lgaScore.setLgaFireBriNum(fireBriResults.get(0).getFireBrigadeNo());
+				lgaScore.setLgaFireBriNumByPop(fireBriResults.get(0).getNoByPopulation());
+			}
+			List<PoliceStation> policeStaResults = policeStaSvc.searchByLga(lga.getLgaName());
+			if(policeStaResults.size()==0){
+				lgaScore.setLgaPoliceScore(0);
+				lgaScore.setLgaPoliceNum(0);
+				lgaScore.setLgaPoliceNumByPop(0);
+			}else{
+				lgaScore.setLgaPoliceScore(policeStaResults.get(0).getScore());
+				lgaScore.setLgaPoliceNum(policeStaResults.get(0).getPoliceStationNo());
+				lgaScore.setLgaPoliceNumByPop(policeStaResults.get(0).getNoByPopulation());
+			}
+			List<Hospital> hospitalResults = hospitalSvc.searchByLga(lga.getLgaName());
+			if(hospitalResults.size() == 0){
+				lgaScore.setLgaHospitalScore(0);
+				lgaScore.setLgaHospitalNum(0);
+				lgaScore.setLgaHospitalNumByPop(0);
+			}else{
+				lgaScore.setLgaHospitalScore(hospitalResults.get(0).getScore());
+				lgaScore.setLgaHospitalNum(hospitalResults.get(0).getHospitalNo());
+				lgaScore.setLgaHospitalNumByPop(hospitalResults.get(0).getNoByPopulation());
+			}
+			lgaScore.setLgaAvgScore(((double)lgaScore.getLgaCrimeScore() + (double)lgaScore.getLgaCrashScore()) /2);
+			lgaScore.setLgaTotalScore((((double)lgaScore.getLgaCrimeScore())*30+((double)lgaScore.getLgaCrashScore())*17
+					+((double)lgaScore.getLgaAmbulanceScore())*17+((double)lgaScore.getLgaPoliceScore())*17
+					+((double)lgaScore.getLgaHospitalScore())*12+((double)lgaScore.getLgaFireBriScore())*7)/100);
+			
+			lgaScoreList.add(lgaScore);
+		}
+		
+		Collections.sort(lgaScoreList);
+		
+		return lgaScoreList;
 	}
 }
