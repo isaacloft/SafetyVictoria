@@ -87,7 +87,7 @@
                         <a class="page-scroll" href="#about">About</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#visualization">2015 Safety Visualization</a>
+                        <a class="page-scroll" href="#visualization">2015 Safety Analysis</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#latestLgaRanking">2015 Safety Ranking</a>
@@ -133,13 +133,14 @@
                             <a class="page-scroll" href="#visualization"><i class="fa fa-clipboard"></i></a>
                         </div>
                         <div class="media-body">
-                            <h3 class="media-heading"><a class="page-scroll" href="#visualization">Safety Analysis</a></h3>
+                            <h3 class="media-heading"><a class="page-scroll" href="#visualization">2015 Safety Analysis</a></h3>
                             <ul>
-                                <li>Safety Ranking</li>
+                                <li>Safety Score</li>
                                 <li>Actual Data</li>
                                 <li>Relative Data</li>
                                 <li>Area comparison</li>
                                 <li>Analytical Drill Down</li>
+                                <li>2011-2015 Area Trend</li>
                             </ul>
                         </div>
                     </div>
@@ -152,8 +153,8 @@
                         <div class="media-body">
                             <h3 class="media-heading"><a class="page-scroll" href="#latestLgaRanking">2015 Safety Ranking</a></h3>
                             <ul>
-                                <li>2015 Ranking</li>
-                                <li>2015 Ranking</li>
+                                <li>2015 Safety Ranking</li>
+                                <li>Scoring Safety</li>
 
                             </ul>
                         </div>
