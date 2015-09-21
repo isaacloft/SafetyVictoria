@@ -96,6 +96,9 @@
                         <a class="page-scroll" href="#yearlyCompare">Yearly Compare</a>
                     </li>
                     <li>
+                        <a class="page-scroll" href="#faqs">FAQs</a>
+                    </li>
+                    <li>
                         <a class="page-scroll" href="#contact">Contact</a>
                     </li>
                 </ul>
@@ -306,7 +309,103 @@
         </div>
     </section>
 
-    <section id="contact">
+    <section id="faqs"  style="padding-top:20px;">
+        <div class="container wow fadeIn">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>FAQs</h2>
+                    <hr class="colored">
+                    <p>Find the answers for FAQs</p>
+                </div>
+            </div>
+            <div>
+				<strong>Q1: What is Safety Victoria?</strong><br>
+				Safety Victoria is a web system created to inform users the safety level of Local Government Areas (LGAs) in Victoria.<br>
+				<br>            		
+				<strong>Q2: Who would use and benefit from Safety Victoria Application?</strong><br>
+				If you are a house buyer or renter, you are able to use the system to find out the safety level of your desired home locations. 
+				Furthermore, you will be able to make comparisons between your favourite locations as well as in depth analysis of each location's safety index.<br>
+				<br> 
+				<strong>Q3: Where is the data from?</strong><br>
+				We use open data from:<br>
+				<ul style="list-style-type:circle">
+					  <li>Victorian Government Data Directory: <a href="https://www.data.vic.gov.au" target="_blank">https://www.data.vic.gov.au</a></li>
+					  <li>Australian Government: <a href="http://data.gov.au" target="_blank">http://data.gov.au</a></li>
+					  <li>Ambulance Victoria: <a href="http://www.ambulance.vic.gov.au" target="_blank">http://www.ambulance.vic.gov.au</a></li>
+				</ul>
+				<br>
+				<strong>Q4: What are the datasets of Safety Victoria Application?</strong><br>
+				We have 6 datasets, they are offence data, accident data, ambulance response time data, fire brigade data, police station data and hospital data in Victoria.
+				<br>
+				<br>
+				<strong>Q5: What is the time range of data in Safety Victoria Application?</strong><br>
+				<ul style="list-style-type:circle">
+					  <li>The time range of Offence data and accident data are five years, from 2011-2015.</li>
+					  <li>The time range of ambulance response time, fire brigade, police station and hospital are only one year, which is 2015.</li>
+				</ul>
+				<br>
+				<strong>Q6: What is "2015 Safety Analysis"?</strong><br>
+				"2015 Safety Analysis" presents the safety level of two selected LGAs by showing the actual statistic data and relative data. 
+				It provides the comparison of safety level between two LGAs from overall perspective, and categories perspective as well. 
+				It also provides the 2011-2015 trend line chart for selected LGAs.
+				<br>
+				<br>
+				<strong>Q7: What is "2015 Safety Ranking"?</strong><br>
+				"2015 Safety Ranking" presents the ranking of all LGAs in victoria according to overall score. 
+				You could view the ranking number of selected LGAs, its overall score and its scores for 6 factors.
+				You could view the ranking through the histogram bar chart, and from hover on the LGAs on the map as well.
+				<br>
+				<br>
+				<strong>Q8: What is "Yearly Compare"?</strong><br>
+				"Yearly Compare" presents the comparison between two selected years about the safety level of LGAs. 
+				You can see the safety difference in these two years by looking at the changes of colour on each LGA.
+				It provides switching years from 2011-2015, and drill down catrgory selection as well.
+				<br>
+				<br>
+				<strong>Q9: How does Safety Victoria Application come out the ranking score of each category?</strong><br>
+				<ul style="list-style-type:circle">
+					  <li>Offence (/Accident safety/ Fire brigade/ Police station/ Hospital) score is calculated based on 
+					  Offence (/Accident safety/ Fire brigade/ Police station/ Hospital) rate per 100,000 of population. The ranking score range from 10 to 1. 
+					  Score 10 is the best while score 1 is the worest.</li>
+					  <li>Ambulance response time ranking score is ranked based on ambulance response time. 
+					  The ranking score range from 10 to 1. LGAs with 10 score has the fastest ambulance response time.</li>
+				</ul>
+				<br>
+				<strong>Q10: How does Safety Victoria Application come out the overall index score?</strong><br>
+				The overall index is calculated by weighted average of six category ranking scores. 
+				The weight comes from the online survey we did, which requires participants ranking the six factors 
+				(offence, accident, ambulance response time, fire brigade, police station, and hospital). 
+				According to the survey, the weight of each factor is shown as following:
+				<table class="table table-bordered" style="margin-top: 10px;margin-bottom: 10px;">
+					<thead>
+						<tr>
+							<td>Offence</td>
+							<td>Accident</td>
+							<td>Ambulance response time</td>
+							<td>Police station</td>
+							<td>Hospital</td>
+							<td>Fire brigade</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>30%</td>
+							<td>17%</td>
+							<td>17%</td>
+							<td>17%</td>
+							<td>12%</td>
+							<td>7%</td>
+						</tr>
+					</tbody>
+				</table>
+				Therefore, the overall index score of certain LGA is calculated by the formula: <br>
+				Overall Score = Offence Score*0.30 + Accident Score*0.17 + Ambulance Score*0.17 + Police Score*0.17 + Hospital Score*0.12 + Fire Brigade Score*0.07
+				
+			</div>
+        </div>
+    </section>
+    
+    <section id="contact" class="bg-gray">
         <div class="container wow fadeIn">
             <div class="row">
                 <div class="col-lg-12 text-center">
