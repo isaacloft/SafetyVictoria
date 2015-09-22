@@ -6,11 +6,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="description" content="Safety Victoria" /> 
-<meta name="keywords" content="Safety, Victoria, Crime, Crash">
-<meta name="author" content="">
+<meta name="keywords" content="Safety, Victoria, Crime, Crash, Offence, accident, ambulance, police">
+<meta name="author" content="Bryan, Xianghui Hong">
 <title>Safety Victoria</title>
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+ -->
+<script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js" />"></script>
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
 <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
 
@@ -183,7 +185,7 @@
     </section>
 
     <section id="visualization" class="bg-gray" style="padding-top: 8px;">
-        <div class="container" style="width:1240px;">
+        <div id="visualizationDiv" class="container" style="width:1240px;">
             <div class="row content-row">
                 <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".2s" style="margin-left:0px;min-height:640px;width:700px;">
                 	<div class="row">
@@ -212,6 +214,11 @@
                 		<div class="first-lga-tip lga-select-tips" style="display: block;">
 							<button type="button" class="btn btn-primary">1st area</button>
 						</div>
+						
+						<!-- <div id="saveAsPng" style="display: block;">
+							<button type="button" class="btn btn-primary">save png</button>
+						</div> -->
+						
                 		<div class="second-lga-tip lga-select-tips" style="display: block;">
                 			<button type="button" class="btn btn-success">2nd area</button>
                			</div>
@@ -270,11 +277,13 @@
             	
             </p>
             <div>
-				<div id="latest-ranking-map-container">
-					<div id="latestRanking" style="height:450px;width:100%;"></div>
+			<div id="latest-ranking-map-container">
+				<div id="latestRanking" style="height:450px;width:100%;"></div>
+			</div>
+			<div class="row" style="margin-right: 0px;margin-left: 0px;">
+				<div id="latest-ranking-histogram" class="col-xs-12 latest-ranking-histogram">
 				</div>
-				<div id="latest-ranking-histogram" class="latest-ranking-histogram">
-				</div>
+			</div>
 			</div>
         </div>
     </section>
@@ -511,9 +520,52 @@
  --%>
 <script type="text/javascript" src="<c:url value="/resources/js/plugins.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/t4.js" />"></script>
+<%-- <script type="text/javascript" src="<c:url value="/resources/js/FileSaver.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/canvas-toBlob.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/html2canvas.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jspdf.min.js" />"></script> --%>
  
 <script>
 (function ($) {
+
+/* 	$("#saveAsPng").click(function() { 
+        html2canvas($("#visualizationDiv"), {
+            onrendered: function(canvas) {
+				
+            	//var canvas = $("#visualization");
+             	// draw to canvas...
+             	
+			    context = canvas.getContext("2d");
+			
+				var image = new Image;
+				image.src = "fallback.png";
+				image.onload = function() {
+				  context.drawImage(image, 0, 0);
+			
+				  var a = document.createElement("a");
+				  a.download = "fallback.png";
+				  a.href = canvas.toDataURL("image/png");
+				  a.click();
+				}; 
+             	
+             	canvas.toBlob(function(blob) {
+                	saveAs(blob, "pretty image.png");
+             	});
+             	
+                // Convert and download as image 
+                //Canvas2Image.saveAsPNG(canvas); 
+                // Clean up 
+                //document.body.removeChild(canvas);
+            }
+        });  
+        var doc = new jsPDF();
+         
+		doc.fromHTML($('#visualizationDiv').html(), 15, 15, {
+	        'width': 170
+	    });
+		doc.save('sample-file.pdf');
+        
+    });  */	
 
 	$("#legend-tips-close").click(function(){
 		legendClose();
@@ -739,7 +791,7 @@
  					'<li>Area is <strong>Safer</strong> with <strong>Higher Score</strong>, Ranking Score for <strong>6</strong> factors</li>'+
  					(("First LGA"==lga1Header)?'':'<li><span style="color:'+selectedLGAColors[0]+'">Overall Security Score is <strong>'+lga1TotolScore+'</strong> for <strong>'+lga1Header+'</strong> in 2015</span></li>')+
  					(("Second LGA"==lga2Header)?'':'<li><span style="color:'+selectedLGAColors[1]+'">Overall Security Score is <strong>'+lga2TotolScore+'</strong> for <strong>'+lga2Header+'</strong> in 2015</span></li>')+
- 					(("First LGA"==lga1Header)&&("Second LGA"==lga2Header)?'':'<li><a id="generateTrendLink" href="javascript:void(0);">Click to generate 2011-2015 offence+accident trend</a></li>')
+ 					(("First LGA"==lga1Header)&&("Second LGA"==lga2Header)?'':'<li><a style="color: black;" id="generateTrendLink" href="javascript:void(0);"><strong style="font-size:22px;color:green">Click <i class="fa fa-hand-o-left"></i></strong> to generate 2011-2015 offence+accident trend</a></li>')
  			);
  			$("#generateTrendLink").click( function() { 
  				generateTrendModal();

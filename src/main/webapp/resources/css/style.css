@@ -61,11 +61,11 @@ div.section-border {
 }
 .latest-ranking-histogram {
 	height: 100px;
-    width: 1135px;
+    width: 96%;
     margin-top: -102px;
     z-index: 1000;
-    margin-left: 2px;
-    position: absolute;
+    margin-left: 2%;
+    position: relative;
 	padding: 6px 8px;
 	font: 14px/16px Arial, Helvetica, sans-serif;
 	background: white;
