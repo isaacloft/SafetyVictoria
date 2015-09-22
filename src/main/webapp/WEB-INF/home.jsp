@@ -192,7 +192,7 @@
                 		<div id="map1" class="map" style="width: auto;height: 390px;"></div>
                 		
                 		<div id="level1Dropdown" class="dropdown" style="z-index: 999;position: absolute;top: 0px;left: 545px;">
-						  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" 
+						  <button style="border-color: #337ab7;margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" 
 						  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						    <span id="level1SelectedItem" title="level1All">Select a category</span>
 						    <span class="caret"></span>
@@ -250,12 +250,12 @@
 		        </div>
 		        <div class="modal-body">
 		        	<div class="row">
-			          <div id="crimeTrend1" class="col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
-			          <div id="crashTrend1" class="col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
+			          <div id="crimeTrend1" class="col-xs-6 col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
+			          <div id="crashTrend1" class="col-xs-6 col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
 		          	</div>
 		        	<div class="row" style="margin-top: 20px;">
-			          <div id="crimeTrend2" class="col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
-			          <div id="crashTrend2" class="col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
+			          <div id="crimeTrend2" class="col-xs-6 col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
+			          <div id="crashTrend2" class="col-xs-6 col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
 		          	</div>
 		        </div>
 		        <div class="modal-footer">
@@ -303,7 +303,7 @@
 				<div id="compare-map-tooltip" class="compare-map-tooltip" style="margin-top: -680px;z-index: 1000;">
 				</div>
 				<div id="compareDropdown" class="dropdown" style="z-index: 999;position:absolute;margin-top: -600px;margin-left: 60px;">
-				  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;border-color: red;" 
+				  <button style="margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;border-color: #337ab7;" 
 				  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuCompareMap" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				    <span id="compareDropdownSelectedItem" title="compareAll">Offence+Accident</span>
 				    <span class="caret"></span>
