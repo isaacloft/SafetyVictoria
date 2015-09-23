@@ -185,62 +185,68 @@
     </section>
 
     <section id="visualization" class="bg-gray" style="padding-top: 8px;">
-        <div id="visualizationDiv" class="container" style="width:1240px;">
-            <div class="row content-row">
-                <div class="col-xs-6 section-border wow fadeIn" data-wow-delay=".2s" style="margin-left:0px;min-height:640px;width:700px;">
-                	<div class="row">
-                		<div id="map1" class="map" style="width: auto;height: 390px;"></div>
-                		
-                		<div id="level1Dropdown" class="dropdown" style="z-index: 999;position: absolute;top: 0px;left: 545px;">
-						  <button style="border-color: #337ab7;margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" 
-						  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    <span id="level1SelectedItem" title="level1All">Select a category</span>
-						    <span class="caret"></span>
-						  </button>
-						  <ul class="dropdown-menu dropdown-menu1" aria-labelledby="dropdownMenu1">
-						    <li><a name="level1All">All Category</a></li>
-						    <li><a name="level1Crime">Offence</a></li>
-						    <li><a name="level1Accident">Accident</a></li>
-						  </ul>
-						</div>
-						
-                		<div id="lga-map-tooltip" class="lga-map-tooltip" style="margin-top: -390px;z-index: 1000;"></div>
-                		<div class="legend-tips" style="display: block;" id="map1-legend-tips">
-                				Tips: <br>"1st area" button selected now by default
-                				<br>1. Click map to select 1st area
-                				<br>2. Click "2nd area" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
-                				<i id="legend-tips-close" class="fa fa-times" style="position: relative;left: 15px;top: -59px;"></i>
-             			</div>
-                		<div class="first-lga-tip lga-select-tips" style="display: block;">
-							<button type="button" class="btn btn-primary">1st area</button>
-						</div>
-						
-						<!-- <div id="saveAsPng" style="display: block;">
-							<button type="button" class="btn btn-primary">save png</button>
-						</div> -->
-						
-                		<div class="second-lga-tip lga-select-tips" style="display: block;">
-                			<button type="button" class="btn btn-success">2nd area</button>
-               			</div>
-                	</div>
-                	<div class="row" id="compare-table-div">
-                		<table id="compare-table" data-select-item-name="radioName1" data-cache="false"></table>
-                	</div>
+        <div id="visualizationDiv" class="container-fluid">
+            <div class="row">
+            	<div class="col-xs-12 col-md-7" style="margin-top:5px;">
+	                <div class="section-border2 wow fadeIn" data-wow-delay=".2s" style="min-height:640px;">
+	                	<div class="row" style="margin-right: 0px;margin-left: 0px;">
+	                		<div class="col-xs-12 col-md-12" style="padding-right: 0px; padding-left: 0px;">
+		                		<div id="map1" class="map" style="width: auto;height: 390px;"></div>
+		                		<div id="level1Dropdown" class="dropdown" style="z-index: 999;position: absolute;top: 0px;margin-left: 2%;">
+								  <button style="border-color: #337ab7;margin-top: 13px;border-radius: 4px;padding: 6px 12px;text-transform: none;font-weight: 400;" 
+								  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								    <span id="level1SelectedItem" title="level1All">Select a category</span>
+								    <span class="caret"></span>
+								  </button>
+								  <ul class="dropdown-menu dropdown-menu1" aria-labelledby="dropdownMenu1">
+								    <li><a name="level1All">All Category</a></li>
+								    <li><a name="level1Crime">Offence</a></li>
+								    <li><a name="level1Accident">Accident</a></li>
+								  </ul>
+								</div>
+		                		<div id="lga-map-tooltip" class="lga-map-tooltip" style="margin-top: -390px;z-index: 1000;"></div>
+		                		<div class="legend-tips" style="display: block;" id="map1-legend-tips">
+		                				Tips: <br>"1st area" button selected now by default
+		                				<br>1. Click map to select 1st area
+		                				<br>2. Click "2nd area" button to switch&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
+		                				<i id="legend-tips-close" class="fa fa-times" style="position: relative;left: 15px;top: -59px;"></i>
+		             			</div>
+		                		<div class="first-lga-tip lga-select-tips" style="display: block;">
+									<button type="button" class="btn btn-primary">1st area</button>
+								</div>
+								
+								<!-- <div id="saveAsPng" style="display: block;">
+									<button type="button" class="btn btn-primary">save png</button>
+								</div> -->
+								
+		                		<div class="second-lga-tip lga-select-tips" style="display: block;">
+		                			<button type="button" class="btn btn-success">2nd area</button>
+		               			</div>
+	               			</div>
+	                	</div>
+	                	<div class="row" style="margin-right: 0px;margin-left: 0px;" id="compare-table-div">
+	                		<div class="col-xs-12 col-md-12" style="padding-right: 0px; padding-left: 0px;">
+	                			<table id="compare-table" data-select-item-name="radioName1" data-cache="false"></table>
+	                		</div>
+	                	</div>
+	                </div>
                 </div>
-                <div class="col-xs-6 section-border wow fadeIn" id="spiderDiv" data-wow-delay=".4s" style="min-height:707px;width:530px;">
-					<div id="spiderChart" ></div>
-					<div id="explainText"  style="position: absolute;margin-top: -40px;">
-						<ul id="explainTextUl" style="list-style-type:circle">
-						  <li>Area is <strong>Safer</strong> with <strong>Higher Score</strong>, Ranking Score for <strong>6</strong> factors</li>
-						</ul>
-					</div>
+                <div class="col-xs-12 col-md-5" style="margin-top:5px;">
+	                <div class="section-border2 wow fadeIn" id="spiderDiv" data-wow-delay=".4s" style="min-height:707px;">
+						<div id="spiderChart" ></div>
+						<div id="explainText"  style="position: absolute;margin-top: -40px;">
+							<ul id="explainTextUl" style="list-style-type:circle">
+							  <li>Area is <strong>Safer</strong> with <strong>Higher Score</strong>, Ranking Score for <strong>6</strong> factors</li>
+							</ul>
+						</div>
+	                </div>
                 </div>
             </div>
         </div>
         
 		  <!-- Modal -->
 		  <div class="modal fade" id="trendModal" role="dialog">
-		    <div class="modal-dialog" style="min-width: 1000px;">
+		    <div class="modal-dialog" style="min-width:1000px;">
 		    
 		      <!-- Modal content-->
 		      <div class="modal-content">
@@ -248,14 +254,18 @@
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
 		          <h4 class="modal-title" style="font-family: inherit;text-transform: none;font-weight: 700;text-align: center;">2011-2015 Offence + Accident Trend</h4>
 		        </div>
-		        <div class="modal-body">
+		        <div class="modal-body container-fluid">
 		        	<div class="row">
-			          <div id="crimeTrend1" class="col-xs-6 col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
-			          <div id="crashTrend1" class="col-xs-6 col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
+        				<div class="col-xs-12">
+				          <div id="crimeTrend1" class="col-xs-6 col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
+				          <div id="crashTrend1" class="col-xs-6 col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
+				        </div>
 		          	</div>
 		        	<div class="row" style="margin-top: 20px;">
-			          <div id="crimeTrend2" class="col-xs-6 col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
-			          <div id="crashTrend2" class="col-xs-6 col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
+		        		<div class="col-xs-12">
+				          <div id="crimeTrend2" class="col-xs-6 col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
+				          <div id="crashTrend2" class="col-xs-6 col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
+			          	</div>
 		          	</div>
 		        </div>
 		        <div class="modal-footer">
@@ -385,28 +395,11 @@
 				The weight comes from the online survey we did, which requires participants ranking the six factors 
 				(offence, accident, ambulance response time, fire brigade, police station, and hospital). 
 				According to the survey, the weight of each factor is shown as following:
-				<table class="table table-bordered" style="margin-top: 10px;margin-bottom: 10px;">
-					<thead>
-						<tr>
-							<td>Offence</td>
-							<td>Accident</td>
-							<td>Ambulance response time</td>
-							<td>Police station</td>
-							<td>Hospital</td>
-							<td>Fire brigade</td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>30%</td>
-							<td>17%</td>
-							<td>17%</td>
-							<td>17%</td>
-							<td>12%</td>
-							<td>7%</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="row">
+					<div class="col-xs-12">
+						<table id="score-cal-table" data-select-item-name="score-cal-table" data-cache="false"></table>
+					</div>
+				</div>
 				Therefore, the overall index score of certain LGA is calculated by the formula: <br>
 				Overall Score = Offence Score*0.30 + Accident Score*0.17 + Ambulance Score*0.17 + Police Score*0.17 + Hospital Score*0.12 + Fire Brigade Score*0.07
 				
@@ -566,6 +559,39 @@
 		doc.save('sample-file.pdf');
         
     });  */	
+    
+    {
+		$('#score-cal-table').bootstrapTable({
+			columns: [{
+		        field: 'Offence',
+		        title: 'Offence'
+		    }, {
+		        field: 'Accident',
+		        title: 'Accident'
+		    }, {
+		        field: 'Ambulance',
+		        title: 'Ambulance response time'
+		    }, {
+		        field: 'Police',
+		        title: 'Police station'
+		    }, {
+		        field: 'Hospital',
+		        title: 'Hospital'
+		    }, {
+		        field: 'Fire',
+		        title: 'Fire brigade'
+		    }],
+		    data: [{
+		    	Offence: '30%',
+		    	Accident: '17%',
+		    	Ambulance: '17%',
+		    	Police: '17%',
+		    	Hospital: '12%',
+		    	Fire: '7%'
+		    }]
+		});		
+    }
+
 
 	$("#legend-tips-close").click(function(){
 		legendClose();
