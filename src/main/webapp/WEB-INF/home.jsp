@@ -411,9 +411,9 @@
         <div class="container wow fadeIn">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Contact Me</h2>
+                    <h2>Contact Us</h2>
                     <hr class="colored">
-                    <p>I'd love to hear from you! Send me a message and we will be connected.</p>
+                    <p>We'd love to hear from you! Send me a message and we will be connected.</p>
                 </div>
             </div>
             <br>
@@ -423,16 +423,20 @@
                 <div class="row">
                     <div class="col-md-4 contact-details">
                         <h4><i class="fa fa-phone"></i> Call</h4>
-                        <p>Connect with me by LinkedIn button below or Email</p>
+                        <p>Connect with us by LinkedIn button below or Email</p>
                     </div>
                     <div class="col-md-4 contact-details">
                         <h4><i class="fa fa-map-marker"></i> Visit</h4>
-                        <p>Waverley Road, 
-                            <br>Malvern East, 3145</p>
+                        <p>Caulfield Campus, 
+                            <br>Monash University, 3145</p>
                     </div>
                     <div class="col-md-4 contact-details">
                         <h4><i class="fa fa-envelope"></i> Email</h4>
-                        <p><a href="mailto:bryan.hong.1988@gmail.com">bryan.hong.1988@gmail.com</a>
+                        <p>
+                        	<a href="mailto:bryan.hong.1988@gmail.com">bryan.hong.1988@gmail.com</a><br>
+                        	<a href="mailto:bingran16@gmail.com">bingran16@gmail.com</a><br>
+                        	<a href="mailto:xwan359@student.monash.edu">xwan359@student.monash.edu</a><br>
+                        	<a href="mailto:shyen777@gmail.com">shyen777@gmail.com</a><br>
                         </p>
                     </div>
                 </div>
