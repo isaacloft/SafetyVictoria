@@ -186,7 +186,7 @@
 
     <section id="visualization" class="bg-gray" style="padding-top: 8px;">
         <div id="visualizationDiv" class="container-fluid">
-            <div class="row">
+            <div class="row" style="margin-top: 25px;">
             	<div class="col-xs-12 col-md-7" style="margin-top:5px;">
 	                <div class="section-border2 wow fadeIn" data-wow-delay=".2s" style="min-height:640px;">
 	                	<div class="row" style="margin-right: 0px;margin-left: 0px;">
