@@ -100,11 +100,6 @@ public class CrimeByLocationService {
 				+ "FROM crime_by_location c where c.year='" + year + "' "
 				+ "group by c.major_cate_code "
 				+ "order by c.major_cate_code").getResultList();
-		for(Object[] record: result){
-//			System.out.println("avgcount:"+record[0]);
-//			System.out.println("totalCount"+record[1]);
-//			System.out.println("majorCate"+record[2]);
-		}
 		return result;
 	}
 	
