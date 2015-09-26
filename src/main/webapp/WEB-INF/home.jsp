@@ -458,7 +458,7 @@
                 <br>
                 <div class="row copyright">
                     <div class="col-lg-12">
-                        <p class="small">&copy; 2015 Start Bootstrap by Bryan</p>
+                        <p class="small">&copy; 2015 Start Bootstrap by Bryan, <i class="fa fa-copyright"></i> 2015 Monash Phoenix Team All Rights Reserved</p>
                     </div>
                 </div>
             </div>
@@ -1159,7 +1159,7 @@
 					"<strong>Security Ranking score</strong><br>"+
     				"<div style='text-align: center;font-size: 25px;font-weight: 800;margin-top: 10px;'>No."+rankingNo+"</div><br>"+
     				"<div style='margin-top: -10px;'><strong>"+currentLgaData.lgaName+"</strong>"+
-    				"<br>Population: "+currentLgaData.lgaPop+"<br>Total Score: "+currentLgaData.lgaTotalScore+
+    				"<br>Population: "+currentLgaData.lgaPop+"<br>Total Score: <strong style='color:red'>"+currentLgaData.lgaTotalScore+"</strong>"+
     				"<br>Offence Security Score: "+currentLgaData.lgaCrimeScore+"<br>Accident Security Score: "+currentLgaData.lgaCrashScore+
     				"<br>Police Station Score: "+currentLgaData.lgaPoliceScore+"<br>Ambulance response Score: "+currentLgaData.lgaAmbulanceScore+
     				"<br>Hospital Score: "+currentLgaData.lgaHospitalScore+"<br>Fire Brigade Score: "+currentLgaData.lgaFireBriScore+
@@ -1236,7 +1236,7 @@
     	}
     }
     
-    var beforeMapYear = 2014;
+    var beforeMapYear = 2011;
     var afterMapYear = 2015;
     
     function lgaVicDataForBefore(topoData){
@@ -1963,7 +1963,7 @@
 		        color: '#45d8e1',
 		        states: {
 		            select: {
-		              color: '#ff9600',
+		              color: 'red',
 		              borderColor: '#ffffff'
 		            },
 		            hover: {
