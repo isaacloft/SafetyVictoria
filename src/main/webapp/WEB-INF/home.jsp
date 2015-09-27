@@ -159,8 +159,8 @@
                             <h3 class="media-heading"><a class="page-scroll" href="#latestLgaRanking">2015 Safety Ranking</a></h3>
                             <ul>
                                 <li>2015 Safety Ranking</li>
-                                <li>Scoring Safety</li>
-
+                                <li>Total Safety Score</li>
+                                <li>6 Safety Factors Score</li>
                             </ul>
                         </div>
                     </div>
@@ -396,7 +396,10 @@
 				(offence, accident, ambulance response time, fire brigade, police station, and hospital). 
 				According to the survey, the weight of each factor is shown as following:
 				<div class="row">
-					<div class="col-xs-12">
+					<div class="col-xs-12 col-md-6">
+						<img src="<c:url value="/resources/img/suvey-resut.png" />" class="img-responsive" alt="">						
+					</div>
+					<div class="col-xs-12 col-md-6" style="padding-top: 80px;">
 						<table id="score-cal-table" data-select-item-name="score-cal-table" data-cache="false"></table>
 					</div>
 				</div>
@@ -407,7 +410,7 @@
         </div>
     </section>
     
-    <section id="contact" class="bg-gray">
+    <section id="contact" class="bg-gray" style="padding-top:50px;">
         <div class="container wow fadeIn">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -458,7 +461,7 @@
                 <br>
                 <div class="row copyright">
                     <div class="col-lg-12">
-                        <p class="small">&copy; 2015 Start Bootstrap by Bryan, <i class="fa fa-copyright"></i> 2015 Monash Phoenix Team All Rights Reserved</p>
+                        <p class="small">&copy; 2015 Start Bootstrap by Bryan, &copy;  2015 Monash Phoenix Team All Rights Reserved</p>
                     </div>
                 </div>
             </div>
@@ -567,31 +570,30 @@
     {
 		$('#score-cal-table').bootstrapTable({
 			columns: [{
-		        field: 'Offence',
-		        title: 'Offence'
+		        field: 'factors',
+		        title: 'Factors'
 		    }, {
-		        field: 'Accident',
-		        title: 'Accident'
-		    }, {
-		        field: 'Ambulance',
-		        title: 'Ambulance response time'
-		    }, {
-		        field: 'Police',
-		        title: 'Police station'
-		    }, {
-		        field: 'Hospital',
-		        title: 'Hospital'
-		    }, {
-		        field: 'Fire',
-		        title: 'Fire brigade'
+		        field: 'percentage',
+		        title: 'Percentage'
 		    }],
 		    data: [{
-		    	Offence: '30%',
-		    	Accident: '17%',
-		    	Ambulance: '17%',
-		    	Police: '17%',
-		    	Hospital: '12%',
-		    	Fire: '7%'
+		    	factors: '<strong>Offence</strong> (Crime Rate)',
+		    	percentage: '30%'
+		    },{
+		    	factors: '<strong>Accident</strong> (Traffic Accident Rate)',
+		    	percentage: '17%'
+		    },{
+		    	factors: '<strong>Ambulance</strong> (Ambulance Response Time)',
+		    	percentage: '17%'
+		    },{
+		    	factors: '<strong>Police</strong> (Number of Police Stations)',
+		    	percentage: '17%'
+		    },{
+		    	factors: '<strong>Hospital</strong> (Number of Hospitals)',
+		    	percentage: '12%'
+		    },{
+		    	factors: '<strong>Fire</strong> (Number of Fire Brigade)',
+		    	percentage: '7%'
 		    }]
 		});		
     }
@@ -1159,7 +1161,7 @@
 					"<strong>Security Ranking score</strong><br>"+
     				"<div style='text-align: center;font-size: 25px;font-weight: 800;margin-top: 10px;'>No."+rankingNo+"</div><br>"+
     				"<div style='margin-top: -10px;'><strong>"+currentLgaData.lgaName+"</strong>"+
-    				"<br>Population: "+currentLgaData.lgaPop+"<br>Total Score: <strong style='color:red'>"+currentLgaData.lgaTotalScore+"</strong>"+
+    				"<br>Population: "+numberWithCommas(currentLgaData.lgaPop)+"<br>Total Score: <strong style='color:red;font-size:17px;'>"+currentLgaData.lgaTotalScore+"</strong>"+
     				"<br>Offence Security Score: "+currentLgaData.lgaCrimeScore+"<br>Accident Security Score: "+currentLgaData.lgaCrashScore+
     				"<br>Police Station Score: "+currentLgaData.lgaPoliceScore+"<br>Ambulance response Score: "+currentLgaData.lgaAmbulanceScore+
     				"<br>Hospital Score: "+currentLgaData.lgaHospitalScore+"<br>Fire Brigade Score: "+currentLgaData.lgaFireBriScore+
@@ -1742,15 +1744,19 @@
     // set lga1 column color
     function lga1Formatter(value) {
         return '<div  style="color: ' + selectedLGAColors[0] + '">' +
-                value +
+        	numberWithCommas(value) +
                 '</div>';
     }
     
  	// set lga2 column color
     function lga2Formatter(value) {
         return '<div  style="color: ' + selectedLGAColors[1] + '">' +
-                value +
+        	numberWithCommas(value) +
                 '</div>';
+    }
+ 	
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     
     // AJAX invoke to get lga crime data from backend 
@@ -1770,7 +1776,7 @@
     	$.getJSON("getSelectedLGAData", { selectedLGA: selectedLGA, dataSource: dataSource }, function(results) {
     		
     		for(var i=0;i<results[0].length;i++){
-    			$("#compare-table tbody tr:nth-child("+(i+1)+") td:eq("+selectedLGAButtonIndex+") div").html(results[0][i]);
+    			$("#compare-table tbody tr:nth-child("+(i+1)+") td:eq("+selectedLGAButtonIndex+") div").html(numberWithCommas(results[0][i]));
     		}
     		updateSpiderChart(selectedLGA, selectedLGAButtonIndex, results[1], dataSource);
     		return;
