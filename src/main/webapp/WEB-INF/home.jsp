@@ -233,6 +233,12 @@
                 </div>
                 <div class="col-xs-12 col-md-5" style="margin-top:5px;">
 	                <div class="section-border2 wow fadeIn" id="spiderDiv" data-wow-delay=".4s" style="min-height:707px;">
+	                	<div style='color:#e69500;position: absolute;z-index: 1000;padding-left: 88%;top: 10%;'>
+		                	<a id="spiderTooltipTitle" href='javascript:void(0)' data-placement='left' data-toggle='tooltip' class='orange-tooltip'
+		                		title='The spider chart shows the security ranking score for 6 factors, safer with higher score; check FAQs to know how the score is been calculated' >
+		                		<i class='fa fa-question-circle'></i>
+		                	</a>
+	                	</div>
 						<div id="spiderChart" ></div>
 						<div id="explainText"  style="position: absolute;margin-top: -40px;">
 							<ul id="explainTextUl" style="list-style-type:circle">
@@ -259,6 +265,16 @@
         				<div class="col-xs-12">
 				          <div id="crimeTrend1" class="col-xs-6 col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
 				          <div id="crashTrend1" class="col-xs-6 col-md-6" style="min-width: 300px; height: 240px; margin: 0 auto"></div>
+				          
+				          	<div style='color:#e69500;position: absolute;z-index: 1000;padding-left: 98%;top: 3%;'>
+			                	<a href='javascript:void(0)' data-placement='left' data-toggle='tooltip' class='orange-tooltip'
+			                		title='These four charts show the Offence + Accident trend for year 2011-2015; 
+			                		offence/accident security score chart is created by score calculated from offence/accident per 100,000 population, safer with higher score;
+			                		offence/accident number chart is created from count data per 100,000 population' >
+			                		<i class='fa fa-question-circle'></i>
+			                	</a>
+	                		</div>
+	                		
 				        </div>
 		          	</div>
 		        	<div class="row" style="margin-top: 20px;">
@@ -291,8 +307,16 @@
 				<div id="latestRanking" style="height:450px;width:100%;"></div>
 			</div>
 			<div class="row" style="margin-right: 0px;margin-left: 0px;">
-				<div id="latest-ranking-histogram" class="col-xs-12 latest-ranking-histogram">
-				</div>
+				<div style='color:#e69500;position: absolute;z-index: 1002;padding-left: 87%;margin-top: -100px;'>
+                	<a href='javascript:void(0)' data-placement='left' data-toggle='tooltip' class='orange-tooltip'
+                		title='This section is the overall safety ranking for whole VIC in 2015; 
+                		in the histogram bar chart, left is safer with higher score, right is less safer with lower score;
+                		select bar to show area on map or select area on map to show in bar chart and show details in legend' >
+                		<i class='fa fa-question-circle'></i>
+                	</a>
+            	</div>
+            	
+				<div id="latest-ranking-histogram" class="col-xs-12 latest-ranking-histogram"></div>
 			</div>
 			</div>
         </div>
@@ -310,6 +334,17 @@
 					<div id="beforeMap" style="height:600px;width:100%;"></div>
 					<div id="afterMap" style="height:600px;width:100%;"></div>
 				</div>
+				
+				<div style='color:#e69500;position: absolute;z-index: 1002;padding-left: 88%;margin-top: -390px;'>
+                	<a href='javascript:void(0)' data-placement='left' data-toggle='tooltip' class='orange-tooltip'
+                		title='This section is the yearly compare for whole VIC offence + accident; 
+                		drag the button in the center to see difference for selected 2 years; 
+                		the data could be selected from 2011, 2012, 2013, 2014, 2015; 
+                		area is safer with higher score; could drill down by dropdown list' >
+                		<i class='fa fa-question-circle'></i>
+                	</a>
+            	</div>
+				
 				<div id="compare-map-tooltip" class="compare-map-tooltip" style="margin-top: -680px;z-index: 1000;">
 				</div>
 				<div id="compareDropdown" class="dropdown" style="z-index: 999;position:absolute;margin-top: -600px;margin-left: 60px;">
@@ -425,7 +460,7 @@
             <div class="container text-center">
                 <div class="row">
                     <div class="col-md-4 contact-details">
-                        <h4><i class="fa fa-phone"></i> Call</h4>
+                        <h4><i class="fa fa-phone"></i> Contact</h4>
                         <p>Connect with us by LinkedIn button below or Email</p>
                     </div>
                     <div class="col-md-4 contact-details">
@@ -567,6 +602,8 @@
         
     });  */	
     
+    $('[data-toggle="tooltip"]').tooltip(); 
+    
     {
 		$('#score-cal-table').bootstrapTable({
 			columns: [{
@@ -692,6 +729,8 @@
       	//level1All level1Crime level1Accident level2All level2A level2B level2C level2D level2E level2F
         if(dataSource == "level1All"){
         	$("#spiderDiv").css("min-height","707px");
+        	$("#spiderTooltipTitle").attr("data-original-title",
+        			"The spider chart shows the security ranking score for 6 factors, safer with higher score; check FAQs to know how the score is been calculated");
         	
         	var rowTitleData = ['Population','Offence count','Accident count',
     		                    'Ambulance response time','Fire brigade number',
@@ -714,7 +753,7 @@
 	        	
 	        	var lga1TableData = results[0];
 	    		var lga2TableData = results[1];
-	    		
+				
 	    		var tableData = [];
 	    		for(var i=0;i<rowTitleData.length;i++){
 	    			tableData.push({
@@ -725,12 +764,44 @@
 	    		}
 	    		
 	    		createTable(tableHead, tableData);
+	    		
+	    		var lga1Pop = lga1TableData[0];
+	    		var lga1ActualCrime = lga1TableData[1];
+	    		var lga1ActualCrash = lga1TableData[2];
+	    		if(lga1Pop != "-" && lga1ActualCrime != "-"){
+	    			var lga1CrimePercent = parseInt(lga1ActualCrime * 100 * 100 / lga1Pop) / 100;
+	    			var lga1CrimeAppendHTML = getCellAppendHTML(lga1CrimePercent, "right", "This percentage calculated by 1 year Offence count/population");
+	    			$("#compare-table tbody tr:nth-child("+(2)+") td:eq("+1+") div").append( lga1CrimeAppendHTML );
+	    		}
+	    		if(lga1Pop != "-" && lga1ActualCrash != "-"){
+	    			var lga1CrashPercent = parseInt(lga1ActualCrash * 100 * 100 / lga1Pop) / 100;
+	    			var lga1CrashAppendHTML = getCellAppendHTML(lga1CrashPercent, "right", "This percentage calculated by 1 year Accident count/population");
+	    			$("#compare-table tbody tr:nth-child("+(3)+") td:eq("+1+") div").append( lga1CrashAppendHTML );
+	    		}
+	    		
+	    		var lga2Pop = lga2TableData[0];
+	    		var lga2ActualCrime = lga2TableData[1];
+	    		var lga2ActualCrash = lga2TableData[2];
+	    		if(lga2Pop != "-" && lga2ActualCrime != "-"){
+	    			var lga2CrimePercent = parseInt(lga2ActualCrime * 100 * 100 / lga2Pop) / 100;
+	    			var lga2CrimeAppendHTML = getCellAppendHTML(lga2CrimePercent, "left", "This percentage calculated by 1 year Offence count/population");
+	    			$("#compare-table tbody tr:nth-child("+(2)+") td:eq("+2+") div").append( lga2CrimeAppendHTML );
+	    		}
+	    		if(lga2Pop != "-" && lga2ActualCrash != "-"){
+	    			var lga2CrashPercent = parseInt(lga1ActualCrash * 100 * 100 / lga2Pop) / 100;
+	    			var lga2CrashAppendHTML = getCellAppendHTML(lga2CrashPercent, "left", "This percentage calculated by 1 year Accident count/population");
+	    			$("#compare-table tbody tr:nth-child("+(3)+") td:eq("+2+") div").append( lga2CrashAppendHTML );
+	    		}
+	    		
+	    		$('[data-toggle="tooltip"]').tooltip(); 
         	}); 
     		
     		changeSpider(dataSource, rowTitleData, lga1Header, lga2Header);
         	
         }else if(dataSource == "level1Crime"){
         	$("#spiderDiv").css("min-height","668px");
+        	$("#spiderTooltipTitle").attr("data-original-title",
+        			"The spider chart shows relative data for 6 offence types, calculated by offence count per 100,000 population, and red line is VIC average count");
         	
         	$.getJSON("getLgaTableDataByDrop", { selectedLGA1: lga1Header, selectedLGA2: lga2Header, dataSource: dataSource }, function(results) {
 	        	var tableHead = [{
@@ -762,6 +833,52 @@
 	    			});
 	    		}
 	        	createTable(tableHead, tableData);
+	        	
+	        	
+				var lga1TotalNum = eval(lga1TableData.join('+'));
+				var lga2TotalNum = eval(lga2TableData.join('+'));
+
+				if(lga1TotalNum == 0 && lga2TotalNum == 0){
+					return;
+				}
+				
+				var lga1PercentArr = [];
+				for(var i=0;i<lga1TableData.length;i++){
+					if(i == lga1TableData.length-1){
+						var totalPercent = eval(lga1PercentArr.join('+'));
+						lga1PercentArr.push(100 - totalPercent);
+					}else{
+						lga1PercentArr.push(parseInt(lga1TableData[i] * 100 / lga1TotalNum));
+					}
+				}
+				
+				var lga2PercentArr = [];
+				for(var i=0;i<lga2TableData.length;i++){
+					if(i == lga2TableData.length-1){
+						var totalPercent = eval(lga2PercentArr.join('+'));
+						lga2PercentArr.push(100 - totalPercent);
+					}else{
+						lga2PercentArr.push(parseInt(lga2TableData[i] * 100 / lga2TotalNum));
+					}
+				}
+				
+				if(lga1TotalNum != 0){
+					for(var i=0;i<lga1TableData.length;i++){
+						var tooltipTitle = "In 2015, percentage of this offence type for " + lga1Header + " is " + lga1PercentArr[i] + "%";
+		    			var cellInnerHTML = numberWithCommas(results[0][i]) + getCellAppendHTML(lga1PercentArr[i], "right", tooltipTitle);
+		    			$("#compare-table tbody tr:nth-child("+(i+1)+") td:eq("+1+") div").html(cellInnerHTML);
+		    		}
+				}
+				
+				if(lga2TotalNum != 0){
+					for(var i=0;i<lga2TableData.length;i++){
+						var tooltipTitle = "In 2015, percentage of this offence type for " + lga2Header + " is " + lga2PercentArr[i] + "%";
+		    			var cellInnerHTML = numberWithCommas(results[0][i]) + getCellAppendHTML(lga2PercentArr[i], "left", tooltipTitle);
+		    			$("#compare-table tbody tr:nth-child("+(i+1)+") td:eq("+2+") div").html(cellInnerHTML);
+		    		}
+				}
+				
+				$('[data-toggle="tooltip"]').tooltip();  
         	});
         	
         	var rowTitleData = ['C Drug offences','D Public order and security offences',
@@ -771,6 +888,8 @@
         	
         }else if(dataSource == "level1Accident"){
         	$("#spiderDiv").css('min-height','785px');
+        	$("#spiderTooltipTitle").attr("data-original-title",
+        			"The spider chart shows relative data for 9 accident types, calculated by accident count per 100,000 population, and red line is VIC average count");
         	
         	var rowTitleData = ['No collision and no object struck',
         	                    'Vehicle overturned (no collision)','Struck animal',
@@ -803,6 +922,52 @@
 	    			});
 	    		}
 	        	createTable(tableHead, tableData);
+	        	
+	        	
+	        	var lga1TotalNum = eval(lga1TableData.join('+'));
+				var lga2TotalNum = eval(lga2TableData.join('+'));
+
+				if(lga1TotalNum == 0 && lga2TotalNum == 0){
+					return;
+				}
+				
+				var lga1PercentArr = [];
+				for(var i=0;i<lga1TableData.length;i++){
+					if(i == lga1TableData.length-1){
+						var totalPercent = eval(lga1PercentArr.join('+'));
+						lga1PercentArr.push(100 - totalPercent);
+					}else{
+						lga1PercentArr.push(parseInt(lga1TableData[i] * 100 / lga1TotalNum));
+					}
+				}
+				
+				var lga2PercentArr = [];
+				for(var i=0;i<lga2TableData.length;i++){
+					if(i == lga2TableData.length-1){
+						var totalPercent = eval(lga2PercentArr.join('+'));
+						lga2PercentArr.push(100 - totalPercent);
+					}else{
+						lga2PercentArr.push(parseInt(lga2TableData[i] * 100 / lga2TotalNum));
+					}
+				}
+				
+				if(lga1TotalNum != 0){
+					for(var i=0;i<lga1TableData.length;i++){
+						var tooltipTitle = "In 2015, percentage of this accident type for " + lga1Header + " is " + lga1PercentArr[i] + "%";
+		    			var cellInnerHTML = numberWithCommas(results[0][i]) + getCellAppendHTML(lga1PercentArr[i], "right", tooltipTitle);
+		    			$("#compare-table tbody tr:nth-child("+(i+1)+") td:eq("+1+") div").html(cellInnerHTML);
+		    		}
+				}
+				
+				if(lga2TotalNum != 0){
+					for(var i=0;i<lga2TableData.length;i++){
+						var tooltipTitle = "In 2015, percentage of this accident type for " + lga2Header + " is " + lga2PercentArr[i] + "%";
+		    			var cellInnerHTML = numberWithCommas(results[0][i]) + getCellAppendHTML(lga2PercentArr[i], "left", tooltipTitle);
+		    			$("#compare-table tbody tr:nth-child("+(i+1)+") td:eq("+2+") div").html(cellInnerHTML);
+		    		}
+				}
+				
+				$('[data-toggle="tooltip"]').tooltip();  
         	});
         	
         	changeSpider(dataSource, rowTitleData, lga1Header, lga2Header);
@@ -1161,10 +1326,14 @@
 					"<strong>Security Ranking score</strong><br>"+
     				"<div style='text-align: center;font-size: 25px;font-weight: 800;margin-top: 10px;'>No."+rankingNo+"</div><br>"+
     				"<div style='margin-top: -10px;'><strong>"+currentLgaData.lgaName+"</strong>"+
-    				"<br>Population: "+numberWithCommas(currentLgaData.lgaPop)+"<br>Total Score: <strong style='color:red;font-size:17px;'>"+currentLgaData.lgaTotalScore+"</strong>"+
-    				"<br>Offence Security Score: "+currentLgaData.lgaCrimeScore+"<br>Accident Security Score: "+currentLgaData.lgaCrashScore+
-    				"<br>Police Station Score: "+currentLgaData.lgaPoliceScore+"<br>Ambulance response Score: "+currentLgaData.lgaAmbulanceScore+
-    				"<br>Hospital Score: "+currentLgaData.lgaHospitalScore+"<br>Fire Brigade Score: "+currentLgaData.lgaFireBriScore+
+    				"<br>Population: "+((currentLgaData.lgaPop==0)?"No Data":numberWithCommas(currentLgaData.lgaPop))+
+    				"<br>Total Score: <strong style='color:red;font-size:17px;'>"+((currentLgaData.lgaTotalScore==0)?"No Data":currentLgaData.lgaTotalScore)+"</strong>"+
+    				"<br>Offence Security Score: "+((currentLgaData.lgaCrimeScore==0)?"No Data":currentLgaData.lgaCrimeScore)+
+    				"<br>Accident Security Score: "+((currentLgaData.lgaCrashScore==0)?"No Data":currentLgaData.lgaCrashScore)+
+    				"<br>Police Station Score: "+((currentLgaData.lgaPoliceScore==0)?"No Data":currentLgaData.lgaPoliceScore)+
+    				"<br>Ambulance response Score: "+((currentLgaData.lgaAmbulanceScore==0)?"No Data":currentLgaData.lgaAmbulanceScore)+
+    				"<br>Hospital Score: "+((currentLgaData.lgaHospitalScore==0)?"No Data":currentLgaData.lgaHospitalScore)+
+    				"<br>Fire Brigade Score: "+((currentLgaData.lgaFireBriScore==0)?"No Data":currentLgaData.lgaFireBriScore)+
     				"</div>");
  		}
    	}  
@@ -1436,15 +1605,6 @@
 								"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
     			}
 			}
-    		/* lgaAvgScore: 7
-    		lgaCrashCountByPop: 151
-    		lgaCrashScore: 10
-    		lgaCrimeCountByPop: 7743
-    		lgaCrimeScore: 4
-    		lgaId: 1
-    		lgaName: "BANYULE"
-    		lgaPop: 125503
-    		year: 2013 */
     	}else if(this._path.attributes[10].value.startsWith('afterMap')){
     		var lgaName = this._path.attributes[10].value.replace('afterMap','').trim();
     		var lgaData;
@@ -1774,14 +1934,68 @@
     	}
     	
     	$.getJSON("getSelectedLGAData", { selectedLGA: selectedLGA, dataSource: dataSource }, function(results) {
-    		
     		for(var i=0;i<results[0].length;i++){
-    			$("#compare-table tbody tr:nth-child("+(i+1)+") td:eq("+selectedLGAButtonIndex+") div").html(numberWithCommas(results[0][i]));
+    			var cellInnerHTML = numberWithCommas(results[0][i]);
+    			$("#compare-table tbody tr:nth-child("+(i+1)+") td:eq("+selectedLGAButtonIndex+") div").html(cellInnerHTML);
     		}
+    		
+    		var dataPlace = (selectedLGAButtonIndex==1)?"right":"left";
+    		if("level1All" == dataSource){
+				var lgaPop = results[0][0];
+				var actualCrime = results[0][1];
+				var actualCrash = results[0][2];
+				var crimePercent = parseInt(actualCrime * 100 * 100 / lgaPop) / 100;
+				var crashPercent = parseInt(actualCrash * 100 * 100 / lgaPop) / 100;
+				//var relativeCrimeCount = parseInt(actualCrime * 100000 / lgaPop);
+				//var relativeCrashCount = parseInt(actualCrash * 100000 / lgaPop);
+				
+				var crimeTooltipTitle = "This percentage calculated by 1 year Offence count/population";
+				var crimeAppendHTML = getCellAppendHTML(crimePercent, dataPlace, crimeTooltipTitle);
+				
+				var crashTooltipTitle = "This percentage calculated by 1 year Accident count/population";
+				var crashAppendHTML = getCellAppendHTML(crashPercent, dataPlace, crashTooltipTitle);
+				
+				$("#compare-table tbody tr:nth-child("+(2)+") td:eq("+selectedLGAButtonIndex+") div").append( crimeAppendHTML );
+				$("#compare-table tbody tr:nth-child("+(3)+") td:eq("+selectedLGAButtonIndex+") div").append( crashAppendHTML );
+				$('[data-toggle="tooltip"]').tooltip(); 
+			}else{
+				var totalNum = eval(results[0].join('+'));
+				
+				var percentArr = [];
+				for(var i=0;i<results[0].length;i++){
+					if(i == results[0].length-1){
+						var totalPercent = eval(percentArr.join('+'));
+						percentArr.push(100 - totalPercent);
+					}else{
+						percentArr.push(parseInt(results[0][i] * 100 / totalNum));
+					}
+				}
+				
+				for(var i=0;i<results[0].length;i++){
+					var tooltipTitle = "";
+					if("level1Crime" == dataSource){
+						tooltipTitle = "In 2015, percentage of this offence type for " + selectedLGA + " is " + percentArr[i] + "%";
+					}else if("level1Accident" == dataSource){
+						tooltipTitle = "In 2015, percentage of this accident type for " + selectedLGA + " is " + percentArr[i] + "%";
+					}
+	    			var cellInnerHTML = numberWithCommas(results[0][i]) + getCellAppendHTML(percentArr[i], dataPlace, tooltipTitle);
+	    			$("#compare-table tbody tr:nth-child("+(i+1)+") td:eq("+selectedLGAButtonIndex+") div").html(cellInnerHTML);
+	    		}
+				
+				$('[data-toggle="tooltip"]').tooltip(); 
+			}
+    		
     		updateSpiderChart(selectedLGA, selectedLGAButtonIndex, results[1], dataSource);
     		return;
         });
     }
+    
+	function getCellAppendHTML(percent, dataPlace, title){
+		return "&nbsp;&nbsp;<span style='color:#e69500'>( "+percent+"% ) "+
+			"<a href='javascript:void(0)' data-placement='"+dataPlace+"' data-toggle='tooltip' "+
+			"title='"+title+"' class='orange-tooltip'>"+
+			"<i class='fa fa-question-circle'></i></a></span>";
+	}    
     
     // after the crime data updated in table, then update the spider chart
     function updateSpiderChart(selectedLGA, selectedLGAButtonIndex, dataset, dataSource){
@@ -2037,14 +2251,6 @@
 		  return histOptions;
 		}
 		
-		/* $.getJSON("getVicAvgCrimeData", function(results) {
-			var vicAvgSet = [];
-			for (var i = 0; i < results.length; i++) {
-				vicAvgSet.push(results[i][0]);
-			}
-			var spider = $('#spiderChart').highcharts();
-			spider.series[0].setData(vicAvgSet);
-		}); */
 	})(jQuery);
 </script>
   

@@ -244,3 +244,11 @@ div.section-border2 {
     background-color: white;
     opacity:0;
 }
+
+
+.tooltip.fade.right {background-color: transparent;border:none}
+.tooltip.fade.left {background-color: transparent;border:none}
+/*
+.tooltip-arrow {background-color: orange}
+.tooltip-inner {background-color: orange}
+*/
