@@ -142,24 +142,42 @@ public class HomeController {
 			
 			List<Object> lgaTableData = new ArrayList<Object>();
 			List<Object> lgaSpiderData = new ArrayList<Object>();
+			List<Object> previousYearData = new ArrayList<Object>();
 			
 			List<CrimeByLocation> crimeResults = crimeByLocSvc.searchByLGAAndYear(selectedLGA, YEAR);
+			List<CrimeByLocation> previousYearCrimeResults = crimeByLocSvc.searchByLGAAndYear(selectedLGA, YEAR-1);
 			if(crimeResults.size() == 0){
 				lgaTableData.add(EMPTYDASH);
 				lgaTableData.add(EMPTYDASH);
 				lgaSpiderData.add(0);
+				previousYearData.add(0);
+				previousYearData.add(0);
 			}else{
 				lgaTableData.add(crimeResults.get(0).getLGAERP());
 				lgaTableData.add(crimeResults.get(0).getTotalOffenceCount());
 				lgaSpiderData.add(crimeResults.get(0).getScore());
+				
+				int currentPop = Integer.parseInt(crimeResults.get(0).getLGAERP());
+				int prevousPop = Integer.parseInt(previousYearCrimeResults.get(0).getLGAERP());
+				previousYearData.add((double)((currentPop-prevousPop) * 100 * 100 / prevousPop)/100);
+				
+				int currentOffenceCount = crimeResults.get(0).getTotalOffenceCount();
+				int prevousOffenceCount = previousYearCrimeResults.get(0).getTotalOffenceCount();
+				previousYearData.add((double)((currentOffenceCount-prevousOffenceCount) * 100 * 100 / prevousOffenceCount)/100);
 			}
 			List<Crash> crashResults = crashSvc.searchByLGAAndYear(selectedLGA, YEAR);
+			List<Crash> previousYearCrashResults = crashSvc.searchByLGAAndYear(selectedLGA, YEAR-1);
 			if(crashResults.size() == 0){
 				lgaTableData.add(EMPTYDASH);
 				lgaSpiderData.add(0);
+				previousYearData.add(0);
 			}else{
 				lgaTableData.add(crashResults.get(0).getCrashTotalCount());
 				lgaSpiderData.add(crashResults.get(0).getScore());
+				
+				int currentCrashCount = crashResults.get(0).getCrashTotalCount();
+				int prevousCrashCount = previousYearCrashResults.get(0).getCrashTotalCount();
+				previousYearData.add((double)((currentCrashCount-prevousCrashCount) * 100 * 100 / prevousCrashCount)/100);
 			}
 			AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA, YEAR-1);
 			if(amResp != null){
@@ -197,6 +215,7 @@ public class HomeController {
 			List<List<Object>> list = new ArrayList<List<Object>>();
 			list.add(lgaTableData);
 			list.add(lgaSpiderData);
+			list.add(previousYearData);
 			
 			return list;
 		}else if(DataSourceEnum.LEVEL1CRIME.getValue().equals(dataSource)){
@@ -323,21 +342,43 @@ public class HomeController {
 		if(DataSourceEnum.LEVEL1ALL.getValue().equals(dataSource)){
 			List<Object> lgaTableData1 = new ArrayList<Object>();
 			List<Object> lgaTableData2 = new ArrayList<Object>();
+			List<Object> lga1PreviousYearData = new ArrayList<Object>();
+			List<Object> lga2PreviousYearData = new ArrayList<Object>();
+			
 			if(!"First LGA".equals(selectedLGA1)){
 				
 				List<CrimeByLocation> crimeResults = crimeByLocSvc.searchByLGAAndYear(selectedLGA1, YEAR);
+				List<CrimeByLocation> previousYearCrimeResults = crimeByLocSvc.searchByLGAAndYear(selectedLGA1, YEAR-1);
+				
 				if(crimeResults.size()==0){
 					lgaTableData1.add(EMPTYDASH);
 					lgaTableData1.add(EMPTYDASH);
+					
+					lga1PreviousYearData.add(EMPTYDASH);
+					lga1PreviousYearData.add(EMPTYDASH);
 				}else{
 					lgaTableData1.add(crimeResults.get(0).getLGAERP());
 					lgaTableData1.add(crimeResults.get(0).getTotalOffenceCount());
+					
+					int currentPop = Integer.parseInt(crimeResults.get(0).getLGAERP());
+					int prevousPop = Integer.parseInt(previousYearCrimeResults.get(0).getLGAERP());
+					lga1PreviousYearData.add((double)((currentPop-prevousPop) * 100 * 100 / prevousPop)/100);
+					
+					int currentOffenceCount = crimeResults.get(0).getTotalOffenceCount();
+					int prevousOffenceCount = previousYearCrimeResults.get(0).getTotalOffenceCount();
+					lga1PreviousYearData.add((double)((currentOffenceCount-prevousOffenceCount) * 100 * 100 / prevousOffenceCount)/100);
 				}
 				List<Crash> crashResults = crashSvc.searchByLGAAndYear(selectedLGA1, YEAR);
+				List<Crash> previousYearCrashResults = crashSvc.searchByLGAAndYear(selectedLGA1, YEAR-1);
 				if(crashResults.size()==0){
 					lgaTableData1.add(EMPTYDASH);
+					lga1PreviousYearData.add(EMPTYDASH);
 				}else{
 					lgaTableData1.add(crashResults.get(0).getCrashTotalCount());
+					
+					int currentCrashCount = crashResults.get(0).getCrashTotalCount();
+					int prevousCrashCount = previousYearCrashResults.get(0).getCrashTotalCount();
+					lga1PreviousYearData.add((double)((currentCrashCount-prevousCrashCount) * 100 * 100 / prevousCrashCount)/100);
 				}
 				AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA1, YEAR-1);
 				if(amResp != null){
@@ -371,22 +412,43 @@ public class HomeController {
 				lgaTableData1.add(EMPTYDASH);
 				lgaTableData1.add(EMPTYDASH);
 				lgaTableData1.add(EMPTYDASH);
+				lga1PreviousYearData.add(EMPTYDASH);
+				lga1PreviousYearData.add(EMPTYDASH);
+				lga1PreviousYearData.add(EMPTYDASH);
 			}
 			if(!"Second LGA".equals(selectedLGA2)){
 				
 				List<CrimeByLocation> crimeResults = crimeByLocSvc.searchByLGAAndYear(selectedLGA2, YEAR);
+				List<CrimeByLocation> previousYearCrimeResults = crimeByLocSvc.searchByLGAAndYear(selectedLGA2, YEAR-1);
 				if(crimeResults.size()==0){
 					lgaTableData2.add(EMPTYDASH);
 					lgaTableData2.add(EMPTYDASH);
+					
+					lga2PreviousYearData.add(EMPTYDASH);
+					lga2PreviousYearData.add(EMPTYDASH);
 				}else{
 					lgaTableData2.add(crimeResults.get(0).getLGAERP());
 					lgaTableData2.add(crimeResults.get(0).getTotalOffenceCount());
+					
+					int currentPop = Integer.parseInt(crimeResults.get(0).getLGAERP());
+					int prevousPop = Integer.parseInt(previousYearCrimeResults.get(0).getLGAERP());
+					lga2PreviousYearData.add((double)((currentPop-prevousPop) * 100 * 100 / prevousPop)/100);
+					
+					int currentOffenceCount = crimeResults.get(0).getTotalOffenceCount();
+					int prevousOffenceCount = previousYearCrimeResults.get(0).getTotalOffenceCount();
+					lga2PreviousYearData.add((double)((currentOffenceCount-prevousOffenceCount) * 100 * 100 / prevousOffenceCount)/100);
 				}
 				List<Crash> crashResults = crashSvc.searchByLGAAndYear(selectedLGA2, YEAR);
+				List<Crash> previousYearCrashResults = crashSvc.searchByLGAAndYear(selectedLGA2, YEAR-1);
 				if(crashResults.size()==0){
 					lgaTableData2.add(EMPTYDASH);
+					lga2PreviousYearData.add(EMPTYDASH);
 				}else{
 					lgaTableData2.add(crashResults.get(0).getCrashTotalCount());
+					
+					int currentCrashCount = crashResults.get(0).getCrashTotalCount();
+					int prevousCrashCount = previousYearCrashResults.get(0).getCrashTotalCount();
+					lga2PreviousYearData.add((double)((currentCrashCount-prevousCrashCount) * 100 * 100 / prevousCrashCount)/100);
 				}
 				AmbulanceResponse amResp = ambulanceRespSvc.searchByLgaNameAndYear(selectedLGA2, YEAR-1);
 				if(amResp != null){
@@ -421,11 +483,16 @@ public class HomeController {
 				lgaTableData2.add(EMPTYDASH);
 				lgaTableData2.add(EMPTYDASH);
 				lgaTableData2.add(EMPTYDASH);
+				lga2PreviousYearData.add(EMPTYDASH);
+				lga2PreviousYearData.add(EMPTYDASH);
+				lga2PreviousYearData.add(EMPTYDASH);
 			}
 			
 			List<List<Object>> list = new ArrayList<List<Object>>();
 			list.add(lgaTableData1);
 			list.add(lgaTableData2);
+			list.add(lga1PreviousYearData);
+			list.add(lga2PreviousYearData);
 			
 			return list;
 		}else if(DataSourceEnum.LEVEL1CRIME.getValue().equals(dataSource)){

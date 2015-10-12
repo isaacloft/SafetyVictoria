@@ -768,28 +768,38 @@
 	    		var lga1Pop = lga1TableData[0];
 	    		var lga1ActualCrime = lga1TableData[1];
 	    		var lga1ActualCrash = lga1TableData[2];
-	    		if(lga1Pop != "-" && lga1ActualCrime != "-"){
-	    			var lga1CrimePercent = parseInt(lga1ActualCrime * 100 * 100 / lga1Pop) / 100;
-	    			var lga1CrimeAppendHTML = getCellAppendHTML(lga1CrimePercent, "right", "This percentage calculated by 1 year Offence count/population");
+	    		if(lga1Pop != "-"){
+	    			results[2][0] = results[2][0]<0?results[2][0].toString():"+"+results[2][0];
+	    			var lga1PopAppendHTML = getCellAppendHTMLForOverallTableData(results[2][0], "right", lga1Header, "population");
+	    			$("#compare-table tbody tr:nth-child("+(1)+") td:eq("+1+") div").append( lga1PopAppendHTML );
+	    		}
+	    		if(lga1ActualCrime != "-"){
+	    			results[2][1] = results[2][1]<0?results[2][1].toString():"+"+results[2][1];
+	    			var lga1CrimeAppendHTML = getCellAppendHTMLForOverallTableData(results[2][1], "right", lga1Header, "offence count");
 	    			$("#compare-table tbody tr:nth-child("+(2)+") td:eq("+1+") div").append( lga1CrimeAppendHTML );
 	    		}
-	    		if(lga1Pop != "-" && lga1ActualCrash != "-"){
-	    			var lga1CrashPercent = parseInt(lga1ActualCrash * 100 * 100 / lga1Pop) / 100;
-	    			var lga1CrashAppendHTML = getCellAppendHTML(lga1CrashPercent, "right", "This percentage calculated by 1 year Accident count/population");
+	    		if(lga1ActualCrash != "-"){
+	    			results[2][2] = results[2][2]<0?results[2][2].toString():"+"+results[2][2];
+	    			var lga1CrashAppendHTML = getCellAppendHTMLForOverallTableData(results[2][2], "right", lga1Header, "accident count");
 	    			$("#compare-table tbody tr:nth-child("+(3)+") td:eq("+1+") div").append( lga1CrashAppendHTML );
 	    		}
 	    		
 	    		var lga2Pop = lga2TableData[0];
 	    		var lga2ActualCrime = lga2TableData[1];
 	    		var lga2ActualCrash = lga2TableData[2];
-	    		if(lga2Pop != "-" && lga2ActualCrime != "-"){
-	    			var lga2CrimePercent = parseInt(lga2ActualCrime * 100 * 100 / lga2Pop) / 100;
-	    			var lga2CrimeAppendHTML = getCellAppendHTML(lga2CrimePercent, "left", "This percentage calculated by 1 year Offence count/population");
+	    		if(lga2Pop != "-"){
+	    			results[3][0] = results[3][0]<0?results[3][0].toString():"+"+results[3][0];
+	    			var lga2PopAppendHTML = getCellAppendHTMLForOverallTableData(results[3][0], "left", lga2Header, "population");
+	    			$("#compare-table tbody tr:nth-child("+(1)+") td:eq("+2+") div").append( lga2PopAppendHTML );
+	    		}
+	    		if(lga2ActualCrime != "-"){
+	    			results[3][1] = results[3][1]<0?results[3][1].toString():"+"+results[3][1];
+	    			var lga2CrimeAppendHTML = getCellAppendHTMLForOverallTableData(results[3][1], "left", lga2Header, "offence count");
 	    			$("#compare-table tbody tr:nth-child("+(2)+") td:eq("+2+") div").append( lga2CrimeAppendHTML );
 	    		}
-	    		if(lga2Pop != "-" && lga2ActualCrash != "-"){
-	    			var lga2CrashPercent = parseInt(lga1ActualCrash * 100 * 100 / lga2Pop) / 100;
-	    			var lga2CrashAppendHTML = getCellAppendHTML(lga2CrashPercent, "left", "This percentage calculated by 1 year Accident count/population");
+	    		if(lga2ActualCrash != "-"){
+	    			results[3][2] = results[3][2]<0?results[3][2].toString():"+"+results[3][2];
+	    			var lga2CrashAppendHTML = getCellAppendHTMLForOverallTableData(results[3][2], "left", lga2Header, "accident count");
 	    			$("#compare-table tbody tr:nth-child("+(3)+") td:eq("+2+") div").append( lga2CrashAppendHTML );
 	    		}
 	    		
@@ -922,7 +932,6 @@
 	    			});
 	    		}
 	        	createTable(tableHead, tableData);
-	        	
 	        	
 	        	var lga1TotalNum = eval(lga1TableData.join('+'));
 				var lga2TotalNum = eval(lga2TableData.join('+'));
@@ -1848,7 +1857,7 @@
     
 	function mouseoutLga(){
 		this.bringToFront();
-		$("path[stroke-dasharray='mouseover']").attr("fill","#ffffff").attr("stroke-opacity","0.5").attr("stroke-width","1")
+		$("path[stroke-dasharray='mouseover']").attr("fill","#ffffff").attr("fill-opacity","0").attr("stroke-opacity","0.5").attr("stroke-width","1")
 		.attr("stroke-dasharray"," ");
 		
 		$("#lga-map-tooltip").hide();
@@ -1941,48 +1950,53 @@
     		
     		var dataPlace = (selectedLGAButtonIndex==1)?"right":"left";
     		if("level1All" == dataSource){
-				var lgaPop = results[0][0];
-				var actualCrime = results[0][1];
-				var actualCrash = results[0][2];
-				var crimePercent = parseInt(actualCrime * 100 * 100 / lgaPop) / 100;
-				var crashPercent = parseInt(actualCrash * 100 * 100 / lgaPop) / 100;
-				//var relativeCrimeCount = parseInt(actualCrime * 100000 / lgaPop);
-				//var relativeCrashCount = parseInt(actualCrash * 100000 / lgaPop);
-				
-				var crimeTooltipTitle = "This percentage calculated by 1 year Offence count/population";
-				var crimeAppendHTML = getCellAppendHTML(crimePercent, dataPlace, crimeTooltipTitle);
-				
-				var crashTooltipTitle = "This percentage calculated by 1 year Accident count/population";
-				var crashAppendHTML = getCellAppendHTML(crashPercent, dataPlace, crashTooltipTitle);
-				
-				$("#compare-table tbody tr:nth-child("+(2)+") td:eq("+selectedLGAButtonIndex+") div").append( crimeAppendHTML );
-				$("#compare-table tbody tr:nth-child("+(3)+") td:eq("+selectedLGAButtonIndex+") div").append( crashAppendHTML );
-				$('[data-toggle="tooltip"]').tooltip(); 
+   				var lgaPop = results[0][0];
+    			if(lgaPop != "-"){
+    				var actualCrime = results[0][1];
+    				var actualCrash = results[0][2];
+    				var crimePercent = parseInt(actualCrime * 100 * 100 / lgaPop) / 100;
+    				var crashPercent = parseInt(actualCrash * 100 * 100 / lgaPop) / 100;
+    				
+    				results[2][0] = results[2][0]<0?results[2][0].toString():"+"+results[2][0];
+    				var popAppendHTML = getCellAppendHTMLForOverallTableData(results[2][0], dataPlace, selectedLGA, "population");
+    				
+    				results[2][1] = results[2][1]<0?results[2][1].toString():"+"+results[2][1];
+    				var crimeAppendHTML = getCellAppendHTMLForOverallTableData(results[2][1], dataPlace, selectedLGA, "offence count");
+    				
+    				results[2][2] = results[2][2]<0?results[2][2].toString():"+"+results[2][2];
+    				var crashAppendHTML = getCellAppendHTMLForOverallTableData(results[2][2], dataPlace, selectedLGA, "accident count");
+    				
+    				$("#compare-table tbody tr:nth-child("+(1)+") td:eq("+selectedLGAButtonIndex+") div").append( popAppendHTML );
+    				$("#compare-table tbody tr:nth-child("+(2)+") td:eq("+selectedLGAButtonIndex+") div").append( crimeAppendHTML );
+    				$("#compare-table tbody tr:nth-child("+(3)+") td:eq("+selectedLGAButtonIndex+") div").append( crashAppendHTML );
+    				$('[data-toggle="tooltip"]').tooltip(); 
+    			}
 			}else{
 				var totalNum = eval(results[0].join('+'));
-				
-				var percentArr = [];
-				for(var i=0;i<results[0].length;i++){
-					if(i == results[0].length-1){
-						var totalPercent = eval(percentArr.join('+'));
-						percentArr.push(100 - totalPercent);
-					}else{
-						percentArr.push(parseInt(results[0][i] * 100 / totalNum));
+				if(totalNum != 0){
+					var percentArr = [];
+					for(var i=0;i<results[0].length;i++){
+						if(i == results[0].length-1){
+							var totalPercent = eval(percentArr.join('+'));
+							percentArr.push(100 - totalPercent);
+						}else{
+							percentArr.push(parseInt(results[0][i] * 100 / totalNum));
+						}
 					}
+					
+					for(var i=0;i<results[0].length;i++){
+						var tooltipTitle = "";
+						if("level1Crime" == dataSource){
+							tooltipTitle = "In 2015, percentage of this offence type for " + selectedLGA + " is " + percentArr[i] + "%";
+						}else if("level1Accident" == dataSource){
+							tooltipTitle = "In 2015, percentage of this accident type for " + selectedLGA + " is " + percentArr[i] + "%";
+						}
+		    			var cellInnerHTML = numberWithCommas(results[0][i]) + getCellAppendHTML(percentArr[i], dataPlace, tooltipTitle);
+		    			$("#compare-table tbody tr:nth-child("+(i+1)+") td:eq("+selectedLGAButtonIndex+") div").html(cellInnerHTML);
+		    		}
+					
+					$('[data-toggle="tooltip"]').tooltip();
 				}
-				
-				for(var i=0;i<results[0].length;i++){
-					var tooltipTitle = "";
-					if("level1Crime" == dataSource){
-						tooltipTitle = "In 2015, percentage of this offence type for " + selectedLGA + " is " + percentArr[i] + "%";
-					}else if("level1Accident" == dataSource){
-						tooltipTitle = "In 2015, percentage of this accident type for " + selectedLGA + " is " + percentArr[i] + "%";
-					}
-	    			var cellInnerHTML = numberWithCommas(results[0][i]) + getCellAppendHTML(percentArr[i], dataPlace, tooltipTitle);
-	    			$("#compare-table tbody tr:nth-child("+(i+1)+") td:eq("+selectedLGAButtonIndex+") div").html(cellInnerHTML);
-	    		}
-				
-				$('[data-toggle="tooltip"]').tooltip(); 
 			}
     		
     		updateSpiderChart(selectedLGA, selectedLGAButtonIndex, results[1], dataSource);
@@ -1990,6 +2004,16 @@
         });
     }
     
+	function getCellAppendHTMLForOverallTableData(percent, dataPlace, lga, dataType){
+		var color = percent.indexOf("-")>=0?"green":"red";
+		var trend = percent.indexOf("-")>=0?" decreased ":" increased ";
+		var title = "Compared to year 2014, " + dataType + " for "+ lga + trend + percent.substring(1) + "%";
+		return "&nbsp;&nbsp;<span style='color:"+color+"'>( "+percent+"% ) "+
+			"<a href='javascript:void(0)' data-placement='"+dataPlace+"' data-toggle='tooltip' "+
+			"title='"+title+"' class='orange-tooltip'>"+
+			"<i class='fa fa-question-circle'></i></a></span>";
+	}    
+	
 	function getCellAppendHTML(percent, dataPlace, title){
 		return "&nbsp;&nbsp;<span style='color:#e69500'>( "+percent+"% ) "+
 			"<a href='javascript:void(0)' data-placement='"+dataPlace+"' data-toggle='tooltip' "+
