@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="safe-melbourne">
+    <wb-module deploy-name="safety-victoria">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <property name="context-root" value="safe-melbourne"/>
-        <property name="java-output-path" value="/safe-melbourne/target/classes"/>
+        <property name="java-output-path" value="/safety-victoria/target/classes"/>
+        <property name="context-root" value="safety-victoria"/>
     </wb-module>
 </project-modules>

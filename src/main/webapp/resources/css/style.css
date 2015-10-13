@@ -252,3 +252,9 @@ div.section-border2 {
 .tooltip-arrow {background-color: orange}
 .tooltip-inner {background-color: orange}
 */
+
+.image-circle {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}

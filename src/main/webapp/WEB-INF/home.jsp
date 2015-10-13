@@ -13,8 +13,6 @@
 <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
  -->
 <script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js" />"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.3.js" />"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.3.min.map" />"></script>
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
 <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
 
@@ -334,16 +332,6 @@
             </p>
             <div>
             	<div>
-	            	<div style='color:#e69500;position: absolute;z-index: 1002;padding-left: 88%;margin-top: 210px;right: 110px;'>
-	                	<a href='javascript:void(0)' data-placement='left' data-toggle='tooltip' class='orange-tooltip'
-	                		title='This section is the yearly compare for whole VIC offence + accident; 
-	                		drag the button in the center to see difference for selected 2 years; 
-	                		the data could be selected from 2011, 2012, 2013, 2014, 2015; 
-	                		area is safer with higher score; could drill down by dropdown list' >
-	                		<i class='fa fa-question-circle'></i>
-	                	</a>
-	            	</div>
-	            
 					<div id="map-container">
 						<div id="beforeMap" style="height:600px;width:100%;"></div>
 						<div id="afterMap" style="height:600px;width:100%;"></div>
@@ -456,31 +444,45 @@
                 <div class="col-lg-12 text-center">
                     <h2>Contact Us</h2>
                     <hr class="colored">
-                    <p>We'd love to hear from you! Send me a message and we will be connected.</p>
+                    <p>We'd love to hear from you! Send us email and we will be connected.</p>
                 </div>
             </div>
             <br>
             <br>
             <br>
             <div class="container text-center">
-                <div class="row">
-                    <div class="col-md-4 contact-details">
-                        <h4><i class="fa fa-phone"></i> Contact</h4>
-                        <p>Connect with us by LinkedIn button below or Email</p>
-                    </div>
-                    <div class="col-md-4 contact-details">
-                        <h4><i class="fa fa-map-marker"></i> Visit</h4>
-                        <p>Caulfield Campus, 
-                            <br>Monash University, 3145</p>
-                    </div>
-                    <div class="col-md-4 contact-details">
-                        <h4><i class="fa fa-envelope"></i> Email</h4>
-                        <p>
-                        	<a href="mailto:bryan.hong.1988@gmail.com">bryan.hong.1988@gmail.com</a><br>
-                        	<a href="mailto:bingran16@gmail.com">bingran16@gmail.com</a><br>
-                        	<a href="mailto:maxinew0212@gmail.com">xwan359@student.monash.edu</a><br>
-                        	<a href="mailto:shyen777@gmail.com">shyen777@gmail.com</a><br>
+            	<div class="row">
+                    <div class="col-md-3 contact-details">
+                        <h4><img src="<c:url value="/resources/img/contact/bryan-img.jpg" />" class="image-circle" alt=""></h4>
+                        <h4>Xianghui Hong (Bryan)</h4>
+                        <p style="font-size: 16px;">
+	                        Chief System Architect & Developer<br>
+	                        Email:  <a href="mailto:bryan.hong.1988@gmail.com">bryan.hong.1988@gmail.com</a>
                         </p>
+                    </div>
+                    <div class="col-md-3 contact-details">
+                        <h4><img src="<c:url value="/resources/img/contact/maxine-img.png" />" class="image-circle" alt=""></h4>
+                        <h4>Xin Wang (Maxine)</h4>
+                        <p style="font-size: 16px;">
+                        	Database Architect<br>
+                        	Email:  <a href="mailto:maxinew0212@gmail.com">maxinew0212@gmail.com</a>
+                       	</p>
+                    </div>
+                    <div class="col-md-3 contact-details">
+                        <h4><img src="<c:url value="/resources/img/contact/leon-img.png" />" class="image-circle" alt=""></h4>
+                        <h4>Bingran Lu (Leon)</h4>
+                        <p style="font-size: 16px;">
+                        	User Interface Designer<br>
+                        	Email:  <a href="mailto:bingran16@gmail.com">bingran16@gmail.com</a>
+                       	</p>
+                    </div>
+                    <div class="col-md-3 contact-details">
+                        <h4><img src="<c:url value="/resources/img/contact/shyen-img.png" />" class="image-circle" alt=""></h4>
+                        <h4>Shyen Muhabbat Shikder</h4>
+                        <p style="font-size: 16px;">
+                        	Assistant System Architect<br>
+                        	Email:  <a href="mailto:shyen777@gmail.com">shyen777@gmail.com</a>
+                       	</p>
                     </div>
                 </div>
                 <br>
@@ -1500,6 +1502,18 @@
     
     //add legend to compare map
     function addLegendToCompareMap(legendTitle){
+    	
+    	var compareMapInfoTooltip = 
+    				'<div id="yearlyCompareInfoTooltip" style="color:#e69500;position: absolute;z-index: 1002;right: 0px;margin-top: -15px;width: 200px;margin-right: -150px;">' +
+				    	'<a href="javascript:void(0)" data-placement="left" data-toggle="tooltip" class="orange-tooltip" ' +
+				    	'	title="This section is the yearly compare for whole VIC offence + accident; ' +
+				    	'	drag the button in the center to see difference for selected 2 years; ' +
+				    	'	the data could be selected from 2011, 2012, 2013, 2014, 2015; ' +
+				    	'	area is safer with higher score; could drill down by dropdown list" >' +
+				    	'	<i class="fa fa-question-circle"></i>' +
+				    	'</a>' +
+					'</div>';
+    	
     	legend = L.control({position: 'topright'});
     	legend.onAdd = function (map) {
 
@@ -1519,11 +1533,12 @@
                     from + (to ? '&ndash;' + to : '+'));
             }
 
-            div.innerHTML = "<strong>"+legendTitle+"</strong><br>"+labels.join('<br>');
+            div.innerHTML = "<strong>"+legendTitle+"</strong><br>"+labels.join('<br>') + compareMapInfoTooltip;
             return div;
         };
         
         legend.addTo(after);
+        $('[data-toggle="tooltip"]').tooltip(); 
         $('.info.legend.leaflet-control').attr("style","margin-top: 45px;");
     }
     
@@ -1565,7 +1580,7 @@
  		this.bringToFront();
  		$(".ui-draggable").css({'opacity':1});
  		var noDataStr = "No Data";
-    	if(this._path.attributes[10].value.startsWith('beforeMap')){
+    	if(this._path.attributes[10].value.indexOf('beforeMap')>=0){
     		var lgaName = this._path.attributes[10].value.replace('beforeMap','').trim();
     		var lgaData;
     		for(var i=0;i<dataForBeforeMap.length;i++){
@@ -1619,7 +1634,7 @@
 								"Accident count: "+numberWithCommas(lgaData.lgaCrashCountByPop)+"/100,000 population");
     			}
 			}
-    	}else if(this._path.attributes[10].value.startsWith('afterMap')){
+    	}else if(this._path.attributes[10].value.indexOf('afterMap')>=0){
     		var lgaName = this._path.attributes[10].value.replace('afterMap','').trim();
     		var lgaData;
     		for(var i=0;i<dataForAfterMap.length;i++){
@@ -1703,7 +1718,7 @@
  	
  	function showYearsInCompareMap(button){
  		
- 		if(button[0].id.startsWith("before")){
+ 		if(button[0].id.indexOf("before")>=0){
  			$(".beforeButtons").empty();
  			$(".beforeButtons").html(
  					'<button type="button" id="before2011" style="left:-353px" class="btn '+((button[0].innerHTML=="2011")?'btn-primary':'btn-default')+' btn-arrow-left year-selection">2011</button>'+
@@ -1711,7 +1726,7 @@
 					'<button type="button" id="before2013" style="left:-353px" class="btn '+((button[0].innerHTML=="2013")?'btn-primary':'btn-default')+' btn-arrow-left year-selection">2013</button>'+
 					'<button type="button" id="before2014" style="left:-353px" class="btn '+((button[0].innerHTML=="2014")?'btn-primary':'btn-default')+' btn-arrow-left year-selection">2014</button>'+
 					'<button type="button" id="before2015" style="left:-353px" class="btn '+((button[0].innerHTML=="2015")?'btn-primary':'btn-default')+' btn-arrow-left year-selection">2015</button>');
- 		}else if(button[0].id.startsWith("after")){
+ 		}else if(button[0].id.indexOf("after")>=0){
  			$(".afterButtons").empty();
  			$(".afterButtons").html(
  					'<button type="button" id="after2015" class="btn '+((button[0].innerHTML=="2015")?'btn-primary':'btn-default')+' btn-arrow-right year-selection">2015</button>'+
@@ -1722,10 +1737,10 @@
  		}
  		$(".year-selection").click(function(){
  	 		changeYearInCompareMap($(this));
- 	 		if(button[0].id.startsWith("before")){
+ 	 		if(button[0].id.indexOf("before")>=0){
  	 			beforeMapYear = $(this)[0].innerHTML;
 	 	    	doColorCompareMapsAndAddLegend("beforeMap", beforeMapYear);
- 	 		}else if(button[0].id.startsWith("after")){
+ 	 		}else if(button[0].id.indexOf("after")>=0){
  	 			afterMapYear = $(this)[0].innerHTML;
 	 	    	doColorCompareMapsAndAddLegend("afterMap", afterMapYear);
  	 		}
@@ -1734,10 +1749,10 @@
  	}
  	
  	function changeYearInCompareMap(button){
-		if(button[0].id.startsWith("before")){
+		if(button[0].id.indexOf("before")>=0){
 			$(".beforeButtons").empty();
 			$(".beforeButtons").html('<button type="button" id="beforeYearSelected" class="btn btn-default btn-arrow-left">'+button[0].innerHTML+'</button>');
- 		}else if(button[0].id.startsWith("after")){
+ 		}else if(button[0].id.indexOf("after")>=0){
 			$(".afterButtons").empty();
 			$(".afterButtons").html('<button type="button" id="afterYearSelected" class="btn btn-default btn-arrow-right">'+button[0].innerHTML+'</button>');
  		}
