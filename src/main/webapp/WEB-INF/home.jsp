@@ -13,6 +13,8 @@
 <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
  -->
 <script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.3.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.3.min.map" />"></script>
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
 <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
 
@@ -89,10 +91,10 @@
                         <a class="page-scroll" href="#about">About</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#visualization">2015 Safety Analysis</a>
+                    	<a class="page-scroll" href="#latestLgaRanking">2015 Safety Ranking</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#latestLgaRanking">2015 Safety Ranking</a>
+                        <a class="page-scroll" href="#visualization">2015 Safety Analysis</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#yearlyCompare">Yearly Compare</a>
@@ -122,7 +124,7 @@
         </div>
     </header>
 
-	<section id="about" class="services" style="padding-bottom: 300px;">
+	<section id="about" class="services bg-gray" style="padding-bottom: 300px;">
         <div class="container">
             <div class="row text-center">
                 <div class="col-lg-12 wow fadeIn">
@@ -138,14 +140,11 @@
                             <a class="page-scroll" href="#visualization"><i class="fa fa-clipboard"></i></a>
                         </div>
                         <div class="media-body">
-                            <h3 class="media-heading"><a class="page-scroll" href="#visualization">2015 Safety Analysis</a></h3>
+                        	<h3 class="media-heading"><a class="page-scroll" href="#latestLgaRanking">2015 Safety Ranking</a></h3>
                             <ul>
-                                <li>Safety Score</li>
-                                <li>Actual Data</li>
-                                <li>Relative Data</li>
-                                <li>Area comparison</li>
-                                <li>Analytical Drill Down</li>
-                                <li>2011-2015 Area Trend</li>
+                                <li>2015 Safety Ranking</li>
+                                <li>Total Safety Score</li>
+                                <li>6 Safety Factors Score</li>
                             </ul>
                         </div>
                     </div>
@@ -156,11 +155,14 @@
                             <a class="page-scroll" href="#latestLgaRanking"><i class="fa fa-pencil"></i></a>
                         </div>
                         <div class="media-body">
-                            <h3 class="media-heading"><a class="page-scroll" href="#latestLgaRanking">2015 Safety Ranking</a></h3>
+                            <h3 class="media-heading"><a class="page-scroll" href="#visualization">2015 Safety Analysis</a></h3>
                             <ul>
-                                <li>2015 Safety Ranking</li>
-                                <li>Total Safety Score</li>
-                                <li>6 Safety Factors Score</li>
+                                <li>Safety Score</li>
+                                <li>Actual Data</li>
+                                <li>Relative Data</li>
+                                <li>Area comparison</li>
+                                <li>Analytical Drill Down</li>
+                                <li>2011-2015 Area Trend</li>
                             </ul>
                         </div>
                     </div>
@@ -181,6 +183,36 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+	<section id="latestLgaRanking" style="padding-top:20px;" >
+        <div class="container text-center wow fadeIn">
+            <h2>2015 Safety Ranking</h2>
+            <hr class="colored">
+            <p>
+            	Area is Safer with Higher Score, 2015 Security ranking score calculated from 6 factors <br>
+            	(Offence, accident, ambulance response time, police station number, hospital number, fire brigade number). 
+            	
+            </p>
+            <div>
+			<div id="latest-ranking-map-container">
+				<div id="latestRanking" style="height:450px;width:100%;"></div>
+			</div>
+			<div class="row" style="margin-right: 0px;margin-left: 0px;">
+				<div class="col-xs-12">
+					<div style='color:#e69500;position: absolute;z-index: 1002;padding-left: 87%;margin-top: -100px;right: 5%;'>
+	                	<a href='javascript:void(0)' data-placement='left' data-toggle='tooltip' class='orange-tooltip'
+	                		title='This section is the overall safety ranking for whole VIC in 2015; 
+	                		in the histogram bar chart, left is safer with higher score, right is less safer with lower score;
+	                		select bar to show area on map or select area on map to show in bar chart and show details in legend' >
+	                		<i class='fa fa-question-circle'></i>
+	                	</a>
+	            	</div>
+					<div id="latest-ranking-histogram" class="col-xs-12 latest-ranking-histogram"></div>
+				</div>
+			</div>
+			</div>
         </div>
     </section>
 
@@ -293,36 +325,7 @@
 		  </div>
     </section>
 	
-	<section id="latestLgaRanking" style="padding-top:20px;">
-        <div class="container text-center wow fadeIn">
-            <h2>2015 Safety Ranking</h2>
-            <hr class="colored">
-            <p>
-            	Area is Safer with Higher Score, 2015 Security ranking score calculated from 6 factors <br>
-            	(Offence, accident, ambulance response time, police station number, hospital number, fire brigade number). 
-            	
-            </p>
-            <div>
-			<div id="latest-ranking-map-container">
-				<div id="latestRanking" style="height:450px;width:100%;"></div>
-			</div>
-			<div class="row" style="margin-right: 0px;margin-left: 0px;">
-				<div style='color:#e69500;position: absolute;z-index: 1002;padding-left: 87%;margin-top: -100px;'>
-                	<a href='javascript:void(0)' data-placement='left' data-toggle='tooltip' class='orange-tooltip'
-                		title='This section is the overall safety ranking for whole VIC in 2015; 
-                		in the histogram bar chart, left is safer with higher score, right is less safer with lower score;
-                		select bar to show area on map or select area on map to show in bar chart and show details in legend' >
-                		<i class='fa fa-question-circle'></i>
-                	</a>
-            	</div>
-            	
-				<div id="latest-ranking-histogram" class="col-xs-12 latest-ranking-histogram"></div>
-			</div>
-			</div>
-        </div>
-    </section>
-    
-    <section id="yearlyCompare" class="bg-gray" style="padding-top:20px;">
+    <section id="yearlyCompare" style="padding-top:20px;">
         <div class="container text-center wow fadeIn">
             <h2>Yearly compare map</h2>
             <hr class="colored">
@@ -330,20 +333,22 @@
             	Two years compare for offence and/or accident, area is Safer with Higher Score
             </p>
             <div>
-				<div id="map-container">
-					<div id="beforeMap" style="height:600px;width:100%;"></div>
-					<div id="afterMap" style="height:600px;width:100%;"></div>
+            	<div>
+	            	<div style='color:#e69500;position: absolute;z-index: 1002;padding-left: 88%;margin-top: 210px;right: 110px;'>
+	                	<a href='javascript:void(0)' data-placement='left' data-toggle='tooltip' class='orange-tooltip'
+	                		title='This section is the yearly compare for whole VIC offence + accident; 
+	                		drag the button in the center to see difference for selected 2 years; 
+	                		the data could be selected from 2011, 2012, 2013, 2014, 2015; 
+	                		area is safer with higher score; could drill down by dropdown list' >
+	                		<i class='fa fa-question-circle'></i>
+	                	</a>
+	            	</div>
+	            
+					<div id="map-container">
+						<div id="beforeMap" style="height:600px;width:100%;"></div>
+						<div id="afterMap" style="height:600px;width:100%;"></div>
+					</div>
 				</div>
-				
-				<div style='color:#e69500;position: absolute;z-index: 1002;padding-left: 88%;margin-top: -390px;'>
-                	<a href='javascript:void(0)' data-placement='left' data-toggle='tooltip' class='orange-tooltip'
-                		title='This section is the yearly compare for whole VIC offence + accident; 
-                		drag the button in the center to see difference for selected 2 years; 
-                		the data could be selected from 2011, 2012, 2013, 2014, 2015; 
-                		area is safer with higher score; could drill down by dropdown list' >
-                		<i class='fa fa-question-circle'></i>
-                	</a>
-            	</div>
 				
 				<div id="compare-map-tooltip" class="compare-map-tooltip" style="margin-top: -680px;z-index: 1000;">
 				</div>
@@ -363,7 +368,7 @@
         </div>
     </section>
 
-    <section id="faqs"  style="padding-top:20px;">
+    <section id="faqs" class="bg-gray" style="padding-top:20px;">
         <div class="container wow fadeIn">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -445,7 +450,7 @@
         </div>
     </section>
     
-    <section id="contact" class="bg-gray" style="padding-top:50px;">
+    <section id="contact" style="padding-top:50px;">
         <div class="container wow fadeIn">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -473,7 +478,7 @@
                         <p>
                         	<a href="mailto:bryan.hong.1988@gmail.com">bryan.hong.1988@gmail.com</a><br>
                         	<a href="mailto:bingran16@gmail.com">bingran16@gmail.com</a><br>
-                        	<a href="mailto:xwan359@student.monash.edu">xwan359@student.monash.edu</a><br>
+                        	<a href="mailto:maxinew0212@gmail.com">xwan359@student.monash.edu</a><br>
                         	<a href="mailto:shyen777@gmail.com">shyen777@gmail.com</a><br>
                         </p>
                     </div>
@@ -486,7 +491,7 @@
                         <ul class="list-inline">
                             <li><a target="_blank" href="http://au.linkedin.com/in/xianghuihongbryan"><i class="fa fa-linkedin fa-fw fa-4x"></i></a>
                             </li>
-                            <li><a target="_blank" href="https://www.facebook.com/hong.xianghui"><i class="fa fa-facebook fa-fw fa-4x"></i></a>
+                            <li><a target="_blank" href="https://www.facebook.com/safetyVictoria"><i class="fa fa-facebook fa-fw fa-4x"></i></a>
                             </li>
                             <li><a target="_blank" href="https://twitter.com/m232044647"><i class="fa fa-twitter fa-fw fa-4x"></i></a>
                             </li>
@@ -883,7 +888,7 @@
 				if(lga2TotalNum != 0){
 					for(var i=0;i<lga2TableData.length;i++){
 						var tooltipTitle = "In 2015, percentage of this offence type for " + lga2Header + " is " + lga2PercentArr[i] + "%";
-		    			var cellInnerHTML = numberWithCommas(results[0][i]) + getCellAppendHTML(lga2PercentArr[i], "left", tooltipTitle);
+		    			var cellInnerHTML = numberWithCommas(results[1][i]) + getCellAppendHTML(lga2PercentArr[i], "left", tooltipTitle);
 		    			$("#compare-table tbody tr:nth-child("+(i+1)+") td:eq("+2+") div").html(cellInnerHTML);
 		    		}
 				}
@@ -971,7 +976,7 @@
 				if(lga2TotalNum != 0){
 					for(var i=0;i<lga2TableData.length;i++){
 						var tooltipTitle = "In 2015, percentage of this accident type for " + lga2Header + " is " + lga2PercentArr[i] + "%";
-		    			var cellInnerHTML = numberWithCommas(results[0][i]) + getCellAppendHTML(lga2PercentArr[i], "left", tooltipTitle);
+		    			var cellInnerHTML = numberWithCommas(results[1][i]) + getCellAppendHTML(lga2PercentArr[i], "left", tooltipTitle);
 		    			$("#compare-table tbody tr:nth-child("+(i+1)+") td:eq("+2+") div").html(cellInnerHTML);
 		    		}
 				}
