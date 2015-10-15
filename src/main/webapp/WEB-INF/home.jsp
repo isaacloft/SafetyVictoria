@@ -115,7 +115,7 @@
             <img src="<c:url value="/resources/img/creative/profile.png" />" class="img-responsive img-centered" alt="">
             <div class="brand-name">Safety Victoria</div>
             <hr class="colored">
-            <div class="brand-name-subtext">Want to tell how safe your neighbourhood is?</div>
+            <div class="brand-name-subtext">Do you know how safe your neighbourhood is?</div>
         </div>
         <div class="scroll-down">
             <a class="btn page-scroll" href="#about"><i class="fa fa-angle-down"></i></a>
@@ -491,11 +491,11 @@
                 <div class="row social">
                     <div class="col-lg-12">
                         <ul class="list-inline">
-                            <li><a target="_blank" href="http://au.linkedin.com/in/xianghuihongbryan"><i class="fa fa-linkedin fa-fw fa-4x"></i></a>
+                            <li><a target="_blank" href="https://www.linkedin.com/grp/home?gid=8418716"><i class="fa fa-linkedin fa-fw fa-4x"></i></a>
                             </li>
                             <li><a target="_blank" href="https://www.facebook.com/safetyVictoria"><i class="fa fa-facebook fa-fw fa-4x"></i></a>
                             </li>
-                            <li><a target="_blank" href="https://twitter.com/m232044647"><i class="fa fa-twitter fa-fw fa-4x"></i></a>
+                            <li><a target="_blank" href="https://twitter.com/Safety_Victoria"><i class="fa fa-twitter fa-fw fa-4x"></i></a>
                             </li>
                         </ul>
                     </div>
