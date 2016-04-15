@@ -115,7 +115,7 @@
             <img src="<c:url value="/resources/img/creative/profile.png" />" class="img-responsive img-centered" alt="">
             <div class="brand-name">Safety Victoria</div>
             <hr class="colored">
-            <div class="brand-name-subtext">Do you know how safe your neighbourhood is?</div>
+            <div class="brand-name-subtext">Want to tell how safe your neighbourhood is?</div>
         </div>
         <div class="scroll-down">
             <a class="btn page-scroll" href="#about"><i class="fa fa-angle-down"></i></a>
@@ -452,37 +452,13 @@
             <br>
             <div class="container text-center">
             	<div class="row">
-                    <div class="col-md-3 contact-details">
+                    <div class="col-md-12 contact-details">
                         <h4><img src="<c:url value="/resources/img/contact/bryan-img.jpg" />" class="image-circle" alt=""></h4>
                         <h4>Xianghui Hong (Bryan)</h4>
                         <p style="font-size: 16px;">
 	                        Chief System Architect & Developer<br>
 	                        Email:  <a href="mailto:bryan.hong.1988@gmail.com">bryan.hong.1988@gmail.com</a>
                         </p>
-                    </div>
-                    <div class="col-md-3 contact-details">
-                        <h4><img src="<c:url value="/resources/img/contact/maxine-img.png" />" class="image-circle" alt=""></h4>
-                        <h4>Xin Wang (Maxine)</h4>
-                        <p style="font-size: 16px;">
-                        	Database Architect<br>
-                        	Email:  <a href="mailto:maxinew0212@gmail.com">maxinew0212@gmail.com</a>
-                       	</p>
-                    </div>
-                    <div class="col-md-3 contact-details">
-                        <h4><img src="<c:url value="/resources/img/contact/leon-img.png" />" class="image-circle" alt=""></h4>
-                        <h4>Bingran Lu (Leon)</h4>
-                        <p style="font-size: 16px;">
-                        	User Interface Designer<br>
-                        	Email:  <a href="mailto:bingran16@gmail.com">bingran16@gmail.com</a>
-                       	</p>
-                    </div>
-                    <div class="col-md-3 contact-details">
-                        <h4><img src="<c:url value="/resources/img/contact/shyen-img.png" />" class="image-circle" alt=""></h4>
-                        <h4>Shyen Muhabbat Shikder</h4>
-                        <p style="font-size: 16px;">
-                        	Assistant System Architect<br>
-                        	Email:  <a href="mailto:shyen777@gmail.com">shyen777@gmail.com</a>
-                       	</p>
                     </div>
                 </div>
                 <br>
@@ -491,11 +467,11 @@
                 <div class="row social">
                     <div class="col-lg-12">
                         <ul class="list-inline">
-                            <li><a target="_blank" href="https://www.linkedin.com/grp/home?gid=8418716"><i class="fa fa-linkedin fa-fw fa-4x"></i></a>
+                            <li><a target="_blank" href="http://au.linkedin.com/in/xianghuihongbryan"><i class="fa fa-linkedin fa-fw fa-4x"></i></a>
                             </li>
-                            <li><a target="_blank" href="https://www.facebook.com/safetyVictoria"><i class="fa fa-facebook fa-fw fa-4x"></i></a>
+                            <li><a target="_blank" href="https://www.facebook.com/hong.xianghui"><i class="fa fa-facebook fa-fw fa-4x"></i></a>
                             </li>
-                            <li><a target="_blank" href="https://twitter.com/Safety_Victoria"><i class="fa fa-twitter fa-fw fa-4x"></i></a>
+                            <li><a target="_blank" href="https://twitter.com/m232044647"><i class="fa fa-twitter fa-fw fa-4x"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -503,7 +479,7 @@
                 <br>
                 <div class="row copyright">
                     <div class="col-lg-12">
-                        <p class="small">&copy; 2015 Start Bootstrap by Bryan, &copy;  2015 Monash Phoenix Team All Rights Reserved</p>
+                        <p class="small">&copy; 2015 Start Bootstrap by Bryan, &copy;  2015 Bryan All Rights Reserved</p>
                     </div>
                 </div>
             </div>
